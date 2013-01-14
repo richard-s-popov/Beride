@@ -7,8 +7,17 @@
 @model TransportSystem.Area.Web.Models.Trips.TripsListModel
 
 <div class="content" style="margin-top:30px;">
-    @foreach(var trip in Model.trips)
-    {
-        @trip.StartPointFullName <span>-</span> @trip.EndPointFullName  <br />
-    }
+    <table class="trips-list-table">
+        @foreach(var trip in Model.trips)
+        {
+            <tr>
+                <td>
+                    @trip.StartPointFullName<span> - </span>@trip.EndPointFullName
+                </td>
+                <td>
+                    <button class="generic-button green">Присоединится</button>
+                </td>
+            </tr>
+        }
+    </table>
 </div>

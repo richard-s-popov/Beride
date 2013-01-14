@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
 	float: left;
 }
 
-.index-content .button-container .generic-button.blue {
+.generic-button.blue {
     background: url("img/generic-button-blue-bg.png") repeat-x scroll left top transparent;
     border: 1px solid #39C;
     color: #FFFFFF;
@@ -178,7 +178,7 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 3px;
 }
 
-.index-header-content .right-menu .header-signin.generic-button.green {
+.generic-button.green {
     background: url("img/generic-button-green-bg.png") repeat-x scroll left top transparent;
     border: 1px solid #3AA526;
     color: #FFFFFF;
@@ -393,6 +393,20 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: #83DF57;
 	border-radius: 5px;
 	height: 150px;
+}
+
+.trips-list-table {
+    width: 100%;
+    border: 1px solid black;
+}
+
+.trips-list-table tr:hover {
+    background-color: white;
+}
+
+.trips-list-table td {
+    height: 50px;
+    padding: 10px;
 }
 
 .footer {
