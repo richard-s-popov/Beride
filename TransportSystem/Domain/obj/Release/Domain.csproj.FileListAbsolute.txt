@@ -1,0 +1,13 @@
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\TransportSystem.Domain.dll.config
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\TransportSystem.Domain.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\TransportSystem.Domain.pdb
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\Microsoft.Practices.Unity.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\Unity.Mvc3.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\Microsoft.Practices.Unity.xml
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\bin\Release\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\obj\Release\TransportSystem.Domain.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Domain\obj\Release\TransportSystem.Domain.pdb

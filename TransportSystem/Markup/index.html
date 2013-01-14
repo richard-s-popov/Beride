@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;" />
+	<link rel="stylesheet" type="text/css" href="css/fonts/stylesheet.css" charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="css/Site.css" charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="custom_checkbox/checkbox.css" charset="utf-8"/>
+	<script type="text/javascript" src="custom_checkbox/checkbox.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.8.11.js"></script>
+	<script type="text/javascript" src="scripts/jquery-1.5.1.js"></script>
+	<script type="text/javascript" src="scripts/index-page.js"></script>
+	<title>Beride.ru</title>
+</head>
+<body>
+	<div class="index-header-content">
+		<div class="left-menu">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<div class="right-menu">
+			<button class="header-signin generic-button green">Создать поездку</button>
+			<span class="header-signin">Вход</span>
+			<span class="header-signin">/</span>
+			<span class="header-signin">Регистрация</span>
+		</div>
+	</div>
+	<div class="index-content">
+		<div class="logo-container">
+			<div class="logo-text">Be<font class="lit">r</font>ide</div>
+			<div class="logo-description">Экономьте и зарабатывайте с нами</div>
+		</div>
+		<div style="height: 30px;">
+			<span class="left-button m-lr-10 driver"><input id="chbxFindDriver" type="radio" name="1" class="styled" /><font>Ищу водителя</font></span>
+			<span class="right-button m-lr-10 passenger"><input id="chbxFindPassenger" type="radio" name="1" class="styled" /><font>Ищу пассажира</font></span>
+		</div>
+		<div class="input-text">
+			<input class="input-location" type="text" placeholder="Откуда" />
+			<img src="img/map_point.png" />
+		</div>
+		<div class="input-text">
+			<input class="input-location" type="text" placeholder="Куда" />
+			<img src="img/map_point.png" />
+		</div>
+		<div class="input-text">
+			<input class="input-location" type="text" placeholder="Дата" />
+			<img src="img/evolution-calendar_1052.png" />
+		</div>
+		<![if !IE 7]><div id="additionalDate" style="display: none;"><![endif]>
+		<!--[if IE 7]><div id="additionalDate" style="display: none;margin-bottom:10px;"><![endif]-->
+			<div class="input-text" style="width: 315px; float: left; margin-top: 0px;">
+				<input class="input-location" style="width: 260px;" type="text" placeholder="Дата" />
+				<img src="img/evolution-calendar_1052.png" />
+			</div>
+			<span class="date-hider">Скрыть</span>
+		</div>
+		<div class="button-container">
+			<span class="add-diapason-button">Диапазон значений</span>
+			<button id="submit" class="generic-button blue">Поиск</button>
+		</div>
+	</div>
+	<div class="index-footer">
+		&copy; Beride.ru, Richard S.Popov
+	</div>
+</body>
+</html>

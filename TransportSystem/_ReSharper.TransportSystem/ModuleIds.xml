@@ -1,0 +1,5 @@
+<Modules>
+  <Module PersistentId="3D78C3B0-04CB-4C43-8805-7A4541A58297" ModuleId="Domain" />
+  <Module PersistentId="DE487277-D89C-42A3-BC6C-90C10F0156B8" ModuleId="Logics" />
+  <Module PersistentId="3F588511-B000-4278-AAD4-09080A6739F9" ModuleId="Web" />
+</Modules>

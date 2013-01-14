@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "CreateTrip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head {
+    <script type="text/javascript" src="~/Scripts/create.trip.js"></script>
+}
+
+<div class="content" style="margin-top:30px;">
+    <span class="title">
+        Создание поездки
+    </span>
+    <div id="YMapsID" class="yandex-map">
+    </div>
+    <div class="create-trip-container">
+        <div style="height: 30px;">
+            <span class="left-button m-lr-10 driver"><input id="chbxDriver" type="radio" name="1" class="styled" /><font>Я водитель</font></span>
+            <span class="right-button m-lr-10 passenger"><input id="chbxPassenger" type="radio" name="1" class="styled" /><font>Я пассажир</font></span>
+        </div>
+        <table id="createPoints">
+            <tr>
+                <td class="labels">
+                    Откуда:
+                </td>
+                <td id="pointContainer" class="inputs">
+                    <div class="input-text">
+                        <input id="startPoint" class="input-location" type="text" placeholder="Откуда" autocomplete="off" />
+                        <img src="~/Content/img/map_point.png" />
+                    </div>
+                    <div id="addPoints" class="add-point">Добавить промежуточные точки</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="labels">
+                    Куда:
+                </td>
+                <td class="inputs">
+                    <div class="input-text">
+                        <input id="endPoint" class="input-location" type="text" placeholder="Куда" autocomplete="off" />
+                        <img src="~/Content/img/map_point.png" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="routes">
+            <table id="routesTable">
+                <tr>
+                        
+                </tr>
+            </table>
+        </div>
+        <button id="sendData" value="Создать">Создать</button>
+        <div id="results" style=""></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.SaveTripUrl = "@Url.Action("SaveTrip","Trips")";
+</script>

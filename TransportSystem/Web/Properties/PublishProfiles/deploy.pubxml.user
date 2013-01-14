@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LastUsedBuildConfiguration>Debug</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
+      <publishTime>10/29/2012 00:31:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.pdb">
+      <publishTime>10/29/2012 00:31:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.xml">
+      <publishTime>10/29/2012 00:31:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.Configuration.dll">
+      <publishTime>10/29/2012 00:31:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.Configuration.xml">
+      <publishTime>10/29/2012 00:31:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.dll">
+      <publishTime>10/29/2012 00:31:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.xml">
+      <publishTime>10/29/2012 00:31:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>10/27/2012 22:50:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>11/05/2012 17:58:34</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.xml">
+      <publishTime>11/05/2012 17:58:34</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.dll">
+      <publishTime>10/29/2012 01:29:34</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>10/29/2012 01:29:34</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.xml">
+      <publishTime>10/29/2012 01:29:34</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.WebRequest.dll">
+      <publishTime>10/29/2012 01:29:34</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.WebRequest.xml">
+      <publishTime>10/29/2012 01:29:34</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.xml">
+      <publishTime>10/29/2012 01:29:34</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>10/29/2012 01:29:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.xml">
+      <publishTime>10/29/2012 01:29:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>10/29/2012 01:29:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>10/29/2012 01:29:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.xml">
+      <publishTime>10/29/2012 01:29:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.xml">
+      <publishTime>10/29/2012 01:29:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>10/29/2012 01:29:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.xml">
+      <publishTime>10/29/2012 01:29:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>10/29/2012 01:29:31</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.xml">
+      <publishTime>10/29/2012 01:29:31</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>10/29/2012 01:29:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.xml">
+      <publishTime>10/29/2012 01:29:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>10/29/2012 01:29:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>10/29/2012 01:29:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.xml">
+      <publishTime>10/29/2012 01:29:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.xml">
+      <publishTime>10/29/2012 01:29:33</publishTime>
+    </File>
+    <File Include="bin/TransportSystem.Area.Web.dll">
+      <publishTime>11/29/2012 19:21:27</publishTime>
+    </File>
+    <File Include="bin/TransportSystem.Area.Web.pdb">
+      <publishTime>11/29/2012 19:21:27</publishTime>
+    </File>
+    <File Include="bin/TransportSystem.Domain.dll">
+      <publishTime>11/28/2012 08:16:01</publishTime>
+    </File>
+    <File Include="bin/TransportSystem.Domain.pdb">
+      <publishTime>11/28/2012 08:16:01</publishTime>
+    </File>
+    <File Include="bin/TransportSystem.Logics.dll">
+      <publishTime>11/29/2012 19:21:25</publishTime>
+    </File>
+    <File Include="bin/TransportSystem.Logics.pdb">
+      <publishTime>11/29/2012 19:21:25</publishTime>
+    </File>
+    <File Include="bin/Unity.Mvc3.dll">
+      <publishTime>10/29/2012 00:31:05</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-bg_flat_75_ffffff_40x100.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-bg_glass_55_fbf9ee_1x400.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-bg_glass_65_ffffff_1x400.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-bg_glass_75_dadada_1x400.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-bg_glass_75_e6e6e6_1x400.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-bg_glass_95_fef1ec_1x400.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-icons_222222_256x240.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-icons_2e83ff_256x240.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-icons_454545_256x240.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-icons_888888_256x240.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/images/ui-icons_cd0a0a_256x240.png">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/jquery-ui-1.9.1.custom.css">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/custom-theme/jquery-ui-1.9.1.custom.min.css">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Content/fonts/border-radius.htc">
+      <publishTime>11/03/2012 04:16:51</publishTime>
+    </File>
+    <File Include="Content/img/checkbox.gif">
+      <publishTime>11/03/2012 04:16:23</publishTime>
+    </File>
+    <File Include="Content/img/evolution-calendar_1052.png">
+      <publishTime>11/03/2012 04:18:19</publishTime>
+    </File>
+    <File Include="Content/img/generic-button-blue-bg.png">
+      <publishTime>11/03/2012 04:16:43</publishTime>
+    </File>
+    <File Include="Content/img/generic-button-green-bg.png">
+      <publishTime>11/03/2012 04:16:43</publishTime>
+    </File>
+    <File Include="Content/img/map_point.png">
+      <publishTime>11/03/2012 04:18:19</publishTime>
+    </File>
+    <File Include="Content/img/radio.gif">
+      <publishTime>11/03/2012 04:16:26</publishTime>
+    </File>
+    <File Include="Content/index_custom_checkbox/checkbox.css">
+      <publishTime>11/03/2012 04:00:48</publishTime>
+    </File>
+    <File Include="Content/index_custom_checkbox/checkbox.gif">
+      <publishTime>11/03/2012 04:00:48</publishTime>
+    </File>
+    <File Include="Content/index_custom_checkbox/checkbox.js">
+      <publishTime>11/03/2012 04:00:48</publishTime>
+    </File>
+    <File Include="Content/index_custom_checkbox/radio.gif">
+      <publishTime>11/03/2012 04:00:48</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>11/13/2012 00:37:28</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>10/30/2012 23:34:51</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>11/05/2012 17:58:46</publishTime>
+    </File>
+    <File Include="Scripts/checkbox.js">
+      <publishTime>11/03/2012 04:16:04</publishTime>
+    </File>
+    <File Include="Scripts/create.trip.js">
+      <publishTime>11/07/2012 01:22:27</publishTime>
+    </File>
+    <File Include="Scripts/index-page.js">
+      <publishTime>11/05/2012 01:24:20</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.8.2.min.js">
+      <publishTime>11/03/2012 04:05:08</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.9.1.custom.min.js">
+      <publishTime>11/05/2012 06:22:24</publishTime>
+    </File>
+    <File Include="Scripts/main.js">
+      <publishTime>11/13/2012 01:12:26</publishTime>
+    </File>
+    <File Include="Scripts/ya.map.js">
+      <publishTime>11/06/2012 00:18:00</publishTime>
+    </File>
+    <File Include="Views/Account/LoginForm.cshtml">
+      <publishTime>11/07/2012 20:32:06</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>11/12/2012 01:56:28</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>09/10/2012 21:57:34</publishTime>
+    </File>
+    <File Include="Views/Shared/Partials/RegisterForm.cshtml">
+      <publishTime>11/10/2012 23:05:01</publishTime>
+    </File>
+    <File Include="Views/Shared/_IndexLayout.cshtml">
+      <publishTime>11/05/2012 21:40:02</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>11/06/2012 00:12:37</publishTime>
+    </File>
+    <File Include="Views/Trips/CreateTrip.cshtml">
+      <publishTime>11/11/2012 06:28:20</publishTime>
+    </File>
+    <File Include="Views/Trips/TripsList.cshtml">
+      <publishTime>11/13/2012 01:56:54</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>10/29/2012 01:29:22</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>11/29/2012 19:21:29</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

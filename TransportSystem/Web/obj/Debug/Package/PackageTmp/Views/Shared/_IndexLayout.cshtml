@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;" />
+	<link rel="stylesheet" type="text/css" href="~/Content/Site.css" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/index_custom_checkbox/checkbox.css" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/custom-theme/jquery-ui-1.9.1.custom.css" />
+	<script type="text/javascript" src="~/Scripts/checkbox.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.9.1.custom.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/index-page.js"></script>
+    <script type="text/javascript" src="~/Scripts/main.js"></script>
+	<title>Beride.ru</title>
+</head>
+    <body>
+        <div class="index-header-content">
+            <div class="left-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="right-menu">
+                <a href="@Url.Action("CreateTrip", "Trips")"><button class="header-signin generic-button green">Создать поездку</button></a>
+                <span class="header-signin">Вход</span>
+                <span class="header-signin">/</span>
+                <span class="header-signin">Регистрация</span>
+            </div>
+        </div>
+        @RenderBody()
+        <div class="index-footer">
+            &copy; Beride.ru, Richard S.Popov
+        </div>
+    </body>
+    <script type="text/javascript">
+        document.GetPlacesUrl = "@Url.Action("GetPlaces","Trips")";
+    </script>
+</html>

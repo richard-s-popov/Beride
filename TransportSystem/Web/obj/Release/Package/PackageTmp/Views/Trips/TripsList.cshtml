@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Beride";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+@using TransportSystem.Domain
+@model TransportSystem.Area.Web.Models.Trips.TripsListModel
+
+<div class="content" style="margin-top:30px;">
+    @foreach(var trip in Model.trips)
+    {
+        @trip.StartPointFullName <span>-</span> @trip.EndPointFullName  <br />
+    }
+</div>

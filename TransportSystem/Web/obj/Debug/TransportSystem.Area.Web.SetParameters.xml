@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="beride" />
+  <setParameter name="Entities-Web.config Connection String" value="metadata=res://*/TripsDBEntities.csdl|res://*/TripsDBEntities.ssdl|res://*/TripsDBEntities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=WIN-9JP4CHPG8VM;initial catalog=TransportSystem;integrated security=True;multipleactiveresultsets=True;App=EntityFramework&quot;" />
+</parameters>

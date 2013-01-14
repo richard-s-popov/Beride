@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;" />
+	<link rel="stylesheet" type="text/css" href="css/fonts/stylesheet.css" charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="css/Site.css" charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="custom_checkbox/checkbox.css" charset="utf-8"/>
+	<script type="text/javascript" src="scripts/jquery-1.5.1.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.8.11.js"></script>
+	<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+	<script type="text/javascript" src="custom_checkbox/checkbox.js"></script>
+	<script type="text/javascript" src="scripts/index-page.js"></script>
+	<title>Beride.ru</title>
+</head>
+<script type="text/javascript">
+    var myMap;
+    ymaps.ready(function () {
+        // Создание экземпляра карты и его привязка к созданному контейнеру
+		myMap = new ymaps.Map("YMapsID", {
+            center: [56.496618, 84.979832],
+            zoom: 10
+        });
+			
+			// Центр карты
+		var	center;
+			
+			// Масштаб
+		var	zoom = 7;
+		console.log(YMaps.location);
+		// Получение информации о местоположении пользователя
+		if (YMaps.location) {
+			center = YMaps.GeoPoint(YMaps.location.longitude, YMaps.location.latitude);
+			if (YMaps.location.zoom) {
+				zoom = YMaps.location.zoom;
+			}
+
+			myMap.openBalloon(center, "Место вашего предположительного местоположения:<br/>"
+				+ (YMaps.location.country || "")
+				+ (YMaps.location.region ? ", " + YMaps.location.region : "")
+				+ (YMaps.location.city ? ", " + YMaps.location.city : "")
+			)
+		}else {
+			center = new YMaps.GeoPoint(56.496618, 84.979832);
+		}
+		
+		// Установка для карты ее центра и масштаба
+		myMap.setCenter([center.getX(), center.getY()], zoom);
+		myMap.controls.add('typeSelector');
+		myMap.controls.add('smallZoomControl');
+    });
+</script>
+<body>
+	<div class="header-content">
+		<div class="logo-container">
+			<div class="logo-text">Be<font class="lit">r</font>ide</div>
+			<div class="logo-description">Экономьте и зарабатывайте с нами</div>
+		</div>
+		<div class="right-menu">
+			<span class="header-signin">Вход</span>
+			<span class="header-signin">/</span>
+			<span class="header-signin">Регистрация</span>
+		</div>
+		<div class="left-menu">
+			<span>Раз</span>
+			<span>Два</span>
+			<span>Три</span>
+			<span>Четыре</span>
+			<span>Пять</span>
+		</div>
+	</div>
+	
+	<div class="content" style="margin-top:30px;">
+		<span class="title">
+			Создание поездки
+		</span>
+		<div id="YMapsID" class="yandex-map">
+		</div>
+		<div class="controls">
+			<div style="height: 30px;">
+				<span class="left-button m-lr-10 driver"><input id="chbxFindDriver" type="radio" name="1" class="styled" /><font>Я водитель</font></span>
+				<span class="right-button m-lr-10 passenger"><input id="chbxFindPassenger" type="radio" name="1" class="styled" /><font>Я пассажир</font></span>
+			</div>
+			<table id="createRoutesTable">
+				<tr>
+					<td class="labels">
+						Откуда:
+					</td>
+					<td class="inputs">
+						<div class="input-text">
+							<input class="input-location" type="text" placeholder="Откуда" />
+							<img src="img/map_point.png" />
+						</div>
+						<span id="addPoints" class="add-point">Добавить промежуточные точки</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="labels">
+						Куда:
+					</td>
+					<td class="inputs">
+						<div class="input-text">
+							<input class="input-location" type="text" placeholder="Куда" />
+							<img src="img/map_point.png" />
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="index-footer">
+		&copy; Beride.ru, Richard S.Popov
+	</div>
+</body>
+</html>

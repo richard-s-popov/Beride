@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TransportSystemModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="TransportSystemModelStoreContainer">
+    <EntitySet Name="CarBrands" EntityType="TransportSystemModel.Store.CarBrands" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarColors" EntityType="TransportSystemModel.Store.CarColors" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarModels" EntityType="TransportSystemModel.Store.CarModels" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cars" EntityType="TransportSystemModel.Store.Cars" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TripRoutes" EntityType="TransportSystemModel.Store.TripRoutes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Trips" EntityType="TransportSystemModel.Store.Trips" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TripStatus" EntityType="TransportSystemModel.Store.TripStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TripType" EntityType="TransportSystemModel.Store.TripType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="TransportSystemModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_CarModels_CarBrands" Association="TransportSystemModel.Store.FK_CarModels_CarBrands">
+      <End Role="CarBrands" EntitySet="CarBrands" />
+      <End Role="CarModels" EntitySet="CarModels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_CarBrands" Association="TransportSystemModel.Store.FK_Cars_CarBrands">
+      <End Role="CarBrands" EntitySet="CarBrands" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_CarColors" Association="TransportSystemModel.Store.FK_Cars_CarColors">
+      <End Role="CarColors" EntitySet="CarColors" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_CarModels" Association="TransportSystemModel.Store.FK_Cars_CarModels">
+      <End Role="CarModels" EntitySet="CarModels" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TripRoutes_Trips" Association="TransportSystemModel.Store.FK_TripRoutes_Trips">
+      <End Role="Trips" EntitySet="Trips" />
+      <End Role="TripRoutes" EntitySet="TripRoutes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trips_Cars" Association="TransportSystemModel.Store.FK_Trips_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="Trips" EntitySet="Trips" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trips_TripStatus" Association="TransportSystemModel.Store.FK_Trips_TripStatus">
+      <End Role="TripStatus" EntitySet="TripStatus" />
+      <End Role="Trips" EntitySet="Trips" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trips_TripType" Association="TransportSystemModel.Store.FK_Trips_TripType">
+      <End Role="TripType" EntitySet="TripType" />
+      <End Role="Trips" EntitySet="Trips" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trips_Users" Association="TransportSystemModel.Store.FK_Trips_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Trips" EntitySet="Trips" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trips_Users1" Association="TransportSystemModel.Store.FK_Trips_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Trips" EntitySet="Trips" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CarBrands">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="CarColors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CarModels">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BrandId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Cars">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BrandId" Type="int" Nullable="false" />
+    <Property Name="ModelId" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="ColorId" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TripRoutes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TripId" Type="int" Nullable="false" />
+    <Property Name="StartPointId" Type="int" Nullable="false" />
+    <Property Name="EndPointId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Trips">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TripType" Type="int" Nullable="false" />
+    <Property Name="CreatorId" Type="int" Nullable="false" />
+    <Property Name="OwnerId" Type="int" Nullable="false" />
+    <Property Name="TripStatus" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="ExpectedEndDate" Type="datetime" />
+    <Property Name="CarId" Type="int" />
+  </EntityType>
+  <EntityType Name="TripStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TripType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="30" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="Age" Type="tinyint" />
+    <Property Name="Sex" Type="nvarchar" MaxLength="10" />
+    <Property Name="Rate" Type="int" />
+    <Property Name="PlusesNumber" Type="int" />
+    <Property Name="MinusesNumber" Type="int" />
+    <Property Name="SuccessTripsNumber" Type="int" />
+    <Property Name="FailedTripsNumber" Type="int" />
+  </EntityType>
+  <Association Name="FK_CarModels_CarBrands">
+    <End Role="CarBrands" Type="TransportSystemModel.Store.CarBrands" Multiplicity="1" />
+    <End Role="CarModels" Type="TransportSystemModel.Store.CarModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarBrands">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarModels">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_CarBrands">
+    <End Role="CarBrands" Type="TransportSystemModel.Store.CarBrands" Multiplicity="1" />
+    <End Role="Cars" Type="TransportSystemModel.Store.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarBrands">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_CarColors">
+    <End Role="CarColors" Type="TransportSystemModel.Store.CarColors" Multiplicity="1" />
+    <End Role="Cars" Type="TransportSystemModel.Store.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarColors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="ColorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_CarModels">
+    <End Role="CarModels" Type="TransportSystemModel.Store.CarModels" Multiplicity="1" />
+    <End Role="Cars" Type="TransportSystemModel.Store.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarModels">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="ModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TripRoutes_Trips">
+    <End Role="Trips" Type="TransportSystemModel.Store.Trips" Multiplicity="1" />
+    <End Role="TripRoutes" Type="TransportSystemModel.Store.TripRoutes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trips">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TripRoutes">
+        <PropertyRef Name="TripId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trips_Cars">
+    <End Role="Cars" Type="TransportSystemModel.Store.Cars" Multiplicity="0..1" />
+    <End Role="Trips" Type="TransportSystemModel.Store.Trips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trips">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trips_TripStatus">
+    <End Role="TripStatus" Type="TransportSystemModel.Store.TripStatus" Multiplicity="1" />
+    <End Role="Trips" Type="TransportSystemModel.Store.Trips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TripStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trips">
+        <PropertyRef Name="TripStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trips_TripType">
+    <End Role="TripType" Type="TransportSystemModel.Store.TripType" Multiplicity="1" />
+    <End Role="Trips" Type="TransportSystemModel.Store.Trips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TripType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trips">
+        <PropertyRef Name="TripType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trips_Users">
+    <End Role="Users" Type="TransportSystemModel.Store.Users" Multiplicity="1" />
+    <End Role="Trips" Type="TransportSystemModel.Store.Trips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trips">
+        <PropertyRef Name="CreatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trips_Users1">
+    <End Role="Users" Type="TransportSystemModel.Store.Users" Multiplicity="1" />
+    <End Role="Trips" Type="TransportSystemModel.Store.Trips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trips">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

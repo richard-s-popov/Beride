@@ -1,0 +1,350 @@
+/*reset css*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 80%;
+	font: inherit;
+	vertical-align: baseline;
+	font-family:Verdana;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+label[disabled="true"]{opacity:0.4;}
+/*end reset css*/
+
+body a  {color: #272727; cursor: pointer; text-decoration:underline;}
+body a:link {color: #272727; cursor: pointer; text-decoration:underline;}
+body a:visited{color: #272727;font-size:12px;text-decoration:underline;}
+body a:hover{color: black;text-decoration:none;}
+body a:active {color: black;text-decoration:none;}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'GeoSlb712CMdBTBold'!important;
+	text-rendering: optimizeSpeed;
+}
+
+/* Главная страница */
+.index-header-content {
+	margin: 50px auto 0px; /* Выравнивание по центру */
+	height: 70px;
+	/* background: #FFDEAD; */			
+}
+
+.index-header-content .right-menu {
+	margin-right: 100px;
+}
+
+.index-header-content .buttton {
+	background-color: black;	
+}
+
+.index-header-content .header-signin {
+	float: right;
+	margin: 25px 5px;
+}
+
+.index-content {
+	width: 400px;
+	margin: 5px auto 5px;
+	padding: 5px;
+	/*background: #f0ffff;*/
+}
+
+.input-text { 
+	height: 28px;
+	border: 1px solid #CCCCCC;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+	margin: 10px 10px;
+	position:relative;
+	background-color: white;
+	-moz-border-radius: 3px; /* Firefox */
+	-webkit-border-radius: 3px; /* Safari, Chrome */
+	-khtml-border-radius: 3px; /* KHTML */
+	border-radius: 3px; /* CSS3 */
+	/* Для плохих IE */
+	behavior: url(border-radius.htc); /* учим IE border-radius */
+}
+
+.input-text img { 
+	position: absolute; 
+	right: 3px;
+	top: 2px;
+}
+
+.input-text .input-location {
+	border: 0px solid white;
+	margin: 5px 0px 5px 10px;
+	width: 320px;
+}
+
+.input-text:hover {
+	border: 1px solid #5F92FF;
+}
+
+.input-text .input-location:focus {
+	outline: none;
+}
+
+.index-footer {
+	position: fixed; /* Фиксированное положение */
+	left: 0; bottom: 0; /* Левый нижний угол */
+	padding: 10px; /* Поля вокруг текста */
+	color: #CCCCCC; /* Цвет текста */
+	width: 100%; /* Ширина слоя */
+	font-size: 12px;
+}
+
+.left-button {
+	float: left;
+	font-family: 'GeoSlb712CMdBTBold'!important;
+	text-rendering: optimizeSpeed;
+	font-size: 21px;
+	cursor: pointer;
+}
+
+.left-button font {
+	cursor: pointer;	
+}
+
+ .right-button {
+	font-family: 'GeoSlb712CMdBTBold'!important;
+	text-rendering: optimizeSpeed;
+	font-size: 21px;
+	float: left;
+	cursor: pointer;
+}
+
+ .right-button font {
+	cursor: pointer;
+}
+
+ .button-container {
+	height: 45px;
+}
+
+.index-content .button-container .add-diapason-button {
+	font-size: 13px;
+	text-decoration: underline;
+	cursor: pointer;
+	margin: 10px 15px 7px 25px;
+	float: left;
+}
+
+.index-content .button-container .generic-button.blue {
+    background: url("generic-button-blue-bg.png") repeat-x scroll left top transparent;
+    border: 1px solid #39C;
+    color: #FFFFFF;
+    font-family: 'GeoSlb712CMdBTBold'!important;
+	text-rendering: optimizeSpeed;
+    font-size: 18px;
+    height: 35px;
+    width: 190px;
+    cursor: pointer;
+	float: right;
+	margin: 0px 10px 7px 15px;
+	border-radius: 3px;
+}
+
+.index-header-content .right-menu .header-signin.generic-button.green {
+    background: url("generic-button-green-bg.png") repeat-x scroll left top transparent;
+    border: 1px solid #3AA526;
+    color: #FFFFFF;
+    font-family: 'GeoSlb712CMdBTBold'!important;
+	text-rendering: optimizeSpeed;
+    font-size: 16px;
+    height: 29px;
+    width: 186px;
+    cursor: pointer;
+	float: right;
+	margin: 0px 10px 7px 15px;
+	border-radius: 3px;
+	margin-top: 18px;
+}
+
+.index-content .date-hider {
+	float: right;
+	margin-right: 10px;
+	margin-top: 9px;
+	font-size: 13px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+/* конец */
+
+/* Лого */
+.logo-container, .header-content .logo-container {
+	width: 400px;
+	margin: 10px 10px;
+	
+}
+
+.header-content .logo-container {
+	margin-top: 0px;
+	display:inline-block;
+	
+}
+
+.logo-text {
+	font-size: 55px !important;
+	font-family: 'GeoSlb712CMdBTBold'!important;
+	text-rendering: optimizeSpeed;
+}
+.logo-text .lit {
+	color: #3399CC;
+}
+.logo-description {
+	font-size: 18px;
+	font-family: 'GeoSlb712CMdBTBold'!important;
+	text-rendering: optimizeSpeed;
+	margin-top: -7px;
+}
+/* конец */
+
+
+.header-content {
+	width: 1000px; /* Ширина слоя */
+	margin: 0px auto 0px; /* Выравнивание по центру */
+	height: 70px;
+	/* background: #FFDEAD; */	
+	position:relative;
+}
+
+.header-content .header-signin {
+	float: right;
+	margin: 5px 5px;
+}
+
+.header-content .right-menu {
+	position: absolute;
+	top: 15px;
+	right: 0px;
+}
+
+.header-content .left-menu {	
+	position:absolute;
+	top:48px;
+	right:5px;
+	border:0px solid red;
+}
+
+.content {
+	width: 1000px; /* Ширина слоя */
+	margin: 5px auto 50px; /* Выравнивание по центру */
+	background-color: whiteSmoke;
+	position:relative;
+	min-height: 400px;
+}
+
+.content .title {
+	margin-left: 10px;
+	margin-top: 10px;
+	display: inline-block;
+	font-size: 28px;
+	font-family: 'GeoSlb712CMdBTBold'!important;
+	text-rendering: optimizeSpeed;
+}
+
+.content .yandex-map{
+	position: absolute;
+	background-color: beige;
+	right: 25px;
+	top:25px;
+	width: 450px; 
+	height: 350px;
+	
+}
+
+.content .controls {
+	width: 490px;
+	padding: 15px;
+}
+
+.content .controls .labels {
+	width: 100px;
+	font-size: 13px;
+	margin-left: 10px;
+}
+
+.content .controls .inputs .input-text {
+	margin-bottom: 0px;
+}
+
+.content .controls .inputs .add-point {
+	font-size: 13px;
+	margin-left: 115px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.content .controls .routes .from {
+	width: 100px;
+}
+
+.content .controls .routes {
+
+.content .left-block {
+	float: left;
+	background-color: bisque;
+}
+
+.content .right-block {
+	float: right;
+	background-color: darkGray;
+}
+
+.main-navigation-panel {
+	background-color: #83DF57;
+	border-radius: 5px;
+	height: 150px;
+}
+
+.footer {
+	position: fixed; /* Фиксированное положение */
+	left: 0; bottom: 0; /* Левый нижний угол */
+	padding: 10px; /* Поля вокруг текста */
+	background: #39b54a; /* Цвет фона */
+	color: #fff; /* Цвет текста */
+	width: 100%; /* Ширина слоя */
+}
+
+.m10 {
+	margin: 10px;
+}
+
+.m-lr-10 {
+	margin: 5px 10px;
+}
+

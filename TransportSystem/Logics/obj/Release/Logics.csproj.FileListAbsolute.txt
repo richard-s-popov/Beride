@@ -1,0 +1,10 @@
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\bin\Release\TransportSystem.Logics.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\bin\Release\TransportSystem.Logics.pdb
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\bin\Release\Microsoft.Practices.Unity.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\bin\Release\TransportSystem.Domain.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\bin\Release\Unity.Mvc3.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\bin\Release\TransportSystem.Domain.pdb
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\bin\Release\Microsoft.Practices.Unity.xml
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\obj\Release\Logics.csprojResolveAssemblyReference.cache
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\obj\Release\TransportSystem.Logics.dll
+C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\Logics\obj\Release\TransportSystem.Logics.pdb

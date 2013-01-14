@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Beride";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+}
+
+<div class="index-content">
+	<div class="logo-container">
+		<div class="logo-text">Be<font class="lit">r</font>ide</div>
+		<div class="logo-description">Экономьте и зарабатывайте с нами</div>
+	</div>
+	<div style="height: 30px;">
+		<span class="left-button m-lr-10 driver"><input id="chbxDriver" type="radio" name="1" class="styled" /><font>Ищу водителя</font></span>
+		<span class="right-button m-lr-10 passenger"><input id="chbxPassenger" type="radio" name="1" class="styled" /><font>Ищу пассажира</font></span>
+	</div>
+	<div class="input-text">
+		<input id="startPoint" class="input-location" type="text" placeholder="Откуда" />
+		<img src="~/Content/img/map_point.png" />
+	</div>
+	<div class="input-text">
+		<input id="endPoint" class="input-location" type="text" placeholder="Куда" />
+		<img src="~/Content/img/map_point.png" />
+	</div>
+	<div class="input-text">
+		<input id="dateAt" class="input-date" type="text" placeholder="Дата" />
+		<img src="~/Content/img/evolution-calendar_1052.png" />
+	</div>
+	<div id="additionalDate" style="display: none;">
+		<div class="input-text" style="width: 315px; float: left; margin-top: 0px;">
+			<input id="dateTo" class="input-date" style="width: 260px;" type="text" placeholder="Дата" />
+			<img src="~/Content/img/evolution-calendar_1052.png" />
+		</div>
+		<span class="date-hider">Скрыть</span>
+	</div>
+    <div class="button-container">
+        <span class="add-diapason-button">Диапазон значений</span>
+        <button id="search" class="generic-button blue">Поиск</button>
+    </div>
+    <div id="results" style=""></div>
+</div>
+<script type="text/javascript">
+    document.SearchUrl = "@Url.Action("GetTrips", "Trips")";
+</script>
