@@ -4,56 +4,99 @@
 }
 
 @section head {
-    <script type="text/javascript" src="~/Scripts/create.trip.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/trip/create.trip.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slider/coda-slider.1.1.1.pack.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slider/jquery-easing-compatibility.1.2.pack.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slider/jquery-easing.1.2.pack.js")"></script>
 }
 
-<div class="content" style="margin-top:30px;">
+<div class="content">
     <span class="title">
         Создание поездки
     </span>
-    <div id="YMapsID" class="yandex-map">
-    </div>
-    <div class="create-trip-container">
-        <div style="height: 30px;">
-            <span class="left-button m-lr-10 driver"><input id="chbxDriver" type="radio" name="1" class="styled" /><font>Я водитель</font></span>
-            <span class="right-button m-lr-10 passenger"><input id="chbxPassenger" type="radio" name="1" class="styled" /><font>Я пассажир</font></span>
-        </div>
-        <table id="createPoints">
-            <tr>
-                <td class="labels">
-                    Откуда:
-                </td>
-                <td id="pointContainer" class="inputs">
-                    <div class="input-text">
-                        <input id="startPoint" class="input-location" type="text" placeholder="Откуда" autocomplete="off" />
-                        <img src="~/Content/img/map_point.png" />
+    <div id="slider1" class="csw">
+        <div class="panelContainer">
+            <div class="panel">
+                <div>
+                    <div id="YMapsID" class="yandex-map">
                     </div>
-                    <div id="addPoints" class="add-point">Добавить промежуточные точки</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="labels">
-                    Куда:
-                </td>
-                <td class="inputs">
-                    <div class="input-text">
-                        <input id="endPoint" class="input-location" type="text" placeholder="Куда" autocomplete="off" />
-                        <img src="~/Content/img/map_point.png" />
+                    <div class="create-trip-container">
+                        <div class="user-type">
+                            @Html.RadioButton("type", "driver", false, new { @id = "driver" })
+                            @Html.Label("driver", "Я водитель")
+                            @Html.RadioButton("type", "passenger", false, new { @id = "passenger" })
+                            @Html.Label("passenger", "Я пассажир")
+                        </div>
+                        <table id="createPoints">
+                            <tr>
+                                <td class="labels">
+                                    Откуда:
+                                </td>
+                                <td id="pointContainer" class="inputs">
+                                    <div class="input-text">
+                                        <input id="startPoint" class="input location" type="text" placeholder="Откуда" autocomplete="off" />
+                                        <img src="~/Content/img/map_point.png" />
+                                    </div>
+                                    <a id="addPoints" class="add-point">Добавить промежуточные точки</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="labels">
+                                    Куда:
+                                </td>
+                                <td class="inputs">
+                                    <div class="input-text">
+                                        <input id="endPoint" class="input location" type="text" placeholder="Куда" autocomplete="off" />
+                                        <img src="~/Content/img/map_point.png" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table>
+                            <tr>
+                                <td class="labels">
+                                    Дата выезда:
+                                </td>
+                                <td class="inputs">
+                                    <div class="input-text">
+                                        <input id="dateAt" class="input" type="text" placeholder="Дата" autocomplete="off" />
+                                        <img src="~/Content/img/evolution-calendar_1052.png" />
+                                    </div>
+                                    <a id="showDateTo" class="date-link">Промежуток дат</a>
+                                </td>
+                            </tr>
+                            <tr id="dateToContainer">
+                                <td class="labels">
+                                </td>
+                                <td class="inputs">
+                                    <div class="input-text">
+                                        <input id="dateTo" class="input" type="text" placeholder="По какое" autocomplete="off" />
+                                        <img src="~/Content/img/evolution-calendar_1052.png" />
+                                    </div>
+                                    <a id="hideDateTo" class="date-link">Скрыть</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <a id="nextStep" class="simple-button">Далее</a>
                     </div>
-                </td>
-            </tr>
-        </table>
-        <div class="routes">
-            <table id="routesTable">
-                <tr>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="routes">
+                    <table id="routesTable">
+                        <tr>
                         
-                </tr>
-            </table>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-        <button id="sendData" value="Создать">Создать</button>
         <div id="results" style=""></div>
     </div>
 </div>
+
 <script type="text/javascript">
     document.SaveTripUrl = "@Url.Action("SaveTrip","Trips")";
 </script>

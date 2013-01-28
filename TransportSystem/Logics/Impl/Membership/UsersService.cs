@@ -9,20 +9,25 @@ namespace TransportSystem.Logics.Impl.Membership
     {
         public Entities db = null;
 
-        public void Insert(Users entity)
+        public UsersService()
         {
-            db.AddToUsers(entity);
+            db = new Entities();
+        }
+
+        public void Insert(User entity)
+        {
+            db.AddToUser(entity);
             db.SaveChanges();
         }
 
-        public Users GetUserByLogin(string login)
+        public User GetUserByLogin(string login)
         {
-            return db.Users.First(x => x.Email == login || x.Phone == login);
+            return db.User.FirstOrDefault(x => x.Email == login || x.Phone == login && x.IsConfirmed);
         }
 
         public bool EmailIsExist(string email)
         {
-            throw new NotImplementedException();
+            return db.User.FirstOrDefault(x => x.Email == email && x.IsConfirmed) != null;
         }
 
         public bool PhoneIsExist(string phone)

@@ -12,14 +12,14 @@ namespace TransportSystem.Logics.Interfaces.Membership
         /// Inserts new entity into database
         /// </summary>
         /// <param name="entity"></param>
-        void Insert(Users entity);
+        void Insert(User entity);
 
         /// <summary>
         /// Get entity user by email
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        Users GetUserByLogin(string email);
+        User GetUserByLogin(string email);
 
         /// <summary>
         /// Check email in db

@@ -6,14 +6,14 @@ using System.Web;
 
 namespace TransportSystem.Area.Web.Models.Account
 {
-    public class LogOnModel
+    public class LogOnModelPoco
     {
-        [Required(ErrorMessage = "Enter login")]
+        [Required]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Enter password")]
+        [Required]
         public string Password { get; set; }
 
-        public bool RememberMe { get; set; }
+        public bool? RememberMe { get; set; }
     }
 }

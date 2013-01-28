@@ -16,6 +16,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -133,8 +137,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Attributes\SecureAttribute.cs" />
     <Compile Include="Models\Account\AccountModel.cs" />
-    <Compile Include="Models\Account\LogOnModel.cs" />
+    <Compile Include="Models\Account\LogOnModelPoco.cs" />
+    <Compile Include="Models\Account\RegisterModelPoco.cs" />
     <Compile Include="Models\Trips\TripModel.cs" />
     <Compile Include="Models\Trips\TripsListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,9 +163,59 @@
     <Content Include="Content\custom-theme\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\custom-theme\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\custom-theme\jquery-ui-1.9.1.custom.min.css" />
+    <Content Include="Content\fancybox\blank.gif" />
+    <Content Include="Content\fancybox\fancybox-x.png" />
+    <Content Include="Content\fancybox\fancybox-y.png" />
+    <Content Include="Content\fancybox\fancybox.png" />
+    <Content Include="Content\fancybox\fancy_close.png" />
+    <Content Include="Content\fancybox\fancy_loading.png" />
+    <Content Include="Content\fancybox\fancy_nav_left.png" />
+    <Content Include="Content\fancybox\fancy_nav_right.png" />
+    <Content Include="Content\fancybox\fancy_shadow_e.png" />
+    <Content Include="Content\fancybox\fancy_shadow_n.png" />
+    <Content Include="Content\fancybox\fancy_shadow_ne.png" />
+    <Content Include="Content\fancybox\fancy_shadow_nw.png" />
+    <Content Include="Content\fancybox\fancy_shadow_s.png" />
+    <Content Include="Content\fancybox\fancy_shadow_se.png" />
+    <Content Include="Content\fancybox\fancy_shadow_sw.png" />
+    <Content Include="Content\fancybox\fancy_shadow_w.png" />
+    <Content Include="Content\fancybox\fancy_title_left.png" />
+    <Content Include="Content\fancybox\fancy_title_main.png" />
+    <Content Include="Content\fancybox\fancy_title_over.png" />
+    <Content Include="Content\fancybox\fancy_title_right.png" />
+    <Content Include="Content\fancybox\jquery.fancybox-1.3.4.css" />
     <Content Include="Content\fonts\border-radius.htc" />
+    <Content Include="Content\img\1359283529_key.png" />
+    <Content Include="Content\img\1359283552_telephone_call_contact.png" />
+    <Content Include="Content\img\1359283609_group_forum.png" />
+    <Content Include="Content\img\1359283624_mobile-phone.png" />
+    <Content Include="Content\img\1359284706_Telephone.png" />
+    <Content Include="Content\img\1359284721_People-MSN.png" />
+    <Content Include="Content\img\1359284731_Envelope.png" />
+    <Content Include="Content\img\1359284767_Lock.png" />
     <Content Include="Content\img\checkbox.gif" />
+    <Content Include="Content\img\cross.png" />
     <Content Include="Content\img\evolution-calendar_1052.png" />
+    <Content Include="Content\img\fancybox\blank.gif" />
+    <Content Include="Content\img\fancybox\fancybox-x.png" />
+    <Content Include="Content\img\fancybox\fancybox-y.png" />
+    <Content Include="Content\img\fancybox\fancybox.png" />
+    <Content Include="Content\img\fancybox\fancy_close.png" />
+    <Content Include="Content\img\fancybox\fancy_loading.png" />
+    <Content Include="Content\img\fancybox\fancy_nav_left.png" />
+    <Content Include="Content\img\fancybox\fancy_nav_right.png" />
+    <Content Include="Content\img\fancybox\fancy_shadow_e.png" />
+    <Content Include="Content\img\fancybox\fancy_shadow_n.png" />
+    <Content Include="Content\img\fancybox\fancy_shadow_ne.png" />
+    <Content Include="Content\img\fancybox\fancy_shadow_nw.png" />
+    <Content Include="Content\img\fancybox\fancy_shadow_s.png" />
+    <Content Include="Content\img\fancybox\fancy_shadow_se.png" />
+    <Content Include="Content\img\fancybox\fancy_shadow_sw.png" />
+    <Content Include="Content\img\fancybox\fancy_shadow_w.png" />
+    <Content Include="Content\img\fancybox\fancy_title_left.png" />
+    <Content Include="Content\img\fancybox\fancy_title_main.png" />
+    <Content Include="Content\img\fancybox\fancy_title_over.png" />
+    <Content Include="Content\img\fancybox\fancy_title_right.png" />
     <Content Include="Content\img\generic-button-blue-bg.png" />
     <Content Include="Content\img\generic-button-green-bg.png" />
     <Content Include="Content\img\map_point.png" />
@@ -170,9 +226,17 @@
     <Content Include="Content\index_custom_checkbox\radio.gif" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\account\login.js" />
+    <Content Include="Scripts\account\register.js" />
     <Content Include="Scripts\checkbox.js" />
-    <Content Include="Scripts\create.trip.js" />
-    <Content Include="Scripts\index-page.js" />
+    <Content Include="Scripts\fancybox\jquery.mousewheel-3.0.4.pack.js" />
+    <Content Include="Scripts\fancybox\jquery.fancybox-1.3.4.js" />
+    <Content Include="Scripts\slider\coda-slider.1.1.1.pack.js" />
+    <Content Include="Scripts\slider\jquery-1.2.1.pack.js" />
+    <Content Include="Scripts\slider\jquery-easing-compatibility.1.2.pack.js" />
+    <Content Include="Scripts\slider\jquery-easing.1.2.pack.js" />
+    <Content Include="Scripts\trip\create.trip.js" />
+    <Content Include="Scripts\index\index.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.1.custom.min.js" />
     <Content Include="Scripts\main.js" />
@@ -190,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -217,7 +282,7 @@
   <ItemGroup>
     <None Include="Content\fonts\geoslabinch-bold-webfont.woff" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\LoginForm.cshtml" />
+    <Content Include="Views\Shared\Partials\LoginForm.cshtml" />
     <Content Include="Views\Shared\Partials\RegisterForm.cshtml" />
     <Content Include="Views\Trips\TripsList.cshtml" />
     <None Include="Properties\PublishProfiles\beride.pubxml" />

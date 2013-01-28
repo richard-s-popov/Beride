@@ -1,32 +1,53 @@
-﻿
-<div class="title">Регистрация</div>
-<table class="register-container">
-    <tr>
-        <td class="labels">
-            Имя:
-        </td>
-        <td class="inputs">
+﻿@using (Html.BeginForm("RegistrationFinish", "Account", FormMethod.Post, new { @id = "registerForm" }))
+{
+    <div class="register-form">
+        <div class="title">Регистрация</div>
+        <div class="email field">
+            <label class="labels" for="Email">
+                Email
+            </label>
             <div class="input-text">
-                <input id="endPoint" class="input-location" type="text" placeholder="Имя" autocomplete="off" />
-                <img src="~/Content/img/map_point.png" />
+                <input id="Email" class="input" type="text" placeholder="example@mail.ru" />
+                <img src="~/Content/img/1359284731_Envelope.png" />
             </div>
-        </td>
-        <td class="descriptions">
-            *сочинение на вольную тему
-        </td>
-    </tr>
-    <tr>
-        <td class="labels">
-            Фамилия:
-        </td>
-        <td class="inputs">
+            <div class="error">Ошибка</div>
+        </div>
+        <div class="phone field">
+            <label class="labels" for="Phone">
+                Телефон
+            </label>
             <div class="input-text">
-                <input id="endPoint" class="input-location" type="text" placeholder="Фамилия" autocomplete="off" />
-                <img src="~/Content/img/map_point.png" />
+                <input id="Phone" class="input" type="text" placeholder="Телефон" />
+                <img src="~/Content/img/1359284706_Telephone.png" />
             </div>
-        </td>
-        <td class="descriptions">
-            *сочинение на вольную тему
-        </td>
-    </tr>
-</table>
+            <div class="error">Ошибка</div>
+        </div>
+        <div class="password field">
+            <label class="labels" for="Password">
+                Пароль
+            </label>
+            <div class="input-text">
+                <input id="Password" class="input" type="password" placeholder="Пароль" />
+                <img src="~/Content/img/1359284767_Lock.png" />
+            </div>
+            <div class="error">Ошибка</div>
+        </div>
+        <div class="confirm-password field">
+            <label class="labels" for="ConfirmPassword">
+                Повторите пароль
+            </label>
+            <div class="input-text">
+                <input id="ConfirmPassword" class="input" type="password" placeholder="Пароль" />
+                <img src="~/Content/img/1359284767_Lock.png" />
+            </div>
+            <div class="error">Ошибка</div>
+        </div>
+        <a class="login-link" onselectstart="return false" onmousedown="return false">Вход</a>
+        <a id="registerButton" class="simple-button" onselectstart="return false" onmousedown="return false">Регистрация</a>
+    </div>
+}
+
+<script type="text/javascript">
+    document.EmailCheckUrl = "@Url.Action("EmailIsExist","Account")";
+    document.SubmitRegisterForm = "@Url.Action("RegistrationFinish","Account")";
+</script>

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TransportSystem.Logics.Interfaces;
-using TransportSystem.Logics.Interfaces.Trip;
+using TransportSystem.Logics.Interfaces.Trips;
 using TransportSystem.Domain;
 
-namespace TransportSystem.Logics.Impl.Trip
+namespace TransportSystem.Logics.Impl.Trips
 {
     public class TripsService : ITripsService
     {
@@ -17,24 +17,24 @@ namespace TransportSystem.Logics.Impl.Trip
             db = new Entities();
         }
    
-        public Trips GetById(long id)
+        public Trip GetById(long id)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Trips entity)
+        public void Delete(Trip entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Insert(Trips entity)
+        public void Insert(Trip entity)
         {
-            db.AddToTrips(entity);
+            db.AddToTrip(entity);
         }
 
-        public void AddRoute(TripRoutes entity)
+        public void AddRoute(TripRoute entity)
         {
-            db.AddToTripRoutes(entity);
+            db.AddToTripRoute(entity);
         }
 
         public IEnumerable<GetTrips_Result> GetTrips(string startPointGid, string endPointGid, DateTime dateAt, DateTime dateTo, int tripType, int tripStatus)

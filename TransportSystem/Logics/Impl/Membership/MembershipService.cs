@@ -8,14 +8,19 @@ using TransportSystem.Logics.Interfaces.Membership;
 
 namespace TransportSystem.Logics.Impl.Membership
 {
-    class MembershipService : IMembershipService, IDisposable
+    class MembershipService : IMembershipService
     {
         public Entities db = null;
+
+        public MembershipService()
+        {
+            db = new Entities();
+        }
 
         public bool AuthorizeUser(string login, string password)
         {
             password = password.Md5();
-            return db.Users.FirstOrDefault(u => (u.Email == login || u.Phone == login) && u.Password == password) != null;
+            return db.User.FirstOrDefault(u => (u.Email == login || u.Phone == login) && u.Password == password) != null;
         }
 
         public void LoginUser(HttpContext currentHttpContext, string login, string password, bool createPersistentCookie)

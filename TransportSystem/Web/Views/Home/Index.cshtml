@@ -3,6 +3,11 @@
     Layout = "~/Views/Shared/_IndexLayout.cshtml";
 }
 
+@section head {
+    <script type="text/javascript" src="~/Scripts/index/index.js"></script>
+    <script type="text/javascript" src="~/Scripts/checkbox.js"></script>
+}
+
 <div class="index-content">
 	<div class="logo-container">
 		<div class="logo-text">Be<font class="lit">r</font>ide</div>
@@ -13,11 +18,11 @@
 		<span class="right-button m-lr-10 passenger"><input id="chbxPassenger" type="radio" name="1" class="styled" /><font>Ищу пассажира</font></span>
 	</div>
 	<div class="input-text">
-		<input id="startPoint" class="input-location" type="text" placeholder="Откуда" />
+		<input id="startPoint" class="input location" type="text" placeholder="Откуда" />
 		<img src="~/Content/img/map_point.png" />
 	</div>
 	<div class="input-text">
-		<input id="endPoint" class="input-location" type="text" placeholder="Куда" />
+		<input id="endPoint" class="input location" type="text" placeholder="Куда" />
 		<img src="~/Content/img/map_point.png" />
 	</div>
 	<div class="input-text">

@@ -1,11 +1,12 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 
 namespace TransportSystem.Logics.Interfaces.Membership
 {
     /// <summary>
     /// Service for handling user's logging in and out
     /// </summary>
-    public interface IMembershipService
+    public interface IMembershipService: IDisposable
     {
         /// <summary>
         /// Authorizes user

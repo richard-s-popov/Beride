@@ -9,11 +9,10 @@ using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
-using TransportSystem.Area.Web.Models;
 using TransportSystem.Area.Web.Models.Trips;
 using TransportSystem.Domain;
 using TransportSystem.Logics.Interfaces.Membership;
-using TransportSystem.Logics.Interfaces.Trip;
+using TransportSystem.Logics.Interfaces.Trips;
 using TripType = TransportSystem.Domain.Enums.TripType;
 
 namespace TransportSystem.Area.Web.Controllers
@@ -45,11 +44,12 @@ namespace TransportSystem.Area.Web.Controllers
         [HttpPost]
         public ActionResult SaveTrip(TripModel model, string points)
         {
-            //var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
-            var trip = new Trips();
-
-            trip.CreatorId = 1;//currentUser.Id;
-            trip.OwnerId = 1;//currentUser.Id;
+            var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
+            var trip = new Trip
+                {
+                    CreatorId = currentUser.Id, 
+                    OwnerId = currentUser.Id
+                };
 
             if (model.IsDriver)
             {
@@ -76,32 +76,28 @@ namespace TransportSystem.Area.Web.Controllers
             if (deserializedPoints != null)
             {
                 // получаем массив точек
-                foreach (Dictionary<string, object> newFeature in deserializedPoints)
-                {
-                    myPoints.Add(new SJSonModel(newFeature));
-                }
+                myPoints.AddRange(from Dictionary<string, object> newFeature in deserializedPoints select new SJSonModel(newFeature));
             }
 
             // генерируем всевозможные варианты маршрутов по этому пути точек
-            for (int i = 0; i < myPoints.Count - 1; i++)
+            for (var i = 0; i < myPoints.Count - 1; i++)
             {
-                for (int j = i + 1; j < myPoints.Count; j++)
+                for (var j = i + 1; j < myPoints.Count; j++)
                 {
-                    var route = new TripRoutes();
-                    
-                    route.StartPointGid = myPoints[i].Gid;
-                    route.StartPointFullName = myPoints[i].FullName;
-                    route.StartPointShortName = myPoints[i].ShortName;
+                    var route = new TripRoute
+                        {
+                            StartPointGid = myPoints[i].Gid,
+                            StartPointFullName = myPoints[i].FullName,
+                            StartPointShortName = myPoints[i].ShortName,
+                            EndPointGid = myPoints[j].Gid,
+                            EndPointFullName = myPoints[j].FullName,
+                            EndPointShortName = myPoints[j].ShortName
+                        };
 
-                    route.EndPointGid = myPoints[j].Gid;
-                    route.EndPointFullName = myPoints[j].FullName;
-                    route.EndPointShortName = myPoints[j].ShortName;
-
-                    trip.TripRoutes.Add(route);
+                    trip.TripRoute.Add(route);
                 }
             }
 
-            trip.Date = DateTime.Now;
             trip.TripStatus = 1;
             trip.IsDeleted = false;
 
@@ -162,6 +158,7 @@ namespace TransportSystem.Area.Web.Controllers
 
         protected override void Dispose(bool disposing)
         {
+            _usersService.Dispose();
             _tripsService.Dispose();
             base.Dispose(disposing);
         }

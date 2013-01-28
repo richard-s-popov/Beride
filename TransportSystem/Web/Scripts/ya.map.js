@@ -10,7 +10,7 @@ ymaps.ready(function () {
     var center;
 
     // Масштаб
-    var zoom = 7;
+    var zoom = 9;
 
     // Получение информации о местоположении пользователя
     if (YMaps.location) {

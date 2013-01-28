@@ -1,0 +1,39 @@
+﻿@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @id = "loginForm" }))
+{
+    <div class="login-form" onselectstart="return false" onmousedown="return false">
+        <div class="title">Вход</div>
+        <div class="message">
+            Поздравляем! Вы успешно прошли регистрацию.<br/><br/>
+            <strong>Войдите под своим логином и паролем.</strong><br/><br/>
+            На Ваш email отправлено письмо с подтверждением.<br/>
+            После того как вы <strong>подтвердите</strong> Ваш email, другие пользователи смогут Вас увидеть.
+        </div>
+        <div class="login field">
+            <label class="labels" for="Login">
+                Логин
+            </label>
+            <div class="input-text">
+                <input id="Login" name="Login" class="input" type="text" placeholder="Email или Телефон" />
+                <img src="~/Content/img/1359284721_People-MSN.png" />
+            </div>
+            <div class="error">Ошибка</div>
+        </div>
+        <div class="password field">
+            <label class="labels" for="Password">
+                Пароль
+            </label>
+            <a class="forgot-password">Забыли пароль?</a>
+            <div class="input-text">
+                <input id="Password" name="Password" class="input" type="password" placeholder="Пароль" />
+                <img src="~/Content/img/1359284767_Lock.png" />
+            </div>
+            <div class="error">Ошибка</div>
+        </div>
+        <a class="registration-link">Регистрация</a>
+        <a id="login" class="simple-button">Вход</a>
+    </div>
+}
+
+<script type="text/javascript">
+    document.SubmitLoginForm = "@Url.Action("Login","Account")";
+</script>

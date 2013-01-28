@@ -18,3 +18,13 @@ C:\Users\Администратор\Documents\Visual Studio 2012\Projects\Transp
 C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\TransportSystem\Logics\obj\Debug\Logics.csprojResolveAssemblyReference.cache
 C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\TransportSystem\Logics\obj\Debug\TransportSystem.Logics.dll
 C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\TransportSystem\Logics\obj\Debug\TransportSystem.Logics.pdb
+C:\work\Beride\TransportSystem\Logics\bin\Debug\TransportSystem.Logics.dll
+C:\work\Beride\TransportSystem\Logics\bin\Debug\TransportSystem.Logics.pdb
+C:\work\Beride\TransportSystem\Logics\bin\Debug\Microsoft.Practices.Unity.dll
+C:\work\Beride\TransportSystem\Logics\bin\Debug\TransportSystem.Domain.dll
+C:\work\Beride\TransportSystem\Logics\bin\Debug\Unity.Mvc3.dll
+C:\work\Beride\TransportSystem\Logics\bin\Debug\TransportSystem.Domain.pdb
+C:\work\Beride\TransportSystem\Logics\bin\Debug\Microsoft.Practices.Unity.xml
+C:\work\Beride\TransportSystem\Logics\obj\Debug\Logics.csprojResolveAssemblyReference.cache
+C:\work\Beride\TransportSystem\Logics\obj\Debug\TransportSystem.Logics.dll
+C:\work\Beride\TransportSystem\Logics\obj\Debug\TransportSystem.Logics.pdb

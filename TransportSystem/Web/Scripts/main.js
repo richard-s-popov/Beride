@@ -1,16 +1,4 @@
 ﻿$(document).ready(function () {
-    $('.input-text').bind('click', function () {
-        $(this).find('.input-location').focus();
-    });
-
-    $('.right-button.m-lr-10.passenger > font').click(function () {
-        $('#addPoints').hide(200);
-    });
-
-    $('.left-button.m-lr-10.driver > font').click(function () {
-        $('#addPoints').show(200);
-    });
-
     $.datepicker.regional['ru'] = { clearText: 'Очистить', clearStatus: '',
         minDate: "0",
         closeText: 'Закрыть', closeStatus: '',
@@ -38,15 +26,25 @@
         }
     };
 
-    $('#dateAt').datepicker($.datepicker.regional["ru"]);
-    $('#dateTo').datepicker($.datepicker.regional["ru"]);
+    $('.registration-link').click(function() {
+        setTimeout(function() {
+            $('#loginContainer').hide();
+            $('.message').hide();
+            $('#registrationContainer').show();
+            $.fancybox.resize();
+        }, 100);
+    });
 
-    bindAutocomplate();
+    $('.login-link').click(function() {
+        $('#loginContainer').show();
+        $('#registrationContainer').hide();
+        $.fancybox.resize();
+    });
 });
 
 
 function bindAutocomplate() {
-    $('.input-location').autocomplete({
+    $('.input.location').autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: document.GetPlacesUrl,
@@ -99,13 +97,5 @@ function bindAutocomplate() {
                 top: (top + 40) + "px"
             });
         }
-    });
-
-    $('#search').bind('click', function () {
-        window.location = document.SearchUrl
-            + '?startPointGid=' + $('#startPoint').attr('gid')
-            + '&endPointGid=' + $('#endPoint').attr('gid')
-            + '&dateAt=' + $('#dateAt').attr('date')
-            + '&dateTo' + $('#dateTo').attr('date');
     });
 }

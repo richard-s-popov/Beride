@@ -26,3 +26,17 @@ C:\Users\Администратор\Documents\Visual Studio 2012\Projects\Transp
 C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\TransportSystem\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
 C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\TransportSystem\Domain\obj\Debug\TransportSystem.Domain.dll
 C:\Users\Администратор\Documents\Visual Studio 2012\Projects\TransportSystem\TransportSystem\Domain\obj\Debug\TransportSystem.Domain.pdb
+C:\work\Beride\TransportSystem\Domain\bin\Debug\TransportSystem.Domain.dll
+C:\work\Beride\TransportSystem\Domain\bin\Debug\TransportSystem.Domain.pdb
+C:\work\Beride\TransportSystem\Domain\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\work\Beride\TransportSystem\Domain\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+C:\work\Beride\TransportSystem\Domain\bin\Debug\Microsoft.Practices.Unity.dll
+C:\work\Beride\TransportSystem\Domain\bin\Debug\Unity.Mvc3.dll
+C:\work\Beride\TransportSystem\Domain\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\work\Beride\TransportSystem\Domain\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\work\Beride\TransportSystem\Domain\bin\Debug\Microsoft.Practices.Unity.xml
+C:\work\Beride\TransportSystem\Domain\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+C:\work\Beride\TransportSystem\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
+C:\work\Beride\TransportSystem\Domain\obj\Debug\TransportSystem.Domain.dll
+C:\work\Beride\TransportSystem\Domain\obj\Debug\TransportSystem.Domain.pdb
+C:\work\Beride\TransportSystem\Domain\bin\Debug\TransportSystem.Domain.dll.config

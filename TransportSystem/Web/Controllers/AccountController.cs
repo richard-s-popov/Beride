@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TransportSystem.Area.Web.Models.Account;
+using TransportSystem.Domain;
+using TransportSystem.Logics.Infrastructure.Extensions;
 using TransportSystem.Logics.Interfaces.Membership;
 
 namespace TransportSystem.Area.Web.Controllers
@@ -11,9 +14,14 @@ namespace TransportSystem.Area.Web.Controllers
     {
         private readonly IUsersService _usersService;
 
-        public AccountController(IUsersService usersService)
+        private readonly IMembershipService _membershipService;
+
+        public AccountController(
+            IUsersService usersService,
+            IMembershipService membershipService)
         {
             _usersService = usersService;
+            _membershipService = membershipService;
         }
 
         public ActionResult Index()
@@ -21,24 +29,68 @@ namespace TransportSystem.Area.Web.Controllers
             return View();
         }
 
-        public ActionResult LoginForm()
+        [HttpPost]
+        public JsonResult Login(LogOnModelPoco model, string returnUrl)
         {
-            return this.View();
+            if (ModelState.IsValid)
+            {
+                if (_membershipService.AuthorizeUser(model.Login, model.Password))
+                {
+                    _membershipService.LoginUser(null, model.Login, model.Password, false);
+
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(false);
         }
 
-        public ActionResult Login()
+        public ActionResult Logout()
         {
-            return new EmptyResult();
+            _membershipService.LogoutCurrentUser(null);
+
+            return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Register()
+        [HttpPost]
+        public JsonResult RegistrationFinish(RegisterModelPoco model)
         {
-            return this.View();
+            if (ModelState.IsValid && !_usersService.EmailIsExist(model.Email))
+            {
+                var user = new User
+                    {
+                        Email = model.Email,
+                        Password = model.Password.Md5(),
+                        IsConfirmed = false,
+                        RegisterDate = DateTime.Now,
+                        LastVisitDate = DateTime.Now
+                    };
+
+                _usersService.Insert(user);
+
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult RegistrationFinish()
+        public JsonResult EmailIsExist(string email)
         {
-            return new EmptyResult();
+            var isExisting = _usersService.EmailIsExist(email);
+
+            return Json(new {result = isExisting}, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult PhoneIsBusy(string phone)
+        {
+            return Json(null);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _usersService.Dispose();
+            _membershipService.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

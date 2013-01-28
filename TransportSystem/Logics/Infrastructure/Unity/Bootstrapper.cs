@@ -1,9 +1,9 @@
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using TransportSystem.Logics.Impl.Membership;
-using TransportSystem.Logics.Impl.Trip;
+using TransportSystem.Logics.Impl.Trips;
 using TransportSystem.Logics.Interfaces.Membership;
-using TransportSystem.Logics.Interfaces.Trip;
+using TransportSystem.Logics.Interfaces.Trips;
 using Unity.Mvc3;
 
 namespace TransportSystem.Logics.Infrastructure.Unity
@@ -26,6 +26,7 @@ namespace TransportSystem.Logics.Infrastructure.Unity
             
             container.RegisterType<ITripsService, TripsService>();
             container.RegisterType<IUsersService, UsersService>();
+            container.RegisterType<IMembershipService, MembershipService>();
 
             return container;
         }
