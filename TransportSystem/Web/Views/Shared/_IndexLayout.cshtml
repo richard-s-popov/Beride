@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+п»ї<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;" />
@@ -27,18 +27,18 @@
             <div class="right-menu">
                 <a href="@Url.Action("CreateTrip", "Trips")" style="text-decoration: none;">
                     <div style="width:200px;margin-left:100px;float: right;margin:16px 10px">
-                        <div class="button">Создать поездку</div>
+                        <div class="button">РЎРѕР·РґР°С‚СЊ РїРѕРµР·РґРєСѓ</div>
                     </div>
                 </a>
                 @if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    <a id="signIn" href="#popup" class="header-signin" style="display: none;">Вход / Регистрация</a>
-                    <a id="logOut" class="header-signin" href="@Url.Action("Logout", "Account")">Выход</a>
+                    <a id="signIn" href="#popup" class="header-signin" style="display: none;">Р’С…РѕРґ / Р РµРіРёСЃС‚СЂР°С†РёСЏ</a>
+                    <a id="logOut" class="header-signin" href="@Url.Action("Logout", "Account")">Р’С‹С…РѕРґ</a>
                 }
                 else
                 {
-                    <a id="signIn" href="#popup" class="header-signin">Вход / Регистрация</a>
-                    <a id="logOut" class="header-signin" style="display: none;" href="@Url.Action("Logout", "Account")">Выход</a>   
+                    <a id="signIn" href="#popup" class="header-signin">Р’С…РѕРґ / Р РµРіРёСЃС‚СЂР°С†РёСЏ</a>
+                    <a id="logOut" class="header-signin" style="display: none;" href="@Url.Action("Logout", "Account")">Р’С‹С…РѕРґ</a>   
                 }
                 <div style="display:none">
 		            <div id="popup">
