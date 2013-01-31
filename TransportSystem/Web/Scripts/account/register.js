@@ -89,7 +89,7 @@
             if (!jVal.errors) {
                 $.ajax({
                     type: "POST",
-                    url: document.SubmitForm,
+                    url: document.SubmitRegisterForm,
                     data: {
                         Email: $('#Email', form).val(),
                         Phone: $('#Phone', form).val(),
