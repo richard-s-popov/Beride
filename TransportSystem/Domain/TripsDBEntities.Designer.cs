@@ -3281,7 +3281,8 @@ namespace TransportSystem.Domain
         /// <param name="endPointGid">Исходное значение свойства EndPointGid.</param>
         /// <param name="endPointFullName">Исходное значение свойства EndPointFullName.</param>
         /// <param name="endPointShortName">Исходное значение свойства EndPointShortName.</param>
-        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 creatorId, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName)
+        /// <param name="seats">Исходное значение свойства Seats.</param>
+        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 creatorId, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int32 seats)
         {
             GetTrips_Result getTrips_Result = new GetTrips_Result();
             getTrips_Result.Id = id;
@@ -3297,6 +3298,7 @@ namespace TransportSystem.Domain
             getTrips_Result.EndPointGid = endPointGid;
             getTrips_Result.EndPointFullName = endPointFullName;
             getTrips_Result.EndPointShortName = endPointShortName;
+            getTrips_Result.Seats = seats;
             return getTrips_Result;
         }
 
@@ -3663,6 +3665,30 @@ namespace TransportSystem.Domain
         private global::System.String _EndPointShortName;
         partial void OnEndPointShortNameChanging(global::System.String value);
         partial void OnEndPointShortNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Seats
+        {
+            get
+            {
+                return _Seats;
+            }
+            set
+            {
+                OnSeatsChanging(value);
+                ReportPropertyChanging("Seats");
+                _Seats = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Seats");
+                OnSeatsChanged();
+            }
+        }
+        private global::System.Int32 _Seats;
+        partial void OnSeatsChanging(global::System.Int32 value);
+        partial void OnSeatsChanged();
 
         #endregion
 

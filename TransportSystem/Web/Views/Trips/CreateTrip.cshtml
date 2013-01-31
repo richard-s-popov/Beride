@@ -16,7 +16,7 @@
     </span>
     <div id="slider1" class="csw">
         <div class="panelContainer">
-            <div class="panel">
+            <div class="panel first-step">
                 <div>
                     <div id="YMapsID" class="yandex-map">
                     </div>
@@ -26,6 +26,7 @@
                             @Html.Label("driver", "Я водитель")
                             @Html.RadioButton("type", "passenger", false, new { @id = "passenger" })
                             @Html.Label("passenger", "Я пассажир")
+                            <div class="error who-im">Выберите - кто вы</div>
                         </div>
                         <table id="createPoints">
                             <tr>
@@ -49,6 +50,7 @@
                                         <input id="endPoint" class="input location" type="text" placeholder="Куда" autocomplete="off" />
                                         <img src="~/Content/img/map_point.png" />
                                     </div>
+                                    <div class="error route-points">Укажите точки маршрута и выпадающего списка</div>
                                 </td>
                             </tr>
                         </table>
@@ -61,10 +63,13 @@
                                 </td>
                                 <td class="inputs">
                                     <div class="input-text">
-                                        <input id="dateAt" class="input" type="text" placeholder="Дата" autocomplete="off" />
+                                        <input id="dateAt" class="input date" type="text" placeholder="Дата" autocomplete="off" />
                                         <img src="~/Content/img/evolution-calendar_1052.png" />
                                     </div>
-                                    <a id="showDateTo" class="date-link">Промежуток дат</a>
+                                    <div>
+                                        <a id="showDateTo" class="date-link">Промежуток дат</a>
+                                        <div class="error dates">Выберите дату</div>
+                                    </div>
                                 </td>
                             </tr>
                             <tr id="dateToContainer">
@@ -72,24 +77,41 @@
                                 </td>
                                 <td class="inputs">
                                     <div class="input-text">
-                                        <input id="dateTo" class="input" type="text" placeholder="По какое" autocomplete="off" />
+                                        <input id="dateTo" class="input date" type="text" placeholder="По какое" autocomplete="off" />
                                         <img src="~/Content/img/evolution-calendar_1052.png" />
                                     </div>
                                     <a id="hideDateTo" class="date-link">Скрыть</a>
+                                    <div class="error dates">Выберите дату</div>
                                 </td>
                             </tr>
                         </table>
                         <a id="nextStep" class="simple-button">Далее</a>
+                        <div></div>
                     </div>
                 </div>
             </div>
-            <div class="panel">
-                <div class="routes">
-                    <table id="routesTable">
-                        <tr>
+            <div class="panel second-step">
+                <div class="create-trip-info-container">
+                    <div class="routes">
+                        <table id="routesTable">
+                            <tr>
                         
-                        </tr>
-                    </table>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="free-places">
+                        @Html.Label("Кол-во свободных мест", new { @id = "freePlaces" })
+                        @Html.Label("Кол-во необходимых мест", new { @id = "needPlaces" })
+                        <select name="" id="numberPlaces">
+                    	    <option value="">1</option>
+                    	    <option value="">2</option>
+                    	    <option value="">3</option>
+                    	    <option value="">4</option>
+                    	    <option value="">5</option>
+                        </select>
+                    </div>
+                    <a id="prevStep" class="simple-button">Назад</a>
+                    <a id="createThis" class="simple-button">Создать!</a>
                 </div>
             </div>
         </div>

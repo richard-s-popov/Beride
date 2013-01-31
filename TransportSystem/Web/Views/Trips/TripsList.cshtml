@@ -3,8 +3,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
-@using TransportSystem.Domain
 @model TransportSystem.Area.Web.Models.Trips.TripsListModel
+
+@section head
+{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/trip/trips.list.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slider/coda-slider.1.1.1.pack.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slider/jquery-easing-compatibility.1.2.pack.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slider/jquery-easing.1.2.pack.js")"></script>
+}
 
 <div class="content" style="margin-top:30px;">
     <table class="trips-list-table">
@@ -17,11 +24,38 @@
             <tr>
                 <td>
                     @trip.StartPointFullName<span> - </span>@trip.EndPointFullName
+                    <div>
+                        <span>
+                            Свободных мест
+                        </span>
+                        <span>
+                            @trip.SeatsNumber
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            Дата выезда
+                        </span>
+                        <span>
+                            @trip.Date.ToShortDateString()
+                        </span>
+                    </div>
                 </td>
                 <td>
-                    <button class="generic-button green">Присоединится</button>
+                    @if (trip.IsDriver)
+                    {
+                        <a class="simple-button" onclick="@(HttpContext.Current.User.Identity.IsAuthenticated ? "sendRequestToTrip(" + trip.TripId + ")" : "requestLogin()")">Присоединиться</a>
+                    }
+                    else
+                    {
+                        <a class="simple-button">Предложить</a>
+                    }
                 </td>
             </tr>
         }
     </table>
 </div>
+
+<script type="text/javascript">
+    document.SendRequestUrl = "@Url.Action("SendRequest","Requests")";
+</script>

@@ -9,6 +9,7 @@ using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
+using TransportSystem.Area.Web.Infrastructure.Attributes;
 using TransportSystem.Area.Web.Models.Trips;
 using TransportSystem.Domain;
 using TransportSystem.Logics.Interfaces.Membership;
@@ -41,8 +42,9 @@ namespace TransportSystem.Area.Web.Controllers
             return View();
         }
 
+        [Secure]
         [HttpPost]
-        public ActionResult SaveTrip(TripModel model, string points)
+        public ActionResult SaveTrip(TripModel model, string points, DateTime dateAt, DateTime? dateTo)
         {
             var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
             var trip = new Trip
@@ -50,23 +52,6 @@ namespace TransportSystem.Area.Web.Controllers
                     CreatorId = currentUser.Id, 
                     OwnerId = currentUser.Id
                 };
-
-            if (model.IsDriver)
-            {
-                if (model.FreeDriver != null && model.FreeDriver.Value)
-                {
-                    trip.TripType = TripType.FreeDriver;
-                }
-                else
-                {
-                    trip.TripType = TripType.Driver;
-                }
-            }
-            else
-            {
-                trip.TripType = TripType.Passenger;
-            }
-
 
             // Дисериализуем строку с массивом точек
             var js = new JavaScriptSerializer();
@@ -79,12 +64,16 @@ namespace TransportSystem.Area.Web.Controllers
                 myPoints.AddRange(from Dictionary<string, object> newFeature in deserializedPoints select new SJSonModel(newFeature));
             }
 
-            // генерируем всевозможные варианты маршрутов по этому пути точек
-            for (var i = 0; i < myPoints.Count - 1; i++)
+            if (model.IsDriver)
             {
-                for (var j = i + 1; j < myPoints.Count; j++)
+                trip.TripType = TripType.Driver;
+
+                // генерируем всевозможные варианты маршрутов по этому пути точек
+                for (var i = 0; i < myPoints.Count - 1; i++)
                 {
-                    var route = new TripRoute
+                    for (var j = i + 1; j < myPoints.Count; j++)
+                    {
+                        var route = new TripRoute
                         {
                             StartPointGid = myPoints[i].Gid,
                             StartPointFullName = myPoints[i].FullName,
@@ -94,10 +83,48 @@ namespace TransportSystem.Area.Web.Controllers
                             EndPointShortName = myPoints[j].ShortName
                         };
 
-                    trip.TripRoute.Add(route);
+                        trip.TripRoute.Add(route);
+
+                        if (dateTo == null)
+                        {
+                            route.TripDate.Add(new TripDate
+                                {
+                                    Date = dateAt,
+                                    IsDeleted = false
+                                });
+                        }
+                        else
+                        {
+                            for (var date = dateAt; date <= dateTo.Value; date = date.AddDays(1))
+                            {
+                                route.TripDate.Add(new TripDate
+                                    {
+                                        Date = date,
+                                        IsDeleted = false
+                                    });
+                            }
+                        }
+                    }
                 }
             }
+            else
+            {
+                trip.TripType = TripType.Passenger;
 
+                // генерируем маршрут только из точки А в точку В
+                trip.TripRoute.Add(new TripRoute
+                    {
+                        StartPointGid = myPoints.First().Gid,
+                        StartPointFullName = myPoints.First().FullName,
+                        StartPointShortName = myPoints.First().ShortName,
+                        EndPointGid = myPoints.Last().Gid,
+                        EndPointFullName = myPoints.Last().FullName,
+                        EndPointShortName = myPoints.Last().ShortName
+                    });
+            }
+
+            trip.Seats = model.SeatsNumber;
+            trip.FreeSeats = model.SeatsNumber;
             trip.TripStatus = 1;
             trip.IsDeleted = false;
 
@@ -137,20 +164,32 @@ namespace TransportSystem.Area.Web.Controllers
             return Json(googleResponse, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetTrips(string startPointGid, string endPointGid, DateTime dateAt, DateTime? dateTo)
+        public ActionResult GetTrips(string startPointGid, string endPointGid, DateTime dateAt, DateTime? dateTo, string search)
         {
-            var trips = _tripsService.GetTrips(startPointGid, endPointGid, dateAt, dateAt.AddDays(7), 1, 1);
+            if (dateTo == null)
+            {
+                dateTo = dateAt;
+            }
+
+            var trips = _tripsService.GetTrips(startPointGid, endPointGid, dateAt, dateTo.Value, search == "driver" ? 2 : 1, 1).ToList();
 
             var model = new TripsListModel();
 
-            foreach (var trip in trips)
+            if (trips.Any())
             {
-                var m = new TripModel
+                foreach (var trip in trips)
+                {
+                    var m = new TripModel
                     {
-                        StartPointFullName = trip.StartPointFullName, 
-                        EndPointFullName = trip.EndPointFullName
+                        TripId = trip.Id,
+                        StartPointFullName = trip.StartPointFullName,
+                        EndPointFullName = trip.EndPointFullName,
+                        IsDriver = trip.TripType == 2,
+                        Date = trip.Date,
+                        SeatsNumber = trip.Seats
                     };
-                model.trips.Insert(model.trips.Count, m);
+                    model.trips.Add(m);
+                }
             }
 
             return this.View("TripsList", model);

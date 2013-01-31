@@ -13,10 +13,12 @@
 		<div class="logo-text">Be<font class="lit">r</font>ide</div>
 		<div class="logo-description">Экономьте и зарабатывайте с нами</div>
 	</div>
-	<div style="height: 30px;">
-		<span class="left-button m-lr-10 driver"><input id="chbxDriver" type="radio" name="1" class="styled" /><font>Ищу водителя</font></span>
-		<span class="right-button m-lr-10 passenger"><input id="chbxPassenger" type="radio" name="1" class="styled" /><font>Ищу пассажира</font></span>
-	</div>
+	<div class="user-type">
+        @Html.RadioButton("search", "driver", true, new { @id = "searchDriver" })
+        @Html.Label("searchDriver", "Ищу водителя")
+        @Html.RadioButton("search", "passenger", false, new { @id = "searchPassenger" })
+        @Html.Label("searchPassenger", "Ищу пассажира")
+    </div>
 	<div class="input-text">
 		<input id="startPoint" class="input location" type="text" placeholder="Откуда" />
 		<img src="~/Content/img/map_point.png" />

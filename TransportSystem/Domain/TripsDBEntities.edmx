@@ -433,6 +433,7 @@
           <Property Type="String" Name="EndPointGid" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="EndPointFullName" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="EndPointShortName" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Seats" Nullable="false" />
         </ComplexType>
         <EntityType Name="Request">
           <Key>

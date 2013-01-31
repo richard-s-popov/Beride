@@ -89,6 +89,17 @@ h1, h2, h3, h4, h5, h6 {
 	/*background: #f0ffff;*/
 }
 
+.index-content .user-type {
+    height: 20px;
+    margin-left: 15px;
+}
+
+.index-content .user-type label {
+    font-size: 14px;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
 .input-text { 
 	height: 28px;
 	border: 1px solid #CCCCCC;
@@ -289,6 +300,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .header-content .left-menu {	
 	position:absolute;
+    font-size: 13px;
 	top:48px;
 	right:5px;
 	border:0px solid red;
@@ -326,8 +338,24 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 15px;
 }
 
+.content .create-trip-container .error {
+    font-size: 13px;
+    color: rgb(184, 33, 33);
+    margin-top: 3px;
+    margin-bottom: 3px;
+    display: none;
+}
+
+.content .create-trip-container .route-points {
+    margin-left: 10px;
+}
+
+.content .create-trip-container .dates {
+    float: right;
+    margin-right: 10px;
+}
+
 .content .create-trip-container .user-type {
-    height: 20px;
     margin-left: 110px;
 }
 
@@ -405,10 +433,29 @@ h1, h2, h3, h4, h5, h6 {
     width: 60px;
 }
 
+.content .create-trip-info-container .free-places label {
+    font-size: 13px;
+}
+
+.content .create-trip-info-container .free-places select {
+    width: 50px;
+}
+
 .content .create-trip-container #nextStep {
     float: right;
     margin-right: 50px;
-    margin-top: 0;
+    margin-top: 10px;
+}
+
+.content .create-trip-info-container #prevStep {
+    margin-right: 50px;
+    margin-top: 10px;
+    background: #3a74d5;
+}
+
+.content .create-trip-info-container #createThis {
+    margin-right: 50px;
+    margin-top: 10px;
 }
 
 .content .register-container {

@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -287,6 +288,7 @@
     <Content Include="Views\Trips\TripsList.cshtml" />
     <None Include="Properties\PublishProfiles\beride.pubxml" />
     <None Include="Properties\PublishProfiles\deploy.pubxml" />
+    <Content Include="Scripts\trip\trips.list.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

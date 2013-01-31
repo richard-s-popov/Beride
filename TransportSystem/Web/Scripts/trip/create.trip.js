@@ -2,6 +2,8 @@
 var oldRoute;
 var points = [];
 var betweenCount = 0;
+var firstStepForm;
+var secondStepForm;
 
 $(document).ready(function () {
     $(".user-type input[name='type']").change(function() {
@@ -12,11 +14,15 @@ $(document).ready(function () {
                 if (betweenCount < 5) {
                     $('#addPoints').show(200);
                 }
+                $('#freePlaces').show();
+                $('#needPlaces').hide();
                 $('div[input-type="between-point"]').show();
                 break;
             case "passenger":
                 $('#addPoints').hide(200);
                 $('div[input-type="between-point"]').hide();
+                $('#freePlaces').hide();
+                $('#needPlaces').show();
                 break;
             default:
         }
@@ -24,23 +30,43 @@ $(document).ready(function () {
     
     jQuery("div#slider1").codaSlider();
     
-    $('#nextStep').click(function () {
-        $('#stripNavR0').children('a').trigger('click');
-    });
-    
     $('#dateAt').datepicker($.datepicker.regional["ru"]);
     $('#dateTo').datepicker($.datepicker.regional["ru"]);
 
     $('#showDateTo').click(function() {
         $('#dateToContainer').show(200);
         $('#dateAt').attr('placeholder', 'С какого');
-        $(this).hide();
+        $(this).parent().hide();
     });
     
     $('#hideDateTo').click(function () {
         $('#dateToContainer').hide();
         $('#dateAt').attr('placeholder', 'Дата');
-        $('#showDateTo').show();
+        $('#showDateTo').parent().show();
+        $('.error.dates', firstStepForm).hide();
+    });
+
+    $('#nextStep').click(function () {
+        firstStepForm = $('.panel.first-step');
+        secondStepForm = $('.panel.second-step');
+
+        jVal.errors = false;
+        jVal.Type();
+        jVal.Route();
+        jVal.Dates();
+        jVal.NextStep();
+    });
+
+    $('#prevStep').click(function() {
+        $('#stripNavL0').children('a').trigger('click');
+    });
+
+    $('#createThis').click(function() {
+        jVal.errors = false;
+        jVal.Type();
+        jVal.Route();
+        jVal.Dates();
+        jVal.sendIt();
     });
 
     $('#addPoints').bind('click', function () {
@@ -170,9 +196,12 @@ function buildRoute() {
 
 function prepareDataToSent() {
     var tripData = {
-        isDriver: $('#chbxDriver').checked,
+        isDriver: $(".user-type input[name='type']:checked").val() == 'driver',
         isFreeDriver: false,
-        points: JSON.stringify(points)
+        points: JSON.stringify(points),
+        dateAt: $('#dateAt').attr('date2'),
+        dateTo: $('#dateTo').attr('date2'),
+        SeatsNumber: $('#numberPlaces :selected').text()
     };
 
     return tripData;
@@ -187,3 +216,98 @@ function sendData() {
         traditional: true
     });
 }
+
+var jVal = {
+    'Type': function () {
+        var error = $('.error.who-im', firstStepForm);
+        
+        if ($(".user-type input[name='type']:checked").length == 0) {
+            jVal.errors = true;
+            error.show();
+        } else {
+            error.hide();
+        }
+    },
+    'Route': function () {
+        var elements = $('.input.location', firstStepForm);
+        var error = $('.error.route-points', firstStepForm);
+        var thisError = false;
+
+        elements.each(function() {
+            if ($(this).val() == '' || $(this).attr('gid') == '' || $(this).attr('shortname') == '') {
+                jVal.errors = true;
+                thisError = true;
+                $(this).parent().css('border', '1px solid rgb(226, 79, 79)');
+            } else {
+                $(this).parent().css('border', '1px solid #CCCCCC');
+            }
+        });
+        
+        if (thisError) {
+            error.show();
+        } else {
+            error.hide();
+        }
+    },
+    'Dates': function () {
+        var elements = $('.input.date', firstStepForm);
+        var error = $('.error.dates', firstStepForm);
+        var thisError = false;
+
+        elements.each(function () {
+            if ($(this).val() == '' && $(this).is(':visible')) {
+                jVal.errors = true;
+                thisError = true;
+                error.html('Выберите дату');
+                $(this).parent().css('border', '1px solid rgb(226, 79, 79)');
+            } else if ($(this).datepicker("getDate") < (new Date()).setDate(new Date().getDate() - 1) && $(this).parent().parent().parent().is(':visible')) {
+                jVal.errors = true;
+                thisError = true;
+                error.html('Вы ввели прошедшую дату');
+                $(this).parent().css('border', '1px solid rgb(226, 79, 79)');
+            } else {
+                $(this).parent().css('border', '1px solid #CCCCCC');
+            }
+        });
+        
+        var dateAt = $('#dateAt', firstStepForm).datepicker("getDate");
+        var dateTo = $('#dateTo', firstStepForm).datepicker("getDate");
+        
+        if (dateAt >= dateTo
+            && $('#dateTo', firstStepForm).parent().parent().parent().is(':visible') && !thisError) {
+            
+            jVal.errors = true;
+            thisError = true;
+            error.html('Дата "С какого" больше даты "По какое"');
+            $('#dateAt', firstStepForm).parent().css('border', '1px solid rgb(226, 79, 79)');
+            $('#dateTo', firstStepForm).parent().css('border', '1px solid rgb(226, 79, 79)');
+        }
+
+        // Максимальный диапазон дат 7 дней
+        if (dateTo != null && dateAt < dateTo.setDate(dateTo.getDate() - 7)
+            && $('#dateTo', firstStepForm).parent().parent().parent().is(':visible') && !thisError) {
+ 
+            jVal.errors = true;
+            thisError = true;
+            error.html('Максимальный период 7 дней');
+            $('#dateAt', firstStepForm).parent().css('border', '1px solid rgb(226, 79, 79)');
+            $('#dateTo', firstStepForm).parent().css('border', '1px solid rgb(226, 79, 79)');
+        }
+        
+        if (thisError) {
+            error.show();
+        } else {
+            error.hide();
+        }
+    },
+    'NextStep': function () {
+        if (!jVal.errors) {
+            $('#stripNavR0').children('a').trigger('click');
+        }
+    },
+    'sendIt': function () {
+        if (!jVal.errors) {
+            sendData();
+        }
+    }
+};

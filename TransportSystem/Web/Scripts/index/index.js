@@ -27,7 +27,8 @@
     
     $('#search').bind('click', function () {
         window.location = document.SearchUrl
-            + '?startPointGid=' + $('#startPoint').attr('gid')
+            + '?search=' + $(".user-type input[name='search']:checked").val()
+            + '&startPointGid=' + $('#startPoint').attr('gid')
             + '&endPointGid=' + $('#endPoint').attr('gid')
             + '&dateAt=' + $('#dateAt').attr('date')
             + '&dateTo=' + $('#dateTo').attr('date');

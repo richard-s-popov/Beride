@@ -5,9 +5,7 @@ namespace TransportSystem.Area.Web.Models.Trips
 {
     public class TripModel
     {
-        public DateTime Date { get; set; }
-
-        public DateTime? ExpectedEndDate { get; set; }
+        public int TripId { get; set; }
 
         public bool IsDriver { get; set; }
 
@@ -18,6 +16,8 @@ namespace TransportSystem.Area.Web.Models.Trips
         public string StartPointFullName { get; set; }
 
         public string EndPointFullName { get; set; }
+
+        public DateTime Date { get; set; }
     }
 
     public class SJSonModel
