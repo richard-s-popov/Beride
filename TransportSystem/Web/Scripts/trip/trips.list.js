@@ -1,19 +1,29 @@
 ﻿$(document).ready(function () {
-
+    $('#showMyTripsPopup').fancybox({
+        showCloseButton: false,
+        scrolling: 'no',
+        onClosed: function () {
+        }
+    });
 });
 
-function sendRequestToTrip(tripId) {
-    $.ajax({
-        type: "POST",
-        url: document.SaveTripUrl,
-        data: prepareDataToSent(),
-        dataType: "json",
-        traditional: true
+function sendRequestToTrip(tripDateId, routeId) {
+    $.getJSON(document.IsAuthenticatedUrl, function(result) {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                url: document.SendRequestUrl,
+                data: {
+                    tripDateId: tripDateId,
+                    routeId: routeId
+                },
+                success: function (data) {
+                    $('#myTripsPopup').html(data);
+                    $('#showMyTripsPopup').click();
+                }
+            });
+        } else {
+            $('#signIn').click();
+        }
     });
-}
-
-function requestLogin() {
-    $('#loginContainer').show();
-    $('#registrationContainer').hide();
-    $.fancybox.resize();
 }

@@ -268,7 +268,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-rendering: optimizeSpeed;
 }
 .logo-text .lit {
-	color: #3399CC;
+	color: rgb(5, 149, 255);
 }
 .logo-description {
 	font-size: 18px;
@@ -499,17 +499,69 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .trips-list-table {
-    width: 100%;
-    border: 1px solid black;
+    width: 80%;
 }
 
 .trips-list-table tr:hover {
-    background-color: white;
+    background-color: rgb(238, 238, 238);
+}
+
+.trips-list-table .info {
+    width: 580px;
+}
+
+.trips-list-table tr {
+    border-bottom: 1px solid #bbbaba;
 }
 
 .trips-list-table td {
     height: 50px;
     padding: 10px;
+}
+
+.trips-list-table .primary-point {
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 16px;
+}
+
+.trips-list-table .secondary-point {
+    font-weight: bold;
+    color: #bbbaba;
+    font-family: Helvetica;
+    font-size: 16px;
+}
+
+.trips-list-table .date-departure {
+    font-weight: bold;
+    font-size: 19px;
+    color: #0faaf0;
+    line-height: 27px;
+    font-family: Helvetica;
+}
+
+.trips-list-table .free-seats-container {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.trips-list-table .free-seats {
+    font-family: Verdana;
+    font-size: 13px;
+}
+
+.trips-list-table .free-seats-number {
+    font-family: arial;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.trips-list-table .cost {
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 18px;
+    margin-left: 35px;
+    margin-top: 10px;
 }
 
 .footer {

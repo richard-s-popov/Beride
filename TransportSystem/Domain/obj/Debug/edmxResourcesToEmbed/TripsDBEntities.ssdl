@@ -36,8 +36,12 @@
       <End Role="Trip" EntitySet="Trip" />
       <End Role="Request" EntitySet="Request" />
     </AssociationSet>
-    <AssociationSet Name="FK_TripDate_TripDate" Association="TransportSystemModel.Store.FK_TripDate_TripDate">
-      <End Role="TripRoute" EntitySet="TripRoute" />
+    <AssociationSet Name="FK_Trip_User" Association="TransportSystemModel.Store.FK_Trip_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Trip" EntitySet="Trip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TripDate_Trip" Association="TransportSystemModel.Store.FK_TripDate_Trip">
+      <End Role="Trip" EntitySet="Trip" />
       <End Role="TripDate" EntitySet="TripDate" />
     </AssociationSet>
     <AssociationSet Name="FK_TripRoute_Trip" Association="TransportSystemModel.Store.FK_TripRoute_Trip">
@@ -55,10 +59,6 @@
     <AssociationSet Name="FK_Trips_TripType" Association="TransportSystemModel.Store.FK_Trips_TripType">
       <End Role="TripType" EntitySet="TripType" />
       <End Role="Trip" EntitySet="Trip" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_User" Association="TransportSystemModel.Store.FK_User_User">
-      <End Role="User" EntitySet="User" />
-      <End Role="User1" EntitySet="User" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Car">
@@ -113,14 +113,15 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="TripType" Type="int" Nullable="false" />
-    <Property Name="CreatorId" Type="int" Nullable="false" />
     <Property Name="OwnerId" Type="int" Nullable="false" />
     <Property Name="TripStatus" Type="int" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
     <Property Name="ExpectedEndDate" Type="datetime" />
     <Property Name="CarId" Type="int" />
-    <Property Name="Seats" Type="int" Nullable="false" />
-    <Property Name="FreeSeats" Type="int" Nullable="false" />
+    <Property Name="Seats" Type="int" />
+    <Property Name="FreeSeats" Type="int" />
+    <Property Name="MainRouteStr" Type="nvarchar" Nullable="false" MaxLength="2047" />
+    <Property Name="MainRouteShortStr" Type="nvarchar" Nullable="false" MaxLength="255" />
   </EntityType>
   <EntityType Name="TripDate">
     <Key>
@@ -128,7 +129,7 @@
     </Key>
     <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="RouteId" Type="bigint" Nullable="false" />
+    <Property Name="TripId" Type="int" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="TripRoute">
@@ -251,15 +252,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TripDate_TripDate">
-    <End Role="TripRoute" Type="TransportSystemModel.Store.TripRoute" Multiplicity="1" />
+  <Association Name="FK_Trip_User">
+    <End Role="User" Type="TransportSystemModel.Store.User" Multiplicity="1" />
+    <End Role="Trip" Type="TransportSystemModel.Store.Trip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trip">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TripDate_Trip">
+    <End Role="Trip" Type="TransportSystemModel.Store.Trip" Multiplicity="1" />
     <End Role="TripDate" Type="TransportSystemModel.Store.TripDate" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="TripRoute">
+      <Principal Role="Trip">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="TripDate">
-        <PropertyRef Name="RouteId" />
+        <PropertyRef Name="TripId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -311,18 +324,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_User">
-    <End Role="User" Type="TransportSystemModel.Store.User" Multiplicity="1" />
-    <End Role="User1" Type="TransportSystemModel.Store.User" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User1">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <Function Name="GetActiveTripsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Date" Type="datetime" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="TripType" Type="int" Mode="In" />
+  </Function>
   <Function Name="GetTrips" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="StartPointGid" Type="nvarchar" Mode="In" />
     <Parameter Name="EndPointGid" Type="nvarchar" Mode="In" />

@@ -37,6 +37,17 @@
                     <a id="logOut" class="header-signin" style="display: none;" href="@Url.Action("Logout", "Account")">Выход</a>   
                 }
             </div>
+            <div style="display:none">
+		            <div id="popup">
+		                <div id="registrationContainer" style="display: none;">
+		                    @Html.Partial("Partials/RegisterForm")
+		                </div>
+		                <div id="loginContainer">
+		                    @Html.Partial("Partials/LoginForm")
+		                </div>
+                        <div id="registerSuccess"></div>
+		            </div>
+	            </div>
             <div class="left-menu">
                 <span>Раз</span>
                 <span>Два</span>
@@ -47,10 +58,11 @@
         </div>
         @RenderBody()
         <div class="index-footer">
-            &copy; Beride.ru, Richard S.Popov
+            &copy; Beride.ru, <a href="http://vk.com/id158378937" target="_blank">Richard S.Popov</a>
         </div>
     </body>
     <script type="text/javascript">
         document.GetPlacesUrl = "@Url.Action("GetPlaces","Trips")";
+        document.IsAuthenticatedUrl = "@Url.Action("IsAuthenticated","Account")";
     </script>
 </html>

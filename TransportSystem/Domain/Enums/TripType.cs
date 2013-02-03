@@ -10,7 +10,5 @@ namespace TransportSystem.Domain.Enums
         public const int Passenger = 1;
 
         public const int Driver = 2;
-
-        public const int FreeDriver = 3;
     }
 }

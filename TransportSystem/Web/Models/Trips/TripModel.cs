@@ -7,6 +7,10 @@ namespace TransportSystem.Area.Web.Models.Trips
     {
         public int TripId { get; set; }
 
+        public long RouteId { get; set; }
+
+        public long TripDateId { get; set; }
+
         public bool IsDriver { get; set; }
 
         public bool? FreeDriver { get; set; }
@@ -15,9 +19,21 @@ namespace TransportSystem.Area.Web.Models.Trips
 
         public string StartPointFullName { get; set; }
 
+        public string StartPointShortName { get; set; }
+
         public string EndPointFullName { get; set; }
 
+        public string EndPointShortName { get; set; }
+
+        public IEnumerable<string> MainRouteStr { get; set; }
+
+        public IEnumerable<string> MainRouteShortStr { get; set; }
+
         public DateTime Date { get; set; }
+
+        public DateTime StartDateAt { get; set; }
+
+        public DateTime StartDateTo { get; set; }
     }
 
     public class SJSonModel

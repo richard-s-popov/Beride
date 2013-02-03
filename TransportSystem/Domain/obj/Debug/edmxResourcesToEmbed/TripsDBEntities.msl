@@ -6,7 +6,6 @@
         <ComplexTypeMapping TypeName="TransportSystemModel.GetTrips_Result">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="TripType" ColumnName="TripType" />
-          <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
           <ScalarProperty Name="TripStatus" ColumnName="TripStatus" />
           <ScalarProperty Name="Date" ColumnName="Date" />
@@ -38,6 +37,8 @@
     <EntitySetMapping Name="Trip">
       <EntityTypeMapping TypeName="TransportSystemModel.Trip">
         <MappingFragment StoreEntitySet="Trip">
+          <ScalarProperty Name="MainRouteShortStr" ColumnName="MainRouteShortStr" />
+          <ScalarProperty Name="MainRouteStr" ColumnName="MainRouteStr" />
           <ScalarProperty Name="FreeSeats" ColumnName="FreeSeats" />
           <ScalarProperty Name="Seats" ColumnName="Seats" />
           <ScalarProperty Name="CarId" ColumnName="CarId" />
@@ -45,7 +46,6 @@
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="TripStatus" ColumnName="TripStatus" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
-          <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
           <ScalarProperty Name="TripType" ColumnName="TripType" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -54,23 +54,9 @@
     <EntitySetMapping Name="TripDate">
       <EntityTypeMapping TypeName="TransportSystemModel.TripDate">
         <MappingFragment StoreEntitySet="TripDate">
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-          <ScalarProperty Name="RouteId" ColumnName="RouteId" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TripRoute">
-      <EntityTypeMapping TypeName="TransportSystemModel.TripRoute">
-        <MappingFragment StoreEntitySet="TripRoute">
-          <ScalarProperty Name="EndPointShortName" ColumnName="EndPointShortName" />
-          <ScalarProperty Name="EndPointFullName" ColumnName="EndPointFullName" />
-          <ScalarProperty Name="EndPointGid" ColumnName="EndPointGid" />
-          <ScalarProperty Name="StartPointShortName" ColumnName="StartPointShortName" />
-          <ScalarProperty Name="StartPointFullName" ColumnName="StartPointFullName" />
-          <ScalarProperty Name="StartPointGid" ColumnName="StartPointGid" />
           <ScalarProperty Name="TripId" ColumnName="TripId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -147,6 +133,36 @@
       <EntityTypeMapping TypeName="TransportSystemModel.TripType">
         <MappingFragment StoreEntitySet="TripType">
           <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetActiveTripsByUser" FunctionName="TransportSystemModel.Store.GetActiveTripsByUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TransportSystemModel.GetActiveTripsByUser_Result">
+          <ScalarProperty Name="TripId" ColumnName="TripId" />
+          <ScalarProperty Name="TripType" ColumnName="TripType" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="TripStatus" ColumnName="TripStatus" />
+          <ScalarProperty Name="ExpectedEndDate" ColumnName="ExpectedEndDate" />
+          <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="Seats" ColumnName="Seats" />
+          <ScalarProperty Name="MainRouteStr" ColumnName="MainRouteStr" />
+          <ScalarProperty Name="MainRouteShortStr" ColumnName="MainRouteShortStr" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="TripRoute">
+      <EntityTypeMapping TypeName="TransportSystemModel.TripRoute">
+        <MappingFragment StoreEntitySet="TripRoute">
+          <ScalarProperty Name="EndPointShortName" ColumnName="EndPointShortName" />
+          <ScalarProperty Name="EndPointFullName" ColumnName="EndPointFullName" />
+          <ScalarProperty Name="EndPointGid" ColumnName="EndPointGid" />
+          <ScalarProperty Name="StartPointShortName" ColumnName="StartPointShortName" />
+          <ScalarProperty Name="StartPointFullName" ColumnName="StartPointFullName" />
+          <ScalarProperty Name="StartPointGid" ColumnName="StartPointGid" />
+          <ScalarProperty Name="TripId" ColumnName="TripId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

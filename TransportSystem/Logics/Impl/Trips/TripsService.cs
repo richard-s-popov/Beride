@@ -19,7 +19,7 @@ namespace TransportSystem.Logics.Impl.Trips
    
         public Trip GetById(long id)
         {
-            throw new NotImplementedException();
+            return db.Trip.FirstOrDefault(x => x.Id == id);
         }
 
         public void Delete(Trip entity)
@@ -35,6 +35,28 @@ namespace TransportSystem.Logics.Impl.Trips
         public void AddRoute(TripRoute entity)
         {
             db.AddToTripRoute(entity);
+        }
+
+        public TripRoute GetRouteById(long id)
+        {
+            return db.TripRoute
+                .Include("Trip")
+                .FirstOrDefault(x => x.Id == id);
+        }
+
+        public TripDate GetTripDateById(long id)
+        {
+            return db.TripDate.FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<Trip> GetTripsByUserId(int userId)
+        {
+            return db.Trip.Where(x => x.OwnerId == userId);
+        }
+
+        public IEnumerable<GetActiveTripsByUser_Result> GetActiveTripsByUser(int userId, DateTime date, int type)
+        {
+            return db.GetActiveTripsByUser(date, userId, type);
         }
 
         public IEnumerable<GetTrips_Result> GetTrips(string startPointGid, string endPointGid, DateTime dateAt, DateTime dateTo, int tripType, int tripStatus)

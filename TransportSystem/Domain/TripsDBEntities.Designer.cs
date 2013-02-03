@@ -19,20 +19,18 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region Метаданные связи EDM
 
-[assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_TripRoute_Trip", "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.Trip), "TripRoute", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.TripRoute), true)]
-[assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_TripDate_TripDate", "TripRoute", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.TripRoute), "TripDate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.TripDate), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Request_Trip", "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.Trip), "Request", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Request), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Cars_CarBrands", "CarBrand", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.CarBrand), "Car", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Car), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Cars_CarColors", "CarColor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.CarColor), "Car", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Car), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Cars_CarModels", "CarModel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.CarModel), "Car", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Car), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Trips_Cars", "Car", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TransportSystem.Domain.Car), "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Trip), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_CarModels_CarBrands", "CarBrand", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.CarBrand), "CarModel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.CarModel), true)]
-[assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Trips_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.User), "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Trip), true)]
-[assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Trips_Users1", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.User), "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Trip), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Request_Trip1", "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.Trip), "Request", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Request), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Trips_TripStatus", "TripStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.TripStatus), "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Trip), true)]
 [assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Trips_TripType", "TripType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.TripType), "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Trip), true)]
-[assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_User_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.User), "User1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TransportSystem.Domain.User), true)]
+[assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_TripDate_Trip", "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.Trip), "TripDate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.TripDate), true)]
+[assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_Trip_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.User), "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.Trip), true)]
+[assembly: EdmRelationshipAttribute("TransportSystemModel", "FK_TripRoute_Trip", "Trip", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TransportSystem.Domain.Trip), "TripRoute", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TransportSystem.Domain.TripRoute), true)]
 
 #endregion
 
@@ -131,22 +129,6 @@ namespace TransportSystem.Domain
             }
         }
         private ObjectSet<TripDate> _TripDate;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        public ObjectSet<TripRoute> TripRoute
-        {
-            get
-            {
-                if ((_TripRoute == null))
-                {
-                    _TripRoute = base.CreateObjectSet<TripRoute>("TripRoute");
-                }
-                return _TripRoute;
-            }
-        }
-        private ObjectSet<TripRoute> _TripRoute;
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -259,6 +241,22 @@ namespace TransportSystem.Domain
             }
         }
         private ObjectSet<TripType> _TripType;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<TripRoute> TripRoute
+        {
+            get
+            {
+                if ((_TripRoute == null))
+                {
+                    _TripRoute = base.CreateObjectSet<TripRoute>("TripRoute");
+                }
+                return _TripRoute;
+            }
+        }
+        private ObjectSet<TripRoute> _TripRoute;
 
         #endregion
 
@@ -286,14 +284,6 @@ namespace TransportSystem.Domain
         public void AddToTripDate(TripDate tripDate)
         {
             base.AddObject("TripDate", tripDate);
-        }
-    
-        /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet TripRoute. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToTripRoute(TripRoute tripRoute)
-        {
-            base.AddObject("TripRoute", tripRoute);
         }
     
         /// <summary>
@@ -350,6 +340,14 @@ namespace TransportSystem.Domain
         public void AddToTripType(TripType tripType)
         {
             base.AddObject("TripType", tripType);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet TripRoute. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToTripRoute(TripRoute tripRoute)
+        {
+            base.AddObject("TripRoute", tripRoute);
         }
 
         #endregion
@@ -428,6 +426,47 @@ namespace TransportSystem.Domain
             }
     
             return base.ExecuteFunction<GetTrips_Result>("GetTrips", startPointGidParameter, endPointGidParameter, dateAtParameter, dateToParameter, tripTypeParameter, tripStatusParameter);
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        /// <param name="date">Нет доступной документации по метаданным.</param>
+        /// <param name="userId">Нет доступной документации по метаданным.</param>
+        /// <param name="tripType">Нет доступной документации по метаданным.</param>
+        public ObjectResult<GetActiveTripsByUser_Result> GetActiveTripsByUser(Nullable<global::System.DateTime> date, Nullable<global::System.Int32> userId, Nullable<global::System.Int32> tripType)
+        {
+            ObjectParameter dateParameter;
+            if (date.HasValue)
+            {
+                dateParameter = new ObjectParameter("Date", date);
+            }
+            else
+            {
+                dateParameter = new ObjectParameter("Date", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter userIdParameter;
+            if (userId.HasValue)
+            {
+                userIdParameter = new ObjectParameter("UserId", userId);
+            }
+            else
+            {
+                userIdParameter = new ObjectParameter("UserId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter tripTypeParameter;
+            if (tripType.HasValue)
+            {
+                tripTypeParameter = new ObjectParameter("TripType", tripType);
+            }
+            else
+            {
+                tripTypeParameter = new ObjectParameter("TripType", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<GetActiveTripsByUser_Result>("GetActiveTripsByUser", dateParameter, userIdParameter, tripTypeParameter);
         }
 
         #endregion
@@ -1510,23 +1549,21 @@ namespace TransportSystem.Domain
         /// </summary>
         /// <param name="id">Исходное значение свойства Id.</param>
         /// <param name="tripType">Исходное значение свойства TripType.</param>
-        /// <param name="creatorId">Исходное значение свойства CreatorId.</param>
         /// <param name="ownerId">Исходное значение свойства OwnerId.</param>
         /// <param name="tripStatus">Исходное значение свойства TripStatus.</param>
         /// <param name="isDeleted">Исходное значение свойства IsDeleted.</param>
-        /// <param name="seats">Исходное значение свойства Seats.</param>
-        /// <param name="freeSeats">Исходное значение свойства FreeSeats.</param>
-        public static Trip CreateTrip(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 creatorId, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.Boolean isDeleted, global::System.Int32 seats, global::System.Int32 freeSeats)
+        /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
+        /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
+        public static Trip CreateTrip(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.Boolean isDeleted, global::System.String mainRouteStr, global::System.String mainRouteShortStr)
         {
             Trip trip = new Trip();
             trip.Id = id;
             trip.TripType = tripType;
-            trip.CreatorId = creatorId;
             trip.OwnerId = ownerId;
             trip.TripStatus = tripStatus;
             trip.IsDeleted = isDeleted;
-            trip.Seats = seats;
-            trip.FreeSeats = freeSeats;
+            trip.MainRouteStr = mainRouteStr;
+            trip.MainRouteShortStr = mainRouteShortStr;
             return trip;
         }
 
@@ -1584,30 +1621,6 @@ namespace TransportSystem.Domain
         private global::System.Int32 _TripType;
         partial void OnTripTypeChanging(global::System.Int32 value);
         partial void OnTripTypeChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CreatorId
-        {
-            get
-            {
-                return _CreatorId;
-            }
-            set
-            {
-                OnCreatorIdChanging(value);
-                ReportPropertyChanging("CreatorId");
-                _CreatorId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CreatorId");
-                OnCreatorIdChanged();
-            }
-        }
-        private global::System.Int32 _CreatorId;
-        partial void OnCreatorIdChanging(global::System.Int32 value);
-        partial void OnCreatorIdChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1732,9 +1745,9 @@ namespace TransportSystem.Domain
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 Seats
+        public Nullable<global::System.Int32> Seats
         {
             get
             {
@@ -1749,16 +1762,16 @@ namespace TransportSystem.Domain
                 OnSeatsChanged();
             }
         }
-        private global::System.Int32 _Seats;
-        partial void OnSeatsChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _Seats;
+        partial void OnSeatsChanging(Nullable<global::System.Int32> value);
         partial void OnSeatsChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 FreeSeats
+        public Nullable<global::System.Int32> FreeSeats
         {
             get
             {
@@ -1773,36 +1786,62 @@ namespace TransportSystem.Domain
                 OnFreeSeatsChanged();
             }
         }
-        private global::System.Int32 _FreeSeats;
-        partial void OnFreeSeatsChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _FreeSeats;
+        partial void OnFreeSeatsChanging(Nullable<global::System.Int32> value);
         partial void OnFreeSeatsChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteStr
+        {
+            get
+            {
+                return _MainRouteStr;
+            }
+            set
+            {
+                OnMainRouteStrChanging(value);
+                ReportPropertyChanging("MainRouteStr");
+                _MainRouteStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteStr");
+                OnMainRouteStrChanged();
+            }
+        }
+        private global::System.String _MainRouteStr;
+        partial void OnMainRouteStrChanging(global::System.String value);
+        partial void OnMainRouteStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteShortStr
+        {
+            get
+            {
+                return _MainRouteShortStr;
+            }
+            set
+            {
+                OnMainRouteShortStrChanging(value);
+                ReportPropertyChanging("MainRouteShortStr");
+                _MainRouteShortStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteShortStr");
+                OnMainRouteShortStrChanged();
+            }
+        }
+        private global::System.String _MainRouteShortStr;
+        partial void OnMainRouteShortStrChanging(global::System.String value);
+        partial void OnMainRouteShortStrChanged();
 
         #endregion
 
     
         #region Свойства навигации
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_TripRoute_Trip", "TripRoute")]
-        public EntityCollection<TripRoute> TripRoute
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TripRoute>("TransportSystemModel.FK_TripRoute_Trip", "TripRoute");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TripRoute>("TransportSystemModel.FK_TripRoute_Trip", "TripRoute", value);
-                }
-            }
-        }
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1860,44 +1899,6 @@ namespace TransportSystem.Domain
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Car>("TransportSystemModel.FK_Trips_Cars", "Car", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_Trips_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_Trips_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_Trips_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_Trips_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("TransportSystemModel.FK_Trips_Users", "User", value);
                 }
             }
         }
@@ -1999,6 +2000,88 @@ namespace TransportSystem.Domain
                 }
             }
         }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_TripDate_Trip", "TripDate")]
+        public EntityCollection<TripDate> TripDate
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TripDate>("TransportSystemModel.FK_TripDate_Trip", "TripDate");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TripDate>("TransportSystemModel.FK_TripDate_Trip", "TripDate", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_Trip_User", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_Trip_User", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_Trip_User", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_Trip_User", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("TransportSystemModel.FK_Trip_User", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_TripRoute_Trip", "TripRoute")]
+        public EntityCollection<TripRoute> TripRoute
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TripRoute>("TransportSystemModel.FK_TripRoute_Trip", "TripRoute");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TripRoute>("TransportSystemModel.FK_TripRoute_Trip", "TripRoute", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -2019,15 +2102,15 @@ namespace TransportSystem.Domain
         /// </summary>
         /// <param name="id">Исходное значение свойства Id.</param>
         /// <param name="date">Исходное значение свойства Date.</param>
-        /// <param name="routeId">Исходное значение свойства RouteId.</param>
         /// <param name="isDeleted">Исходное значение свойства IsDeleted.</param>
-        public static TripDate CreateTripDate(global::System.Int64 id, global::System.DateTime date, global::System.Int64 routeId, global::System.Boolean isDeleted)
+        /// <param name="tripId">Исходное значение свойства TripId.</param>
+        public static TripDate CreateTripDate(global::System.Int64 id, global::System.DateTime date, global::System.Boolean isDeleted, global::System.Int32 tripId)
         {
             TripDate tripDate = new TripDate();
             tripDate.Id = id;
             tripDate.Date = date;
-            tripDate.RouteId = routeId;
             tripDate.IsDeleted = isDeleted;
+            tripDate.TripId = tripId;
             return tripDate;
         }
 
@@ -2091,30 +2174,6 @@ namespace TransportSystem.Domain
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int64 RouteId
-        {
-            get
-            {
-                return _RouteId;
-            }
-            set
-            {
-                OnRouteIdChanging(value);
-                ReportPropertyChanging("RouteId");
-                _RouteId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("RouteId");
-                OnRouteIdChanged();
-            }
-        }
-        private global::System.Int64 _RouteId;
-        partial void OnRouteIdChanging(global::System.Int64 value);
-        partial void OnRouteIdChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Boolean IsDeleted
         {
             get
@@ -2133,6 +2192,30 @@ namespace TransportSystem.Domain
         private global::System.Boolean _IsDeleted;
         partial void OnIsDeletedChanging(global::System.Boolean value);
         partial void OnIsDeletedChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripId
+        {
+            get
+            {
+                return _TripId;
+            }
+            set
+            {
+                OnTripIdChanging(value);
+                ReportPropertyChanging("TripId");
+                _TripId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripId");
+                OnTripIdChanged();
+            }
+        }
+        private global::System.Int32 _TripId;
+        partial void OnTripIdChanging(global::System.Int32 value);
+        partial void OnTripIdChanged();
 
         #endregion
 
@@ -2145,16 +2228,16 @@ namespace TransportSystem.Domain
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_TripDate_TripDate", "TripRoute")]
-        public TripRoute TripRoute
+        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_TripDate_Trip", "Trip")]
+        public Trip Trip
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TripRoute>("TransportSystemModel.FK_TripDate_TripDate", "TripRoute").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Trip>("TransportSystemModel.FK_TripDate_Trip", "Trip").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TripRoute>("TransportSystemModel.FK_TripDate_TripDate", "TripRoute").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Trip>("TransportSystemModel.FK_TripDate_Trip", "Trip").Value = value;
             }
         }
         /// <summary>
@@ -2162,17 +2245,17 @@ namespace TransportSystem.Domain
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<TripRoute> TripRouteReference
+        public EntityReference<Trip> TripReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TripRoute>("TransportSystemModel.FK_TripDate_TripDate", "TripRoute");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Trip>("TransportSystemModel.FK_TripDate_Trip", "Trip");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TripRoute>("TransportSystemModel.FK_TripDate_TripDate", "TripRoute", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Trip>("TransportSystemModel.FK_TripDate_Trip", "Trip", value);
                 }
             }
         }
@@ -2202,7 +2285,7 @@ namespace TransportSystem.Domain
         /// <param name="endPointGid">Исходное значение свойства EndPointGid.</param>
         /// <param name="endPointFullName">Исходное значение свойства EndPointFullName.</param>
         /// <param name="endPointShortName">Исходное значение свойства EndPointShortName.</param>
-        public static TripRoute CreateTripRoute(global::System.Int64 id, global::System.Int32 tripId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName)
+        public static TripRoute CreateTripRoute(global::System.Int32 id, global::System.Int32 tripId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName)
         {
             TripRoute tripRoute = new TripRoute();
             tripRoute.Id = id;
@@ -2225,7 +2308,7 @@ namespace TransportSystem.Domain
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int64 Id
+        public global::System.Int32 Id
         {
             get
             {
@@ -2243,8 +2326,8 @@ namespace TransportSystem.Domain
                 }
             }
         }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
     
         /// <summary>
@@ -2454,28 +2537,6 @@ namespace TransportSystem.Domain
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Trip>("TransportSystemModel.FK_TripRoute_Trip", "Trip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_TripDate_TripDate", "TripDate")]
-        public EntityCollection<TripDate> TripDate
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TripDate>("TransportSystemModel.FK_TripDate_TripDate", "TripDate");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TripDate>("TransportSystemModel.FK_TripDate_TripDate", "TripDate", value);
                 }
             }
         }
@@ -3133,116 +3194,18 @@ namespace TransportSystem.Domain
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_Trips_Users", "Trip")]
+        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_Trip_User", "Trip")]
         public EntityCollection<Trip> Trip
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Trip>("TransportSystemModel.FK_Trips_Users", "Trip");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Trip>("TransportSystemModel.FK_Trip_User", "Trip");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Trip>("TransportSystemModel.FK_Trips_Users", "Trip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_Trips_Users1", "Trip")]
-        public EntityCollection<Trip> Trip1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Trip>("TransportSystemModel.FK_Trips_Users1", "Trip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Trip>("TransportSystemModel.FK_Trips_Users1", "Trip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_User_User", "User1")]
-        public User User1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_User_User", "User1").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_User_User", "User1").Value = value;
-            }
-        }
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> User1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_User_User", "User1");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("TransportSystemModel.FK_User_User", "User1", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TransportSystemModel", "FK_User_User", "User")]
-        public User User2
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_User_User", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_User_User", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> User2Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TransportSystemModel.FK_User_User", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("TransportSystemModel.FK_User_User", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Trip>("TransportSystemModel.FK_Trip_User", "Trip", value);
                 }
             }
         }
@@ -3254,6 +3217,287 @@ namespace TransportSystem.Domain
     #endregion
 
     #region ComplexTypes
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="TransportSystemModel", Name="GetActiveTripsByUser_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class GetActiveTripsByUser_Result : ComplexObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта GetActiveTripsByUser_Result.
+        /// </summary>
+        /// <param name="tripId">Исходное значение свойства TripId.</param>
+        /// <param name="tripType">Исходное значение свойства TripType.</param>
+        /// <param name="ownerId">Исходное значение свойства OwnerId.</param>
+        /// <param name="tripStatus">Исходное значение свойства TripStatus.</param>
+        /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
+        /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
+        /// <param name="date">Исходное значение свойства Date.</param>
+        public static GetActiveTripsByUser_Result CreateGetActiveTripsByUser_Result(global::System.Int32 tripId, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.DateTime date)
+        {
+            GetActiveTripsByUser_Result getActiveTripsByUser_Result = new GetActiveTripsByUser_Result();
+            getActiveTripsByUser_Result.TripId = tripId;
+            getActiveTripsByUser_Result.TripType = tripType;
+            getActiveTripsByUser_Result.OwnerId = ownerId;
+            getActiveTripsByUser_Result.TripStatus = tripStatus;
+            getActiveTripsByUser_Result.MainRouteStr = mainRouteStr;
+            getActiveTripsByUser_Result.MainRouteShortStr = mainRouteShortStr;
+            getActiveTripsByUser_Result.Date = date;
+            return getActiveTripsByUser_Result;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripId
+        {
+            get
+            {
+                return _TripId;
+            }
+            set
+            {
+                OnTripIdChanging(value);
+                ReportPropertyChanging("TripId");
+                _TripId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripId");
+                OnTripIdChanged();
+            }
+        }
+        private global::System.Int32 _TripId;
+        partial void OnTripIdChanging(global::System.Int32 value);
+        partial void OnTripIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripType
+        {
+            get
+            {
+                return _TripType;
+            }
+            set
+            {
+                OnTripTypeChanging(value);
+                ReportPropertyChanging("TripType");
+                _TripType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripType");
+                OnTripTypeChanged();
+            }
+        }
+        private global::System.Int32 _TripType;
+        partial void OnTripTypeChanging(global::System.Int32 value);
+        partial void OnTripTypeChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OwnerId
+        {
+            get
+            {
+                return _OwnerId;
+            }
+            set
+            {
+                OnOwnerIdChanging(value);
+                ReportPropertyChanging("OwnerId");
+                _OwnerId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerId");
+                OnOwnerIdChanged();
+            }
+        }
+        private global::System.Int32 _OwnerId;
+        partial void OnOwnerIdChanging(global::System.Int32 value);
+        partial void OnOwnerIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripStatus
+        {
+            get
+            {
+                return _TripStatus;
+            }
+            set
+            {
+                OnTripStatusChanging(value);
+                ReportPropertyChanging("TripStatus");
+                _TripStatus = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripStatus");
+                OnTripStatusChanged();
+            }
+        }
+        private global::System.Int32 _TripStatus;
+        partial void OnTripStatusChanging(global::System.Int32 value);
+        partial void OnTripStatusChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> ExpectedEndDate
+        {
+            get
+            {
+                return _ExpectedEndDate;
+            }
+            set
+            {
+                OnExpectedEndDateChanging(value);
+                ReportPropertyChanging("ExpectedEndDate");
+                _ExpectedEndDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ExpectedEndDate");
+                OnExpectedEndDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _ExpectedEndDate;
+        partial void OnExpectedEndDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnExpectedEndDateChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CarId
+        {
+            get
+            {
+                return _CarId;
+            }
+            set
+            {
+                OnCarIdChanging(value);
+                ReportPropertyChanging("CarId");
+                _CarId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CarId");
+                OnCarIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CarId;
+        partial void OnCarIdChanging(Nullable<global::System.Int32> value);
+        partial void OnCarIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Seats
+        {
+            get
+            {
+                return _Seats;
+            }
+            set
+            {
+                OnSeatsChanging(value);
+                ReportPropertyChanging("Seats");
+                _Seats = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Seats");
+                OnSeatsChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Seats;
+        partial void OnSeatsChanging(Nullable<global::System.Int32> value);
+        partial void OnSeatsChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteStr
+        {
+            get
+            {
+                return _MainRouteStr;
+            }
+            set
+            {
+                OnMainRouteStrChanging(value);
+                ReportPropertyChanging("MainRouteStr");
+                _MainRouteStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteStr");
+                OnMainRouteStrChanged();
+            }
+        }
+        private global::System.String _MainRouteStr;
+        partial void OnMainRouteStrChanging(global::System.String value);
+        partial void OnMainRouteStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteShortStr
+        {
+            get
+            {
+                return _MainRouteShortStr;
+            }
+            set
+            {
+                OnMainRouteShortStrChanging(value);
+                ReportPropertyChanging("MainRouteShortStr");
+                _MainRouteShortStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteShortStr");
+                OnMainRouteShortStrChanged();
+            }
+        }
+        private global::System.String _MainRouteShortStr;
+        partial void OnMainRouteShortStrChanging(global::System.String value);
+        partial void OnMainRouteShortStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
+
+        #endregion
+
+    }
     
     /// <summary>
     /// Нет доступной документации по метаданным.
@@ -3270,7 +3514,6 @@ namespace TransportSystem.Domain
         /// </summary>
         /// <param name="id">Исходное значение свойства Id.</param>
         /// <param name="tripType">Исходное значение свойства TripType.</param>
-        /// <param name="creatorId">Исходное значение свойства CreatorId.</param>
         /// <param name="ownerId">Исходное значение свойства OwnerId.</param>
         /// <param name="tripStatus">Исходное значение свойства TripStatus.</param>
         /// <param name="date">Исходное значение свойства Date.</param>
@@ -3282,12 +3525,14 @@ namespace TransportSystem.Domain
         /// <param name="endPointFullName">Исходное значение свойства EndPointFullName.</param>
         /// <param name="endPointShortName">Исходное значение свойства EndPointShortName.</param>
         /// <param name="seats">Исходное значение свойства Seats.</param>
-        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 creatorId, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int32 seats)
+        /// <param name="tripDateId">Исходное значение свойства TripDateId.</param>
+        /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
+        /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
+        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int32 seats, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr)
         {
             GetTrips_Result getTrips_Result = new GetTrips_Result();
             getTrips_Result.Id = id;
             getTrips_Result.TripType = tripType;
-            getTrips_Result.CreatorId = creatorId;
             getTrips_Result.OwnerId = ownerId;
             getTrips_Result.TripStatus = tripStatus;
             getTrips_Result.Date = date;
@@ -3299,6 +3544,9 @@ namespace TransportSystem.Domain
             getTrips_Result.EndPointFullName = endPointFullName;
             getTrips_Result.EndPointShortName = endPointShortName;
             getTrips_Result.Seats = seats;
+            getTrips_Result.TripDateId = tripDateId;
+            getTrips_Result.MainRouteStr = mainRouteStr;
+            getTrips_Result.MainRouteShortStr = mainRouteShortStr;
             return getTrips_Result;
         }
 
@@ -3353,30 +3601,6 @@ namespace TransportSystem.Domain
         private global::System.Int32 _TripType;
         partial void OnTripTypeChanging(global::System.Int32 value);
         partial void OnTripTypeChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CreatorId
-        {
-            get
-            {
-                return _CreatorId;
-            }
-            set
-            {
-                OnCreatorIdChanging(value);
-                ReportPropertyChanging("CreatorId");
-                _CreatorId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CreatorId");
-                OnCreatorIdChanged();
-            }
-        }
-        private global::System.Int32 _CreatorId;
-        partial void OnCreatorIdChanging(global::System.Int32 value);
-        partial void OnCreatorIdChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -3689,6 +3913,78 @@ namespace TransportSystem.Domain
         private global::System.Int32 _Seats;
         partial void OnSeatsChanging(global::System.Int32 value);
         partial void OnSeatsChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 TripDateId
+        {
+            get
+            {
+                return _TripDateId;
+            }
+            set
+            {
+                OnTripDateIdChanging(value);
+                ReportPropertyChanging("TripDateId");
+                _TripDateId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripDateId");
+                OnTripDateIdChanged();
+            }
+        }
+        private global::System.Int64 _TripDateId;
+        partial void OnTripDateIdChanging(global::System.Int64 value);
+        partial void OnTripDateIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteStr
+        {
+            get
+            {
+                return _MainRouteStr;
+            }
+            set
+            {
+                OnMainRouteStrChanging(value);
+                ReportPropertyChanging("MainRouteStr");
+                _MainRouteStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteStr");
+                OnMainRouteStrChanged();
+            }
+        }
+        private global::System.String _MainRouteStr;
+        partial void OnMainRouteStrChanging(global::System.String value);
+        partial void OnMainRouteStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteShortStr
+        {
+            get
+            {
+                return _MainRouteShortStr;
+            }
+            set
+            {
+                OnMainRouteShortStrChanging(value);
+                ReportPropertyChanging("MainRouteShortStr");
+                _MainRouteShortStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteShortStr");
+                OnMainRouteShortStrChanged();
+            }
+        }
+        private global::System.String _MainRouteShortStr;
+        partial void OnMainRouteShortStrChanging(global::System.String value);
+        partial void OnMainRouteShortStrChanged();
 
         #endregion
 

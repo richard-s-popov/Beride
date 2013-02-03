@@ -32,11 +32,6 @@ namespace TransportSystem.Area.Web.Controllers
             _usersService = usersService;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult CreateTrip()
         {
             return View();
@@ -49,7 +44,6 @@ namespace TransportSystem.Area.Web.Controllers
             var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
             var trip = new Trip
                 {
-                    CreatorId = currentUser.Id, 
                     OwnerId = currentUser.Id
                 };
 
@@ -62,6 +56,18 @@ namespace TransportSystem.Area.Web.Controllers
             {
                 // получаем массив точек
                 myPoints.AddRange(from Dictionary<string, object> newFeature in deserializedPoints select new SJSonModel(newFeature));
+
+                var mainRouteStr = new List<string>();
+                var mainRouteShortStr = new List<string>();
+                
+                foreach (var point in myPoints)
+                {
+                    mainRouteStr.Add(point.FullName);
+                    mainRouteShortStr.Add(point.ShortName);
+                }
+
+                trip.MainRouteStr = string.Join(";", mainRouteStr);
+                trip.MainRouteShortStr = string.Join(";", mainRouteShortStr);
             }
 
             if (model.IsDriver)
@@ -83,27 +89,7 @@ namespace TransportSystem.Area.Web.Controllers
                             EndPointShortName = myPoints[j].ShortName
                         };
 
-                        trip.TripRoute.Add(route);
-
-                        if (dateTo == null)
-                        {
-                            route.TripDate.Add(new TripDate
-                                {
-                                    Date = dateAt,
-                                    IsDeleted = false
-                                });
-                        }
-                        else
-                        {
-                            for (var date = dateAt; date <= dateTo.Value; date = date.AddDays(1))
-                            {
-                                route.TripDate.Add(new TripDate
-                                    {
-                                        Date = date,
-                                        IsDeleted = false
-                                    });
-                            }
-                        }
+                        trip.TripRoute.Add(route);    
                     }
                 }
             }
@@ -121,6 +107,26 @@ namespace TransportSystem.Area.Web.Controllers
                         EndPointFullName = myPoints.Last().FullName,
                         EndPointShortName = myPoints.Last().ShortName
                     });
+            }
+
+            if (dateTo == null)
+            {
+                trip.TripDate.Add(new TripDate
+                {
+                    Date = dateAt,
+                    IsDeleted = false
+                });
+            }
+            else
+            {
+                for (var date = dateAt; date <= dateTo.Value; date = date.AddDays(1))
+                {
+                    trip.TripDate.Add(new TripDate
+                    {
+                        Date = date,
+                        IsDeleted = false
+                    });
+                }
             }
 
             trip.Seats = model.SeatsNumber;
@@ -157,7 +163,7 @@ namespace TransportSystem.Area.Web.Controllers
             var myStreamReader = new StreamReader(myHttpWebResponse.GetResponseStream(), Encoding.UTF8);
 
             googleResponse = myStreamReader.ReadToEnd();
-            dynamic json = JValue.Parse(googleResponse);
+            dynamic json = JValue.Parse(googleResponse); 
 
             cache.Insert(geoName, googleResponse, null, DateTime.Now.AddHours(24), Cache.NoSlidingExpiration);
 
@@ -171,7 +177,7 @@ namespace TransportSystem.Area.Web.Controllers
                 dateTo = dateAt;
             }
 
-            var trips = _tripsService.GetTrips(startPointGid, endPointGid, dateAt, dateTo.Value, search == "driver" ? 2 : 1, 1).ToList();
+            var trips = _tripsService.GetTrips(startPointGid, endPointGid, dateAt, dateTo.Value, search == "driver" ? 2 : 1, 1).OrderBy(x => x.Date).ToList();
 
             var model = new TripsListModel();
 
@@ -182,9 +188,15 @@ namespace TransportSystem.Area.Web.Controllers
                     var m = new TripModel
                     {
                         TripId = trip.Id,
+                        RouteId = trip.RouteId,
+                        TripDateId = trip.TripDateId,
                         StartPointFullName = trip.StartPointFullName,
+                        StartPointShortName = trip.StartPointShortName,
                         EndPointFullName = trip.EndPointFullName,
-                        IsDriver = trip.TripType == 2,
+                        EndPointShortName = trip.EndPointShortName,
+                        MainRouteStr = trip.MainRouteStr.Split(';'),
+                        MainRouteShortStr = trip.MainRouteShortStr.Split(';'),
+                        IsDriver = trip.TripType == TripType.Driver,
                         Date = trip.Date,
                         SeatsNumber = trip.Seats
                     };

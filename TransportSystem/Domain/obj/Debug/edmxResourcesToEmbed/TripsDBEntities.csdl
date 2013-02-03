@@ -12,15 +12,6 @@
     <EntitySet Name="Request" EntityType="TransportSystemModel.Request" />
     <EntitySet Name="Trip" EntityType="TransportSystemModel.Trip" />
     <EntitySet Name="TripDate" EntityType="TransportSystemModel.TripDate" />
-    <EntitySet Name="TripRoute" EntityType="TransportSystemModel.TripRoute" />
-    <AssociationSet Name="FK_TripRoute_Trip" Association="TransportSystemModel.FK_TripRoute_Trip">
-      <End Role="Trip" EntitySet="Trip" />
-      <End Role="TripRoute" EntitySet="TripRoute" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TripDate_TripDate" Association="TransportSystemModel.FK_TripDate_TripDate">
-      <End Role="TripRoute" EntitySet="TripRoute" />
-      <End Role="TripDate" EntitySet="TripDate" />
-    </AssociationSet>
     <AssociationSet Name="FK_Request_Trip" Association="TransportSystemModel.FK_Request_Trip">
       <End Role="Trip" EntitySet="Trip" />
       <End Role="Request" EntitySet="Request" />
@@ -50,14 +41,6 @@
       <End Role="CarModel" EntitySet="CarModel" />
     </AssociationSet>
     <EntitySet Name="User" EntityType="TransportSystemModel.User" />
-    <AssociationSet Name="FK_Trips_Users" Association="TransportSystemModel.FK_Trips_Users">
-      <End Role="User" EntitySet="User" />
-      <End Role="Trip" EntitySet="Trip" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Trips_Users1" Association="TransportSystemModel.FK_Trips_Users1">
-      <End Role="User" EntitySet="User" />
-      <End Role="Trip" EntitySet="Trip" />
-    </AssociationSet>
     <EntitySet Name="TripStatus" EntityType="TransportSystemModel.TripStatus" />
     <EntitySet Name="TripType" EntityType="TransportSystemModel.TripType" />
     <AssociationSet Name="FK_Request_Trip1" Association="TransportSystemModel.FK_Request_Trip1">
@@ -72,15 +55,28 @@
       <End Role="TripType" EntitySet="TripType" />
       <End Role="Trip" EntitySet="Trip" />
     </AssociationSet>
-    <AssociationSet Name="FK_User_User" Association="TransportSystemModel.FK_User_User">
+    <AssociationSet Name="FK_TripDate_Trip" Association="TransportSystemModel.FK_TripDate_Trip">
+      <End Role="Trip" EntitySet="Trip" />
+      <End Role="TripDate" EntitySet="TripDate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trip_User" Association="TransportSystemModel.FK_Trip_User">
       <End Role="User" EntitySet="User" />
-      <End Role="User1" EntitySet="User" />
+      <End Role="Trip" EntitySet="Trip" />
+    </AssociationSet>
+    <FunctionImport Name="GetActiveTripsByUser" ReturnType="Collection(TransportSystemModel.GetActiveTripsByUser_Result)">
+      <Parameter Name="Date" Mode="In" Type="DateTime" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="TripType" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="TripRoute" EntityType="TransportSystemModel.TripRoute" />
+    <AssociationSet Name="FK_TripRoute_Trip" Association="TransportSystemModel.FK_TripRoute_Trip">
+      <End Role="Trip" EntitySet="Trip" />
+      <End Role="TripRoute" EntitySet="TripRoute" />
     </AssociationSet>
   </EntityContainer>
   <ComplexType Name="GetTrips_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
     <Property Type="Int32" Name="TripType" Nullable="false" />
-    <Property Type="Int32" Name="CreatorId" Nullable="false" />
     <Property Type="Int32" Name="OwnerId" Nullable="false" />
     <Property Type="Int32" Name="TripStatus" Nullable="false" />
     <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
@@ -94,6 +90,9 @@
     <Property Type="String" Name="EndPointFullName" Nullable="false" MaxLength="255" />
     <Property Type="String" Name="EndPointShortName" Nullable="false" MaxLength="255" />
     <Property Type="Int32" Name="Seats" Nullable="false" />
+    <Property Type="Int64" Name="TripDateId" Nullable="false" />
+    <Property Type="String" Name="MainRouteStr" Nullable="false" />
+    <Property Type="String" Name="MainRouteShortStr" Nullable="false" />
   </ComplexType>
   <EntityType Name="Request">
     <Key>
@@ -115,21 +114,23 @@
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="Int32" Name="TripType" Nullable="false" />
-    <Property Type="Int32" Name="CreatorId" Nullable="false" />
     <Property Type="Int32" Name="OwnerId" Nullable="false" />
     <Property Type="Int32" Name="TripStatus" Nullable="false" />
     <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
     <Property Type="DateTime" Name="ExpectedEndDate" Precision="3" />
     <Property Type="Int32" Name="CarId" />
-    <Property Type="Int32" Name="Seats" Nullable="false" />
-    <Property Type="Int32" Name="FreeSeats" Nullable="false" />
-    <NavigationProperty Name="TripRoute" Relationship="TransportSystemModel.FK_TripRoute_Trip" FromRole="Trip" ToRole="TripRoute" />
+    <Property Type="Int32" Name="Seats" />
+    <Property Type="Int32" Name="FreeSeats" />
     <NavigationProperty Name="Request" Relationship="TransportSystemModel.FK_Request_Trip" FromRole="Trip" ToRole="Request" />
     <NavigationProperty Name="Car" Relationship="TransportSystemModel.FK_Trips_Cars" FromRole="Trip" ToRole="Car" />
-    <NavigationProperty Name="User" Relationship="TransportSystemModel.FK_Trips_Users" FromRole="Trip" ToRole="User" />
     <NavigationProperty Name="Request1" Relationship="TransportSystemModel.FK_Request_Trip1" FromRole="Trip" ToRole="Request" />
     <NavigationProperty Name="TripStatus1" Relationship="TransportSystemModel.FK_Trips_TripStatus" FromRole="Trip" ToRole="TripStatus" />
     <NavigationProperty Name="TripType1" Relationship="TransportSystemModel.FK_Trips_TripType" FromRole="Trip" ToRole="TripType" />
+    <Property Type="String" Name="MainRouteStr" Nullable="false" MaxLength="2047" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="MainRouteShortStr" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TripDate" Relationship="TransportSystemModel.FK_TripDate_Trip" FromRole="Trip" ToRole="TripDate" />
+    <NavigationProperty Name="User" Relationship="TransportSystemModel.FK_Trip_User" FromRole="Trip" ToRole="User" />
+    <NavigationProperty Name="TripRoute" Relationship="TransportSystemModel.FK_TripRoute_Trip" FromRole="Trip" ToRole="TripRoute" />
   </EntityType>
   <EntityType Name="TripDate">
     <Key>
@@ -137,49 +138,10 @@
     </Key>
     <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="DateTime" Name="Date" Nullable="false" Precision="3" />
-    <Property Type="Int64" Name="RouteId" Nullable="false" />
     <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
-    <NavigationProperty Name="TripRoute" Relationship="TransportSystemModel.FK_TripDate_TripDate" FromRole="TripDate" ToRole="TripRoute" />
-  </EntityType>
-  <EntityType Name="TripRoute">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="Int32" Name="TripId" Nullable="false" />
-    <Property Type="String" Name="StartPointGid" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="StartPointFullName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="StartPointShortName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="EndPointGid" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="EndPointFullName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="EndPointShortName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Trip" Relationship="TransportSystemModel.FK_TripRoute_Trip" FromRole="TripRoute" ToRole="Trip" />
-    <NavigationProperty Name="TripDate" Relationship="TransportSystemModel.FK_TripDate_TripDate" FromRole="TripRoute" ToRole="TripDate" />
+    <NavigationProperty Name="Trip" Relationship="TransportSystemModel.FK_TripDate_Trip" FromRole="TripDate" ToRole="Trip" />
   </EntityType>
-  <Association Name="FK_TripRoute_Trip">
-    <End Type="TransportSystemModel.Trip" Role="Trip" Multiplicity="1" />
-    <End Type="TransportSystemModel.TripRoute" Role="TripRoute" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Trip">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TripRoute">
-        <PropertyRef Name="TripId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TripDate_TripDate">
-    <End Type="TransportSystemModel.TripRoute" Role="TripRoute" Multiplicity="1" />
-    <End Type="TransportSystemModel.TripDate" Role="TripDate" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TripRoute">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="TripDate">
-        <PropertyRef Name="RouteId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Request_Trip">
     <End Type="TransportSystemModel.Trip" Role="Trip" Multiplicity="1" />
     <End Type="TransportSystemModel.Request" Role="Request" Multiplicity="*" />
@@ -312,38 +274,11 @@
     <Property Type="Int32" Name="MinusesNumber" />
     <Property Type="Int32" Name="SuccessTripsNumber" />
     <Property Type="Int32" Name="FailedTripsNumber" />
-    <NavigationProperty Name="Trip" Relationship="TransportSystemModel.FK_Trips_Users" FromRole="User" ToRole="Trip" />
-    <NavigationProperty Name="Trip1" Relationship="TransportSystemModel.FK_Trips_Users1" FromRole="User" ToRole="Trip" />
     <Property Type="Boolean" Name="IsConfirmed" Nullable="false" />
-    <NavigationProperty Name="User1" Relationship="TransportSystemModel.FK_User_User" FromRole="User" ToRole="User1" />
-    <NavigationProperty Name="User2" Relationship="TransportSystemModel.FK_User_User" FromRole="User1" ToRole="User" />
     <Property Type="DateTime" Name="RegisterDate" Nullable="false" Precision="3" />
     <Property Type="DateTime" Name="LastVisitDate" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Trip" Relationship="TransportSystemModel.FK_Trip_User" FromRole="User" ToRole="Trip" />
   </EntityType>
-  <Association Name="FK_Trips_Users">
-    <End Type="TransportSystemModel.User" Role="User" Multiplicity="1" />
-    <End Type="TransportSystemModel.Trip" Role="Trip" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Trip">
-        <PropertyRef Name="CreatorId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Trips_Users1">
-    <End Type="TransportSystemModel.User" Role="User" Multiplicity="1" />
-    <End Type="TransportSystemModel.Trip" Role="Trip" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Trip">
-        <PropertyRef Name="OwnerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="TripStatus">
     <Key>
       <PropertyRef Name="Id" />
@@ -396,15 +331,65 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_User">
+  <Association Name="FK_TripDate_Trip">
+    <End Type="TransportSystemModel.Trip" Role="Trip" Multiplicity="1" />
+    <End Type="TransportSystemModel.TripDate" Role="TripDate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trip">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TripDate">
+        <PropertyRef Name="TripId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trip_User">
     <End Type="TransportSystemModel.User" Role="User" Multiplicity="1" />
-    <End Type="TransportSystemModel.User" Role="User1" Multiplicity="0..1" />
+    <End Type="TransportSystemModel.Trip" Role="Trip" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="User1">
+      <Dependent Role="Trip">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetActiveTripsByUser_Result">
+    <Property Type="Int32" Name="TripId" Nullable="false" />
+    <Property Type="Int32" Name="TripType" Nullable="false" />
+    <Property Type="Int32" Name="OwnerId" Nullable="false" />
+    <Property Type="Int32" Name="TripStatus" Nullable="false" />
+    <Property Type="DateTime" Name="ExpectedEndDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CarId" Nullable="true" />
+    <Property Type="Int32" Name="Seats" Nullable="true" />
+    <Property Type="String" Name="MainRouteStr" Nullable="false" MaxLength="2047" />
+    <Property Type="String" Name="MainRouteShortStr" Nullable="false" MaxLength="255" />
+    <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+  </ComplexType>
+  <EntityType Name="TripRoute">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="TripId" Nullable="false" />
+    <Property Type="String" Name="StartPointGid" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="StartPointFullName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="StartPointShortName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EndPointGid" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EndPointFullName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EndPointShortName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Trip" Relationship="TransportSystemModel.FK_TripRoute_Trip" FromRole="TripRoute" ToRole="Trip" />
+  </EntityType>
+  <Association Name="FK_TripRoute_Trip">
+    <End Type="TransportSystemModel.Trip" Role="Trip" Multiplicity="1" />
+    <End Type="TransportSystemModel.TripRoute" Role="TripRoute" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trip">
         <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TripRoute">
+        <PropertyRef Name="TripId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

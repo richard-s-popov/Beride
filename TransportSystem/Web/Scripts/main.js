@@ -27,6 +27,20 @@
             $(this).attr('date2', fullDate2);
         }
     };
+    
+    $('.input-text').bind('click', function () {
+        $(this).children('.input').focus();
+    });
+    
+    $('#signIn').fancybox({
+        showCloseButton: false,
+        scrolling: 'no',
+        onClosed: function () {
+            $('.message').hide();
+            $('#loginContainer').show();
+            $('#registrationContainer').hide();
+        }
+    });
 
     $('.registration-link').click(function() {
         setTimeout(function() {

@@ -1,0 +1,19 @@
+﻿@model TransportSystem.Area.Web.Models.Trips.TripsListModel
+
+<div>
+    @foreach (var trip in Model.trips)
+    {
+        <div>
+            <div>
+                @foreach (var point in trip.MainRouteShortStr)
+                {
+                    <span>@point</span>
+                    <span>&rarr;</span>
+                }
+            </div>
+            <span>@trip.StartDateAt.ToShortDateString()</span>
+            <span>&nbsp;-&nbsp;</span>
+            <span>@trip.StartDateTo.ToShortDateString()</span>
+        </div>
+    }
+</div>

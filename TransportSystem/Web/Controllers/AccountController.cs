@@ -24,11 +24,6 @@ namespace TransportSystem.Area.Web.Controllers
             _membershipService = membershipService;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpPost]
         public JsonResult Login(LogOnModelPoco model, string returnUrl)
         {
@@ -84,6 +79,11 @@ namespace TransportSystem.Area.Web.Controllers
         public JsonResult PhoneIsBusy(string phone)
         {
             return Json(null);
+        }
+
+        public JsonResult IsAuthenticated()
+        {
+            return Json(HttpContext.User.Identity.IsAuthenticated, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

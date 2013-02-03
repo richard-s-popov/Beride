@@ -208,12 +208,18 @@ function prepareDataToSent() {
 }
 
 function sendData() {
-    $.ajax({
-        type: "POST",
-        url: document.SaveTripUrl,
-        data: prepareDataToSent(),
-        dataType: "json",
-        traditional: true
+    $.getJSON(document.IsAuthenticatedUrl, function (result) {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                url: document.SaveTripUrl,
+                data: prepareDataToSent(),
+                dataType: "json",
+                traditional: true
+            });
+        } else {
+            $('#signIn').click();
+        }
     });
 }
 

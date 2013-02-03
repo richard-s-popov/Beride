@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
+@using System.Globalization
 @model TransportSystem.Area.Web.Models.Trips.TripsListModel
 
 @section head
@@ -19,41 +20,87 @@
         {
             <div>Поездок не найдено. Вы можете создать свою, чтобы Вас могли найти водители или попутчики.</div>
         }
-        @foreach(var trip in Model.trips)
+        @foreach (var trip in Model.trips)
         {
             <tr>
-                <td>
-                    @trip.StartPointFullName<span> - </span>@trip.EndPointFullName
+                <td class="info">
                     <div>
-                        <span>
-                            Свободных мест
+                        @{
+                            var i = 1;
+
+                            foreach (var point in trip.MainRouteShortStr)
+                            {
+                                if (point == trip.StartPointShortName || point == trip.EndPointShortName)
+                                {
+                                    <span class="primary-point">@point</span>
+                                }
+                                else
+                                {
+                                    <span class="secondary-point">@point</span>
+                                }
+
+                                if (trip.MainRouteShortStr.Count() != i)
+                                {
+                                    <span>&rarr;</span>    
+                                }
+                                i++;
+                            }
+                        }
+                    </div>
+                    <div class="free-seats-container">
+                        <span class="free-seats">
+                            Свободных мест:
                         </span>
-                        <span>
+                        <span class="free-seats-number">
                             @trip.SeatsNumber
                         </span>
                     </div>
                     <div>
-                        <span>
-                            Дата выезда
-                        </span>
-                        <span>
-                            @trip.Date.ToShortDateString()
+                        <span class="date-departure">
+                            @{ var ci = new CultureInfo("ru-RU", false); }
+                            @if (trip.Date == DateTime.Today)
+                            {
+                                <text>Сегодня</text>
+                            }
+                            else if (trip.Date == DateTime.Today.AddDays(1))
+                            {
+                                <text>Завтра</text>
+                            }
+                            else if (trip.Date < DateTime.Today.AddDays(7))
+                            {
+                                @trip.Date.ToShortDateString()<text>,&nbsp;</text>
+                                @ci.DateTimeFormat.DayNames[(int) trip.Date.DayOfWeek];
+                            }
+                            else
+                            {
+                                @trip.Date.ToShortDateString()
+                            }
                         </span>
                     </div>
                 </td>
                 <td>
-                    @if (trip.IsDriver)
-                    {
-                        <a class="simple-button" onclick="@(HttpContext.Current.User.Identity.IsAuthenticated ? "sendRequestToTrip(" + trip.TripId + ")" : "requestLogin()")">Присоединиться</a>
-                    }
-                    else
-                    {
-                        <a class="simple-button">Предложить</a>
-                    }
+                    <div>
+                        @if (trip.IsDriver)
+                        {
+                            <a class="simple-button" onclick="sendRequestToTrip(@trip.TripDateId, @trip.RouteId)">Присоединиться</a>
+                        }
+                        else
+                        {
+                            <a class="simple-button" onclick="sendRequestToTrip(@trip.TripDateId, @trip.RouteId)">Предложить</a>
+                        }
+                    </div>
+                    <div class="cost">
+                        Место: 500р
+                    </div>
                 </td>
             </tr>
         }
     </table>
+</div>
+
+<div style="display: none;">
+    <a id="showMyTripsPopup" href="#myTripsPopup"></a>
+    <div id="myTripsPopup"></div>
 </div>
 
 <script type="text/javascript">
