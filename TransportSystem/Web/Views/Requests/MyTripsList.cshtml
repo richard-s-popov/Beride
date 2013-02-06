@@ -1,19 +1,66 @@
 ﻿@model TransportSystem.Area.Web.Models.Trips.TripsListModel
 
-<div>
+
+
+<table class="my-trips">
+    <tr>
+        <td colspan="2" class="title">
+            Выберите поездку, к которой относится Ваша <strong>заявка</strong><br/>
+        </td>
+    </tr>
     @foreach (var trip in Model.trips)
     {
-        <div>
-            <div>
-                @foreach (var point in trip.MainRouteShortStr)
-                {
-                    <span>@point</span>
-                    <span>&rarr;</span>
-                }
-            </div>
-            <span>@trip.StartDateAt.ToShortDateString()</span>
-            <span>&nbsp;-&nbsp;</span>
-            <span>@trip.StartDateTo.ToShortDateString()</span>
-        </div>
+        <tr class="trip">
+            <td>
+                <div class="route">
+                    @{
+                        var i = 1;
+
+                        foreach (var point in trip.MainRouteShortStr)
+                        {
+                            if (point == trip.StartPointShortName || point == trip.EndPointShortName)
+                            {
+                                <span class="primary-point">@point</span>
+                            }
+                            else
+                            {
+                                <span class="secondary-point">@point</span>
+                            }
+
+                            if (trip.MainRouteShortStr.Count() != i)
+                            {
+                                <span>&rarr;</span>    
+                            }
+                            i++;
+                        }
+                    }
+                </div>
+                <span class="date-period">
+                    @if (trip.StartDateAt == trip.StartDateTo)
+                    {
+                        @trip.StartDateAt.ToShortDateString()
+                    }
+                    else
+                    {
+                        @trip.StartDateAt.ToShortDateString()<text>&nbsp;-&nbsp;</text>@trip.StartDateTo.ToShortDateString()
+                    }
+                </span>
+            </td>
+            <td>
+                <div class="select-button-container">
+                    <a class="simple-button select-button" onclick="selectTrip(@trip.TripId, @ViewBag.OwnerTripRouteId, @ViewBag.OwnerTripDateId)">Выбрать</a>
+                </div>
+            </td>
+        </tr>
     }
-</div>
+    <tr>
+            <td class="new">
+                Заявка относится к новой поездке
+            </td>
+        <td>
+            <div class="select-button-container">
+                <a class="simple-button blue new-button" onclick="createNewTrip(@ViewBag.OwnerTripDateId, @ViewBag.OwnerTripRouteId)">Новая</a>
+            </div>
+        </td>
+        </tr>
+</table>

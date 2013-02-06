@@ -15,7 +15,7 @@ namespace TransportSystem.Area.Web.Models.Trips
 
         public bool? FreeDriver { get; set; }
 
-        public int SeatsNumber { get; set; }
+        public int? SeatsNumber { get; set; }
 
         public string StartPointFullName { get; set; }
 

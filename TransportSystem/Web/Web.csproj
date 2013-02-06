@@ -289,9 +289,10 @@
     <None Include="Properties\PublishProfiles\beride.pubxml" />
     <None Include="Properties\PublishProfiles\deploy.pubxml" />
     <Content Include="Scripts\trip\trips.list.js" />
-    <Content Include="Views\Requests\YourTripsCreated.cshtml" />
+    <Content Include="Views\Requests\YourTripCreated.cshtml" />
     <Content Include="Views\Requests\Error.cshtml" />
     <Content Include="Views\Requests\MyTripsList.cshtml" />
+    <Content Include="Views\Requests\YourRequestSent.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

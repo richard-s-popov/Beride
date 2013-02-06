@@ -102,6 +102,8 @@
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="DriverTripId" Type="int" Nullable="false" />
     <Property Name="PassengerTripId" Type="int" Nullable="false" />
+    <Property Name="OwnerRouteId" Type="bigint" Nullable="false" />
+    <Property Name="OwnerTripDateId" Type="bigint" Nullable="false" />
     <Property Name="InitiatorId" Type="int" Nullable="false" />
     <Property Name="StatusRequestId" Type="int" Nullable="false" />
     <Property Name="CreateDate" Type="datetime" Nullable="false" />

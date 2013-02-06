@@ -35,6 +35,7 @@
     $('#signIn').fancybox({
         showCloseButton: false,
         scrolling: 'no',
+        centerOnScroll: true,
         onClosed: function () {
             $('.message').hide();
             $('#loginContainer').show();

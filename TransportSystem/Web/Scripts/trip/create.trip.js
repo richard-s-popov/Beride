@@ -4,6 +4,7 @@ var points = [];
 var betweenCount = 0;
 var firstStepForm;
 var secondStepForm;
+var createAfterLogin = false;
 
 $(document).ready(function () {
     $(".user-type input[name='type']").change(function() {
@@ -219,6 +220,7 @@ function sendData() {
             });
         } else {
             $('#signIn').click();
+            createAfterLogin = true;
         }
     });
 }

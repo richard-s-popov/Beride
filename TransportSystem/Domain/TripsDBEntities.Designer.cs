@@ -1262,7 +1262,9 @@ namespace TransportSystem.Domain
         /// <param name="initiatorId">Исходное значение свойства InitiatorId.</param>
         /// <param name="statusRequestId">Исходное значение свойства StatusRequestId.</param>
         /// <param name="createDate">Исходное значение свойства CreateDate.</param>
-        public static Request CreateRequest(global::System.Int32 id, global::System.Int32 driverTripId, global::System.Int32 passengerTripId, global::System.Int32 initiatorId, global::System.Int32 statusRequestId, global::System.DateTime createDate)
+        /// <param name="ownerRouteId">Исходное значение свойства OwnerRouteId.</param>
+        /// <param name="ownerTripDateId">Исходное значение свойства OwnerTripDateId.</param>
+        public static Request CreateRequest(global::System.Int32 id, global::System.Int32 driverTripId, global::System.Int32 passengerTripId, global::System.Int32 initiatorId, global::System.Int32 statusRequestId, global::System.DateTime createDate, global::System.Int64 ownerRouteId, global::System.Int64 ownerTripDateId)
         {
             Request request = new Request();
             request.Id = id;
@@ -1271,6 +1273,8 @@ namespace TransportSystem.Domain
             request.InitiatorId = initiatorId;
             request.StatusRequestId = statusRequestId;
             request.CreateDate = createDate;
+            request.OwnerRouteId = ownerRouteId;
+            request.OwnerTripDateId = ownerTripDateId;
             return request;
         }
 
@@ -1448,6 +1452,54 @@ namespace TransportSystem.Domain
         private Nullable<global::System.DateTime> _ModificationDate;
         partial void OnModificationDateChanging(Nullable<global::System.DateTime> value);
         partial void OnModificationDateChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 OwnerRouteId
+        {
+            get
+            {
+                return _OwnerRouteId;
+            }
+            set
+            {
+                OnOwnerRouteIdChanging(value);
+                ReportPropertyChanging("OwnerRouteId");
+                _OwnerRouteId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerRouteId");
+                OnOwnerRouteIdChanged();
+            }
+        }
+        private global::System.Int64 _OwnerRouteId;
+        partial void OnOwnerRouteIdChanging(global::System.Int64 value);
+        partial void OnOwnerRouteIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 OwnerTripDateId
+        {
+            get
+            {
+                return _OwnerTripDateId;
+            }
+            set
+            {
+                OnOwnerTripDateIdChanging(value);
+                ReportPropertyChanging("OwnerTripDateId");
+                _OwnerTripDateId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerTripDateId");
+                OnOwnerTripDateIdChanged();
+            }
+        }
+        private global::System.Int64 _OwnerTripDateId;
+        partial void OnOwnerTripDateIdChanging(global::System.Int64 value);
+        partial void OnOwnerTripDateIdChanged();
 
         #endregion
 
@@ -3524,11 +3576,10 @@ namespace TransportSystem.Domain
         /// <param name="endPointGid">Исходное значение свойства EndPointGid.</param>
         /// <param name="endPointFullName">Исходное значение свойства EndPointFullName.</param>
         /// <param name="endPointShortName">Исходное значение свойства EndPointShortName.</param>
-        /// <param name="seats">Исходное значение свойства Seats.</param>
         /// <param name="tripDateId">Исходное значение свойства TripDateId.</param>
         /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
         /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
-        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int32 seats, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr)
+        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr)
         {
             GetTrips_Result getTrips_Result = new GetTrips_Result();
             getTrips_Result.Id = id;
@@ -3543,7 +3594,6 @@ namespace TransportSystem.Domain
             getTrips_Result.EndPointGid = endPointGid;
             getTrips_Result.EndPointFullName = endPointFullName;
             getTrips_Result.EndPointShortName = endPointShortName;
-            getTrips_Result.Seats = seats;
             getTrips_Result.TripDateId = tripDateId;
             getTrips_Result.MainRouteStr = mainRouteStr;
             getTrips_Result.MainRouteShortStr = mainRouteShortStr;
@@ -3893,9 +3943,9 @@ namespace TransportSystem.Domain
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 Seats
+        public Nullable<global::System.Int32> Seats
         {
             get
             {
@@ -3910,8 +3960,8 @@ namespace TransportSystem.Domain
                 OnSeatsChanged();
             }
         }
-        private global::System.Int32 _Seats;
-        partial void OnSeatsChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _Seats;
+        partial void OnSeatsChanging(Nullable<global::System.Int32> value);
         partial void OnSeatsChanged();
     
         /// <summary>

@@ -107,6 +107,8 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="DriverTripId" Type="int" Nullable="false" />
           <Property Name="PassengerTripId" Type="int" Nullable="false" />
+          <Property Name="OwnerRouteId" Type="bigint" Nullable="false" />
+          <Property Name="OwnerTripDateId" Type="bigint" Nullable="false" />
           <Property Name="InitiatorId" Type="int" Nullable="false" />
           <Property Name="StatusRequestId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
@@ -435,7 +437,7 @@
           <Property Type="String" Name="EndPointGid" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="EndPointFullName" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="EndPointShortName" Nullable="false" MaxLength="255" />
-          <Property Type="Int32" Name="Seats" Nullable="false" />
+          <Property Type="Int32" Name="Seats" Nullable="true" />
           <Property Type="Int64" Name="TripDateId" Nullable="false" />
           <Property Type="String" Name="MainRouteStr" Nullable="false" />
           <Property Type="String" Name="MainRouteShortStr" Nullable="false" />
@@ -453,6 +455,8 @@
           <Property Type="DateTime" Name="ModificationDate" Precision="3" />
           <NavigationProperty Name="Trip" Relationship="TransportSystemModel.FK_Request_Trip" FromRole="Request" ToRole="Trip" />
           <NavigationProperty Name="Trip1" Relationship="TransportSystemModel.FK_Request_Trip1" FromRole="Request" ToRole="Trip" />
+          <Property Type="Int64" Name="OwnerRouteId" Nullable="false" />
+          <Property Type="Int64" Name="OwnerTripDateId" Nullable="false" />
         </EntityType>
         <EntityType Name="Trip">
           <Key>
@@ -768,6 +772,8 @@
           <EntitySetMapping Name="Request">
             <EntityTypeMapping TypeName="TransportSystemModel.Request">
               <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="OwnerTripDateId" ColumnName="OwnerTripDateId" />
+                <ScalarProperty Name="OwnerRouteId" ColumnName="OwnerRouteId" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="StatusRequestId" ColumnName="StatusRequestId" />

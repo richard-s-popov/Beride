@@ -27,6 +27,7 @@ namespace TransportSystem.Logics.Infrastructure.Unity
             container.RegisterType<ITripsService, TripsService>();
             container.RegisterType<IUsersService, UsersService>();
             container.RegisterType<IMembershipService, MembershipService>();
+            container.RegisterType<IRequestsService, RequestsService>();
 
             return container;
         }

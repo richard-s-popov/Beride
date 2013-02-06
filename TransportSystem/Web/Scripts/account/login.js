@@ -53,6 +53,10 @@
                             $.fancybox.close();
                             $('#signIn').hide();
                             $('#logOut').show();
+                            
+                            if (createAfterLogin) {
+                                $('#createThis').click();
+                            }
                         }
                     }
                 });

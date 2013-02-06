@@ -49,7 +49,14 @@
                     </div>
                     <div class="free-seats-container">
                         <span class="free-seats">
-                            Свободных мест:
+                            @if (trip.IsDriver)
+                            {
+                                <text>Свободных мест:</text>
+                            }
+                            else
+                            {
+                                <text>Кол-во человек:</text>
+                            }
                         </span>
                         <span class="free-seats-number">
                             @trip.SeatsNumber
@@ -69,7 +76,7 @@
                             else if (trip.Date < DateTime.Today.AddDays(7))
                             {
                                 @trip.Date.ToShortDateString()<text>,&nbsp;</text>
-                                @ci.DateTimeFormat.DayNames[(int) trip.Date.DayOfWeek];
+                                @ci.DateTimeFormat.DayNames[(int)trip.Date.DayOfWeek];
                             }
                             else
                             {
@@ -79,18 +86,18 @@
                     </div>
                 </td>
                 <td>
-                    <div>
+                    <div style="position: relative;">
                         @if (trip.IsDriver)
                         {
                             <a class="simple-button" onclick="sendRequestToTrip(@trip.TripDateId, @trip.RouteId)">Присоединиться</a>
+                            <div class="cost">
+                                Место: 500р
+                            </div>
                         }
                         else
                         {
-                            <a class="simple-button" onclick="sendRequestToTrip(@trip.TripDateId, @trip.RouteId)">Предложить</a>
+                            <a class="simple-button offer-button" onclick="sendRequestToTrip(@trip.TripDateId, @trip.RouteId)">Предложить</a>
                         }
-                    </div>
-                    <div class="cost">
-                        Место: 500р
                     </div>
                 </td>
             </tr>
@@ -105,4 +112,6 @@
 
 <script type="text/javascript">
     document.SendRequestUrl = "@Url.Action("SendRequest","Requests")";
+    document.SelectTripUrl = "@Url.Action("SelectTrip", "Requests")";
+    document.CreateMyNewTripUrl = "@Url.Action("CreateNewTrip", "Requests")";
 </script>
