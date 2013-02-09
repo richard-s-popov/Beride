@@ -507,7 +507,19 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Verdana;
     font-size: 13px;
     padding: 5px;
+    padding-bottom: 15px;
     max-width: 300px;
+}
+
+.my-trips .footer {
+    font-family: Verdana;
+    font-size: 13px;
+    padding: 5px;
+    max-width: 300px;
+}
+
+.my-trips .footer label {
+    vertical-align: text-top;
 }
 
 .my-trips .title strong {
@@ -519,7 +531,8 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Verdana;
     font-size: 13px;
     padding: 5px;
-    padding-top: 20px;
+    padding-top: 25px;
+    padding-bottom: 10px;
 }
 
 .my-trips .new-button {
@@ -563,6 +576,8 @@ h1, h2, h3, h4, h5, h6 {
 .my-trips .trip {
     position: relative;
     cursor: default;
+    border-bottom: 1px solid rgb(190, 190, 190);
+    border-top: 1px solid rgb(190, 190, 190);
 }
 
 .my-trips .trip:hover {
@@ -586,6 +601,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .trips-list-table {
     width: 80%;
+}
+
+.trips-not-found {
+    font-size: 13px;
 }
 
 .trips-list-table tr:hover {

@@ -18,7 +18,7 @@
     <table class="trips-list-table">
         @if (Model.trips.Count == 0)
         {
-            <div>Поездок не найдено. Вы можете создать свою, чтобы Вас могли найти водители или попутчики.</div>
+            <div class="trips-not-found">Поездок не найдено. Вы можете создать свою, чтобы Вас могли найти водители или попутчики.</div>
         }
         @foreach (var trip in Model.trips)
         {

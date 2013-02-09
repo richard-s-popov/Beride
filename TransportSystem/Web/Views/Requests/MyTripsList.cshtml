@@ -5,7 +5,8 @@
 <table class="my-trips">
     <tr>
         <td colspan="2" class="title">
-            Выберите поездку, к которой относится Ваша <strong>заявка</strong><br/>
+            Вы уже едете в следующих направлениях. Это список <strong>Ваших</strong> поездок<br/>
+            Вы делаете заявку, к какой из Ваших поездок относится данная заявка? <a>(что это?)</a>
         </td>
     </tr>
     @foreach (var trip in Model.trips)
@@ -54,13 +55,19 @@
         </tr>
     }
     <tr>
-            <td class="new">
-                Заявка относится к новой поездке
-            </td>
+        <td class="new">
+            Если это другая поездка, то нажмите кнопку "Новая"
+        </td>
         <td>
             <div class="select-button-container">
                 <a class="simple-button blue new-button" onclick="createNewTrip(@ViewBag.OwnerTripDateId, @ViewBag.OwnerTripRouteId)">Новая</a>
             </div>
         </td>
-        </tr>
+    </tr>
+    <tr>
+        <td colspan="2" class="title">
+                @Html.CheckBox("remember")
+                @Html.Label("remember", "Больше не спрашивать")
+        </td>
+    </tr>
 </table>

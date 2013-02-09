@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
     $('#chbxDriver').attr('checked', true);
+
+    $('#startPoint').focus();
     
     $('.add-diapason-button').unbind().bind('click', function () {
         $('#additionalDate').show(400);
