@@ -49,15 +49,17 @@
         }
 
         $('.filters .input-date').each(function () {
-            var day = $(this).datepicker('getDate').getDate();
-            var month = $(this).datepicker('getDate').getMonth() + 1;
-            var year = $(this).datepicker('getDate').getFullYear();
-            
-            var fullDate = month + "." + day + "." + year;
-            var fullDate2 = day + "." + month + "." + year;
-            
-            $(this).attr('date', fullDate);
-            $(this).attr('date2', fullDate2);
+            if ($(this).datepicker('getDate') != null) {
+                var day = $(this).datepicker('getDate').getDate();
+                var month = $(this).datepicker('getDate').getMonth() + 1;
+                var year = $(this).datepicker('getDate').getFullYear();
+
+                var fullDate = month + "." + day + "." + year;
+                var fullDate2 = day + "." + month + "." + year;
+
+                $(this).attr('date', fullDate);
+                $(this).attr('date2', fullDate2);
+            }
         });
 
         window.location = document.SearchUrl
