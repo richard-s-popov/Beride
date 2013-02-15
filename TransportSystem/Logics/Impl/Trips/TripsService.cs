@@ -54,14 +54,19 @@ namespace TransportSystem.Logics.Impl.Trips
             return db.Trip.Where(x => x.OwnerId == userId);
         }
 
-        public IEnumerable<GetActiveTripsByUser_Result> GetActiveTripsByUser(int userId, DateTime date, int type)
+        public IEnumerable<GetActiveTripsByUserAndRoute_Result> GetActiveTripsByUserAndRoute(int userId, string startPoint, string endPoint, DateTime date, int type)
         {
-            return db.GetActiveTripsByUser(date, userId, type);
+            return db.GetActiveTripsByUserAndRoute(date, userId, startPoint, endPoint, type);
         }
 
         public IEnumerable<GetTrips_Result> GetTrips(string startPointGid, string endPointGid, DateTime dateAt, DateTime dateTo, int tripType, int tripStatus)
         {
             return db.GetTrips(startPointGid, endPointGid, dateAt, dateTo, tripType, tripStatus);
+        }
+
+        public IEnumerable<GetTripsByUser_Result> GetTripsByUser(int userId)
+        {
+            return db.GetTripsByUser(userId);
         }
 
         public void Save()

@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -142,6 +143,8 @@
     <Compile Include="Models\Account\AccountModel.cs" />
     <Compile Include="Models\Account\LogOnModelPoco.cs" />
     <Compile Include="Models\Account\RegisterModelPoco.cs" />
+    <Compile Include="Models\Personal\MyTripsCabinetModel.cs" />
+    <Compile Include="Models\Requests\RequestModel.cs" />
     <Compile Include="Models\Trips\TripModel.cs" />
     <Compile Include="Models\Trips\TripsListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -220,6 +223,8 @@
     <Content Include="Content\img\generic-button-blue-bg.png" />
     <Content Include="Content\img\generic-button-green-bg.png" />
     <Content Include="Content\img\map_point.png" />
+    <Content Include="Content\img\never-say-no-to-panda-100.png" />
+    <Content Include="Content\img\never-say-no-to-panda1.png" />
     <Content Include="Content\img\radio.gif" />
     <Content Include="Content\index_custom_checkbox\checkbox.css" />
     <Content Include="Content\index_custom_checkbox\checkbox.gif" />
@@ -293,6 +298,7 @@
     <Content Include="Views\Requests\Error.cshtml" />
     <Content Include="Views\Requests\MyTripsList.cshtml" />
     <Content Include="Views\Requests\YourRequestSent.cshtml" />
+    <Content Include="Views\Personal\MyTripsCabinet.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

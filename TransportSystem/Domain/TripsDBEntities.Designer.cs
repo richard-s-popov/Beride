@@ -257,6 +257,22 @@ namespace TransportSystem.Domain
             }
         }
         private ObjectSet<TripRoute> _TripRoute;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<RequestStatus> RequestStatus
+        {
+            get
+            {
+                if ((_RequestStatus == null))
+                {
+                    _RequestStatus = base.CreateObjectSet<RequestStatus>("RequestStatus");
+                }
+                return _RequestStatus;
+            }
+        }
+        private ObjectSet<RequestStatus> _RequestStatus;
 
         #endregion
 
@@ -349,6 +365,14 @@ namespace TransportSystem.Domain
         {
             base.AddObject("TripRoute", tripRoute);
         }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet RequestStatus. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToRequestStatus(RequestStatus requestStatus)
+        {
+            base.AddObject("RequestStatus", requestStatus);
+        }
 
         #endregion
 
@@ -434,7 +458,7 @@ namespace TransportSystem.Domain
         /// <param name="date">Нет доступной документации по метаданным.</param>
         /// <param name="userId">Нет доступной документации по метаданным.</param>
         /// <param name="tripType">Нет доступной документации по метаданным.</param>
-        public ObjectResult<GetActiveTripsByUser_Result> GetActiveTripsByUser(Nullable<global::System.DateTime> date, Nullable<global::System.Int32> userId, Nullable<global::System.Int32> tripType)
+        public int GetActiveTripsByUser(Nullable<global::System.DateTime> date, Nullable<global::System.Int32> userId, Nullable<global::System.Int32> tripType)
         {
             ObjectParameter dateParameter;
             if (date.HasValue)
@@ -466,7 +490,182 @@ namespace TransportSystem.Domain
                 tripTypeParameter = new ObjectParameter("TripType", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction<GetActiveTripsByUser_Result>("GetActiveTripsByUser", dateParameter, userIdParameter, tripTypeParameter);
+            return base.ExecuteFunction("GetActiveTripsByUser", dateParameter, userIdParameter, tripTypeParameter);
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        /// <param name="date">Нет доступной документации по метаданным.</param>
+        /// <param name="userId">Нет доступной документации по метаданным.</param>
+        /// <param name="startPoint">Нет доступной документации по метаданным.</param>
+        /// <param name="endPoint">Нет доступной документации по метаданным.</param>
+        /// <param name="tripType">Нет доступной документации по метаданным.</param>
+        public ObjectResult<GetActiveTripsByUserAndRoute_Result> GetActiveTripsByUserAndRoute(Nullable<global::System.DateTime> date, Nullable<global::System.Int32> userId, global::System.String startPoint, global::System.String endPoint, Nullable<global::System.Int32> tripType)
+        {
+            ObjectParameter dateParameter;
+            if (date.HasValue)
+            {
+                dateParameter = new ObjectParameter("Date", date);
+            }
+            else
+            {
+                dateParameter = new ObjectParameter("Date", typeof(global::System.DateTime));
+            }
+    
+            ObjectParameter userIdParameter;
+            if (userId.HasValue)
+            {
+                userIdParameter = new ObjectParameter("UserId", userId);
+            }
+            else
+            {
+                userIdParameter = new ObjectParameter("UserId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter startPointParameter;
+            if (startPoint != null)
+            {
+                startPointParameter = new ObjectParameter("startPoint", startPoint);
+            }
+            else
+            {
+                startPointParameter = new ObjectParameter("startPoint", typeof(global::System.String));
+            }
+    
+            ObjectParameter endPointParameter;
+            if (endPoint != null)
+            {
+                endPointParameter = new ObjectParameter("endPoint", endPoint);
+            }
+            else
+            {
+                endPointParameter = new ObjectParameter("endPoint", typeof(global::System.String));
+            }
+    
+            ObjectParameter tripTypeParameter;
+            if (tripType.HasValue)
+            {
+                tripTypeParameter = new ObjectParameter("TripType", tripType);
+            }
+            else
+            {
+                tripTypeParameter = new ObjectParameter("TripType", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<GetActiveTripsByUserAndRoute_Result>("GetActiveTripsByUserAndRoute", dateParameter, userIdParameter, startPointParameter, endPointParameter, tripTypeParameter);
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        /// <param name="userId">Нет доступной документации по метаданным.</param>
+        public ObjectResult<GetTripsByUser_Result> GetTripsByUser(Nullable<global::System.Int32> userId)
+        {
+            ObjectParameter userIdParameter;
+            if (userId.HasValue)
+            {
+                userIdParameter = new ObjectParameter("UserId", userId);
+            }
+            else
+            {
+                userIdParameter = new ObjectParameter("UserId", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<GetTripsByUser_Result>("GetTripsByUser", userIdParameter);
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        /// <param name="userId">Нет доступной документации по метаданным.</param>
+        /// <param name="tripId">Нет доступной документации по метаданным.</param>
+        /// <param name="tripType">Нет доступной документации по метаданным.</param>
+        public ObjectResult<GetRequestsByUserAndTrip_Result> GetRequestsByUserAndTrip(Nullable<global::System.Int32> userId, Nullable<global::System.Int32> tripId, Nullable<global::System.Int32> tripType)
+        {
+            ObjectParameter userIdParameter;
+            if (userId.HasValue)
+            {
+                userIdParameter = new ObjectParameter("UserId", userId);
+            }
+            else
+            {
+                userIdParameter = new ObjectParameter("UserId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter tripIdParameter;
+            if (tripId.HasValue)
+            {
+                tripIdParameter = new ObjectParameter("TripId", tripId);
+            }
+            else
+            {
+                tripIdParameter = new ObjectParameter("TripId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter tripTypeParameter;
+            if (tripType.HasValue)
+            {
+                tripTypeParameter = new ObjectParameter("TripType", tripType);
+            }
+            else
+            {
+                tripTypeParameter = new ObjectParameter("TripType", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<GetRequestsByUserAndTrip_Result>("GetRequestsByUserAndTrip", userIdParameter, tripIdParameter, tripTypeParameter);
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        /// <param name="userId">Нет доступной документации по метаданным.</param>
+        /// <param name="start">Нет доступной документации по метаданным.</param>
+        /// <param name="end">Нет доступной документации по метаданным.</param>
+        /// <param name="date">Нет доступной документации по метаданным.</param>
+        public ObjectResult<GetActualRequests_Result> GetActualRequests(Nullable<global::System.Int32> userId, global::System.String start, global::System.String end, Nullable<global::System.DateTime> date)
+        {
+            ObjectParameter userIdParameter;
+            if (userId.HasValue)
+            {
+                userIdParameter = new ObjectParameter("UserId", userId);
+            }
+            else
+            {
+                userIdParameter = new ObjectParameter("UserId", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter startParameter;
+            if (start != null)
+            {
+                startParameter = new ObjectParameter("Start", start);
+            }
+            else
+            {
+                startParameter = new ObjectParameter("Start", typeof(global::System.String));
+            }
+    
+            ObjectParameter endParameter;
+            if (end != null)
+            {
+                endParameter = new ObjectParameter("End", end);
+            }
+            else
+            {
+                endParameter = new ObjectParameter("End", typeof(global::System.String));
+            }
+    
+            ObjectParameter dateParameter;
+            if (date.HasValue)
+            {
+                dateParameter = new ObjectParameter("Date", date);
+            }
+            else
+            {
+                dateParameter = new ObjectParameter("Date", typeof(global::System.DateTime));
+            }
+    
+            return base.ExecuteFunction<GetActualRequests_Result>("GetActualRequests", userIdParameter, startParameter, endParameter, dateParameter);
         }
 
         #endregion
@@ -1264,7 +1463,8 @@ namespace TransportSystem.Domain
         /// <param name="createDate">Исходное значение свойства CreateDate.</param>
         /// <param name="ownerRouteId">Исходное значение свойства OwnerRouteId.</param>
         /// <param name="ownerTripDateId">Исходное значение свойства OwnerTripDateId.</param>
-        public static Request CreateRequest(global::System.Int32 id, global::System.Int32 driverTripId, global::System.Int32 passengerTripId, global::System.Int32 initiatorId, global::System.Int32 statusRequestId, global::System.DateTime createDate, global::System.Int64 ownerRouteId, global::System.Int64 ownerTripDateId)
+        /// <param name="requestToDate">Исходное значение свойства RequestToDate.</param>
+        public static Request CreateRequest(global::System.Int32 id, global::System.Int32 driverTripId, global::System.Int32 passengerTripId, global::System.Int32 initiatorId, global::System.Int32 statusRequestId, global::System.DateTime createDate, global::System.Int64 ownerRouteId, global::System.Int64 ownerTripDateId, global::System.DateTime requestToDate)
         {
             Request request = new Request();
             request.Id = id;
@@ -1275,6 +1475,7 @@ namespace TransportSystem.Domain
             request.CreateDate = createDate;
             request.OwnerRouteId = ownerRouteId;
             request.OwnerTripDateId = ownerTripDateId;
+            request.RequestToDate = requestToDate;
             return request;
         }
 
@@ -1500,6 +1701,30 @@ namespace TransportSystem.Domain
         private global::System.Int64 _OwnerTripDateId;
         partial void OnOwnerTripDateIdChanging(global::System.Int64 value);
         partial void OnOwnerTripDateIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime RequestToDate
+        {
+            get
+            {
+                return _RequestToDate;
+            }
+            set
+            {
+                OnRequestToDateChanging(value);
+                ReportPropertyChanging("RequestToDate");
+                _RequestToDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RequestToDate");
+                OnRequestToDateChanged();
+            }
+        }
+        private global::System.DateTime _RequestToDate;
+        partial void OnRequestToDateChanging(global::System.DateTime value);
+        partial void OnRequestToDateChanged();
 
         #endregion
 
@@ -1584,6 +1809,89 @@ namespace TransportSystem.Domain
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TransportSystemModel", Name="RequestStatus")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RequestStatus : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта RequestStatus.
+        /// </summary>
+        /// <param name="id">Исходное значение свойства Id.</param>
+        /// <param name="statusName">Исходное значение свойства StatusName.</param>
+        public static RequestStatus CreateRequestStatus(global::System.Int32 id, global::System.String statusName)
+        {
+            RequestStatus requestStatus = new RequestStatus();
+            requestStatus.Id = id;
+            requestStatus.StatusName = statusName;
+            return requestStatus;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String StatusName
+        {
+            get
+            {
+                return _StatusName;
+            }
+            set
+            {
+                OnStatusNameChanging(value);
+                ReportPropertyChanging("StatusName");
+                _StatusName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("StatusName");
+                OnStatusNameChanged();
+            }
+        }
+        private global::System.String _StatusName;
+        partial void OnStatusNameChanging(global::System.String value);
+        partial void OnStatusNameChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>
@@ -2337,7 +2645,8 @@ namespace TransportSystem.Domain
         /// <param name="endPointGid">Исходное значение свойства EndPointGid.</param>
         /// <param name="endPointFullName">Исходное значение свойства EndPointFullName.</param>
         /// <param name="endPointShortName">Исходное значение свойства EndPointShortName.</param>
-        public static TripRoute CreateTripRoute(global::System.Int32 id, global::System.Int32 tripId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName)
+        /// <param name="cost">Исходное значение свойства Cost.</param>
+        public static TripRoute CreateTripRoute(global::System.Int32 id, global::System.Int32 tripId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int32 cost)
         {
             TripRoute tripRoute = new TripRoute();
             tripRoute.Id = id;
@@ -2348,6 +2657,7 @@ namespace TransportSystem.Domain
             tripRoute.EndPointGid = endPointGid;
             tripRoute.EndPointFullName = endPointFullName;
             tripRoute.EndPointShortName = endPointShortName;
+            tripRoute.Cost = cost;
             return tripRoute;
         }
 
@@ -2549,6 +2859,30 @@ namespace TransportSystem.Domain
         private global::System.String _EndPointShortName;
         partial void OnEndPointShortNameChanging(global::System.String value);
         partial void OnEndPointShortNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Cost
+        {
+            get
+            {
+                return _Cost;
+            }
+            set
+            {
+                OnCostChanging(value);
+                ReportPropertyChanging("Cost");
+                _Cost = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Cost");
+                OnCostChanged();
+            }
+        }
+        private global::System.Int32 _Cost;
+        partial void OnCostChanging(global::System.Int32 value);
+        partial void OnCostChanged();
 
         #endregion
 
@@ -3273,15 +3607,15 @@ namespace TransportSystem.Domain
     /// <summary>
     /// Нет доступной документации по метаданным.
     /// </summary>
-    [EdmComplexTypeAttribute(NamespaceName="TransportSystemModel", Name="GetActiveTripsByUser_Result")]
+    [EdmComplexTypeAttribute(NamespaceName="TransportSystemModel", Name="GetActiveTripsByUserAndRoute_Result")]
     [DataContractAttribute(IsReference=true)]
     [Serializable()]
-    public partial class GetActiveTripsByUser_Result : ComplexObject
+    public partial class GetActiveTripsByUserAndRoute_Result : ComplexObject
     {
         #region Фабричный метод
     
         /// <summary>
-        /// Создание нового объекта GetActiveTripsByUser_Result.
+        /// Создание нового объекта GetActiveTripsByUserAndRoute_Result.
         /// </summary>
         /// <param name="tripId">Исходное значение свойства TripId.</param>
         /// <param name="tripType">Исходное значение свойства TripType.</param>
@@ -3290,17 +3624,17 @@ namespace TransportSystem.Domain
         /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
         /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
         /// <param name="date">Исходное значение свойства Date.</param>
-        public static GetActiveTripsByUser_Result CreateGetActiveTripsByUser_Result(global::System.Int32 tripId, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.DateTime date)
+        public static GetActiveTripsByUserAndRoute_Result CreateGetActiveTripsByUserAndRoute_Result(global::System.Int32 tripId, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.DateTime date)
         {
-            GetActiveTripsByUser_Result getActiveTripsByUser_Result = new GetActiveTripsByUser_Result();
-            getActiveTripsByUser_Result.TripId = tripId;
-            getActiveTripsByUser_Result.TripType = tripType;
-            getActiveTripsByUser_Result.OwnerId = ownerId;
-            getActiveTripsByUser_Result.TripStatus = tripStatus;
-            getActiveTripsByUser_Result.MainRouteStr = mainRouteStr;
-            getActiveTripsByUser_Result.MainRouteShortStr = mainRouteShortStr;
-            getActiveTripsByUser_Result.Date = date;
-            return getActiveTripsByUser_Result;
+            GetActiveTripsByUserAndRoute_Result getActiveTripsByUserAndRoute_Result = new GetActiveTripsByUserAndRoute_Result();
+            getActiveTripsByUserAndRoute_Result.TripId = tripId;
+            getActiveTripsByUserAndRoute_Result.TripType = tripType;
+            getActiveTripsByUserAndRoute_Result.OwnerId = ownerId;
+            getActiveTripsByUserAndRoute_Result.TripStatus = tripStatus;
+            getActiveTripsByUserAndRoute_Result.MainRouteStr = mainRouteStr;
+            getActiveTripsByUserAndRoute_Result.MainRouteShortStr = mainRouteShortStr;
+            getActiveTripsByUserAndRoute_Result.Date = date;
+            return getActiveTripsByUserAndRoute_Result;
         }
 
         #endregion
@@ -3554,6 +3888,518 @@ namespace TransportSystem.Domain
     /// <summary>
     /// Нет доступной документации по метаданным.
     /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="TransportSystemModel", Name="GetActualRequests_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class GetActualRequests_Result : ComplexObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта GetActualRequests_Result.
+        /// </summary>
+        /// <param name="statusRequestId">Исходное значение свойства StatusRequestId.</param>
+        /// <param name="ownerTripDateId">Исходное значение свойства OwnerTripDateId.</param>
+        /// <param name="startPointGid">Исходное значение свойства StartPointGid.</param>
+        /// <param name="endPointGid">Исходное значение свойства EndPointGid.</param>
+        public static GetActualRequests_Result CreateGetActualRequests_Result(global::System.Int32 statusRequestId, global::System.Int64 ownerTripDateId, global::System.String startPointGid, global::System.String endPointGid)
+        {
+            GetActualRequests_Result getActualRequests_Result = new GetActualRequests_Result();
+            getActualRequests_Result.StatusRequestId = statusRequestId;
+            getActualRequests_Result.OwnerTripDateId = ownerTripDateId;
+            getActualRequests_Result.StartPointGid = startPointGid;
+            getActualRequests_Result.EndPointGid = endPointGid;
+            return getActualRequests_Result;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StatusRequestId
+        {
+            get
+            {
+                return _StatusRequestId;
+            }
+            set
+            {
+                OnStatusRequestIdChanging(value);
+                ReportPropertyChanging("StatusRequestId");
+                _StatusRequestId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StatusRequestId");
+                OnStatusRequestIdChanged();
+            }
+        }
+        private global::System.Int32 _StatusRequestId;
+        partial void OnStatusRequestIdChanging(global::System.Int32 value);
+        partial void OnStatusRequestIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 OwnerTripDateId
+        {
+            get
+            {
+                return _OwnerTripDateId;
+            }
+            set
+            {
+                OnOwnerTripDateIdChanging(value);
+                ReportPropertyChanging("OwnerTripDateId");
+                _OwnerTripDateId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerTripDateId");
+                OnOwnerTripDateIdChanged();
+            }
+        }
+        private global::System.Int64 _OwnerTripDateId;
+        partial void OnOwnerTripDateIdChanging(global::System.Int64 value);
+        partial void OnOwnerTripDateIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String StartPointGid
+        {
+            get
+            {
+                return _StartPointGid;
+            }
+            set
+            {
+                OnStartPointGidChanging(value);
+                ReportPropertyChanging("StartPointGid");
+                _StartPointGid = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("StartPointGid");
+                OnStartPointGidChanged();
+            }
+        }
+        private global::System.String _StartPointGid;
+        partial void OnStartPointGidChanging(global::System.String value);
+        partial void OnStartPointGidChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EndPointGid
+        {
+            get
+            {
+                return _EndPointGid;
+            }
+            set
+            {
+                OnEndPointGidChanging(value);
+                ReportPropertyChanging("EndPointGid");
+                _EndPointGid = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("EndPointGid");
+                OnEndPointGidChanged();
+            }
+        }
+        private global::System.String _EndPointGid;
+        partial void OnEndPointGidChanging(global::System.String value);
+        partial void OnEndPointGidChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="TransportSystemModel", Name="GetRequestsByUserAndTrip_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class GetRequestsByUserAndTrip_Result : ComplexObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта GetRequestsByUserAndTrip_Result.
+        /// </summary>
+        /// <param name="tripId">Исходное значение свойства TripId.</param>
+        /// <param name="tripType">Исходное значение свойства TripType.</param>
+        /// <param name="ownerId">Исходное значение свойства OwnerId.</param>
+        /// <param name="tripStatus">Исходное значение свойства TripStatus.</param>
+        /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
+        /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
+        /// <param name="statusRequestId">Исходное значение свойства StatusRequestId.</param>
+        /// <param name="requestToDate">Исходное значение свойства RequestToDate.</param>
+        /// <param name="initiatorId">Исходное значение свойства InitiatorId.</param>
+        public static GetRequestsByUserAndTrip_Result CreateGetRequestsByUserAndTrip_Result(global::System.Int32 tripId, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.Int32 statusRequestId, global::System.DateTime requestToDate, global::System.Int32 initiatorId)
+        {
+            GetRequestsByUserAndTrip_Result getRequestsByUserAndTrip_Result = new GetRequestsByUserAndTrip_Result();
+            getRequestsByUserAndTrip_Result.TripId = tripId;
+            getRequestsByUserAndTrip_Result.TripType = tripType;
+            getRequestsByUserAndTrip_Result.OwnerId = ownerId;
+            getRequestsByUserAndTrip_Result.TripStatus = tripStatus;
+            getRequestsByUserAndTrip_Result.MainRouteStr = mainRouteStr;
+            getRequestsByUserAndTrip_Result.MainRouteShortStr = mainRouteShortStr;
+            getRequestsByUserAndTrip_Result.StatusRequestId = statusRequestId;
+            getRequestsByUserAndTrip_Result.RequestToDate = requestToDate;
+            getRequestsByUserAndTrip_Result.InitiatorId = initiatorId;
+            return getRequestsByUserAndTrip_Result;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripId
+        {
+            get
+            {
+                return _TripId;
+            }
+            set
+            {
+                OnTripIdChanging(value);
+                ReportPropertyChanging("TripId");
+                _TripId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripId");
+                OnTripIdChanged();
+            }
+        }
+        private global::System.Int32 _TripId;
+        partial void OnTripIdChanging(global::System.Int32 value);
+        partial void OnTripIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripType
+        {
+            get
+            {
+                return _TripType;
+            }
+            set
+            {
+                OnTripTypeChanging(value);
+                ReportPropertyChanging("TripType");
+                _TripType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripType");
+                OnTripTypeChanged();
+            }
+        }
+        private global::System.Int32 _TripType;
+        partial void OnTripTypeChanging(global::System.Int32 value);
+        partial void OnTripTypeChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OwnerId
+        {
+            get
+            {
+                return _OwnerId;
+            }
+            set
+            {
+                OnOwnerIdChanging(value);
+                ReportPropertyChanging("OwnerId");
+                _OwnerId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerId");
+                OnOwnerIdChanged();
+            }
+        }
+        private global::System.Int32 _OwnerId;
+        partial void OnOwnerIdChanging(global::System.Int32 value);
+        partial void OnOwnerIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripStatus
+        {
+            get
+            {
+                return _TripStatus;
+            }
+            set
+            {
+                OnTripStatusChanging(value);
+                ReportPropertyChanging("TripStatus");
+                _TripStatus = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripStatus");
+                OnTripStatusChanged();
+            }
+        }
+        private global::System.Int32 _TripStatus;
+        partial void OnTripStatusChanging(global::System.Int32 value);
+        partial void OnTripStatusChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> ExpectedEndDate
+        {
+            get
+            {
+                return _ExpectedEndDate;
+            }
+            set
+            {
+                OnExpectedEndDateChanging(value);
+                ReportPropertyChanging("ExpectedEndDate");
+                _ExpectedEndDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ExpectedEndDate");
+                OnExpectedEndDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _ExpectedEndDate;
+        partial void OnExpectedEndDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnExpectedEndDateChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CarId
+        {
+            get
+            {
+                return _CarId;
+            }
+            set
+            {
+                OnCarIdChanging(value);
+                ReportPropertyChanging("CarId");
+                _CarId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CarId");
+                OnCarIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CarId;
+        partial void OnCarIdChanging(Nullable<global::System.Int32> value);
+        partial void OnCarIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Seats
+        {
+            get
+            {
+                return _Seats;
+            }
+            set
+            {
+                OnSeatsChanging(value);
+                ReportPropertyChanging("Seats");
+                _Seats = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Seats");
+                OnSeatsChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Seats;
+        partial void OnSeatsChanging(Nullable<global::System.Int32> value);
+        partial void OnSeatsChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteStr
+        {
+            get
+            {
+                return _MainRouteStr;
+            }
+            set
+            {
+                OnMainRouteStrChanging(value);
+                ReportPropertyChanging("MainRouteStr");
+                _MainRouteStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteStr");
+                OnMainRouteStrChanged();
+            }
+        }
+        private global::System.String _MainRouteStr;
+        partial void OnMainRouteStrChanging(global::System.String value);
+        partial void OnMainRouteStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteShortStr
+        {
+            get
+            {
+                return _MainRouteShortStr;
+            }
+            set
+            {
+                OnMainRouteShortStrChanging(value);
+                ReportPropertyChanging("MainRouteShortStr");
+                _MainRouteShortStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteShortStr");
+                OnMainRouteShortStrChanged();
+            }
+        }
+        private global::System.String _MainRouteShortStr;
+        partial void OnMainRouteShortStrChanging(global::System.String value);
+        partial void OnMainRouteShortStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OwnerFisrtName
+        {
+            get
+            {
+                return _OwnerFisrtName;
+            }
+            set
+            {
+                OnOwnerFisrtNameChanging(value);
+                ReportPropertyChanging("OwnerFisrtName");
+                _OwnerFisrtName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OwnerFisrtName");
+                OnOwnerFisrtNameChanged();
+            }
+        }
+        private global::System.String _OwnerFisrtName;
+        partial void OnOwnerFisrtNameChanging(global::System.String value);
+        partial void OnOwnerFisrtNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OwnerLastName
+        {
+            get
+            {
+                return _OwnerLastName;
+            }
+            set
+            {
+                OnOwnerLastNameChanging(value);
+                ReportPropertyChanging("OwnerLastName");
+                _OwnerLastName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OwnerLastName");
+                OnOwnerLastNameChanged();
+            }
+        }
+        private global::System.String _OwnerLastName;
+        partial void OnOwnerLastNameChanging(global::System.String value);
+        partial void OnOwnerLastNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StatusRequestId
+        {
+            get
+            {
+                return _StatusRequestId;
+            }
+            set
+            {
+                OnStatusRequestIdChanging(value);
+                ReportPropertyChanging("StatusRequestId");
+                _StatusRequestId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StatusRequestId");
+                OnStatusRequestIdChanged();
+            }
+        }
+        private global::System.Int32 _StatusRequestId;
+        partial void OnStatusRequestIdChanging(global::System.Int32 value);
+        partial void OnStatusRequestIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime RequestToDate
+        {
+            get
+            {
+                return _RequestToDate;
+            }
+            set
+            {
+                OnRequestToDateChanging(value);
+                ReportPropertyChanging("RequestToDate");
+                _RequestToDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RequestToDate");
+                OnRequestToDateChanged();
+            }
+        }
+        private global::System.DateTime _RequestToDate;
+        partial void OnRequestToDateChanging(global::System.DateTime value);
+        partial void OnRequestToDateChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 InitiatorId
+        {
+            get
+            {
+                return _InitiatorId;
+            }
+            set
+            {
+                OnInitiatorIdChanging(value);
+                ReportPropertyChanging("InitiatorId");
+                _InitiatorId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("InitiatorId");
+                OnInitiatorIdChanged();
+            }
+        }
+        private global::System.Int32 _InitiatorId;
+        partial void OnInitiatorIdChanging(global::System.Int32 value);
+        partial void OnInitiatorIdChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
     [EdmComplexTypeAttribute(NamespaceName="TransportSystemModel", Name="GetTrips_Result")]
     [DataContractAttribute(IsReference=true)]
     [Serializable()]
@@ -3579,7 +4425,8 @@ namespace TransportSystem.Domain
         /// <param name="tripDateId">Исходное значение свойства TripDateId.</param>
         /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
         /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
-        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr)
+        /// <param name="cost">Исходное значение свойства Cost.</param>
+        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.Int32 cost)
         {
             GetTrips_Result getTrips_Result = new GetTrips_Result();
             getTrips_Result.Id = id;
@@ -3597,6 +4444,7 @@ namespace TransportSystem.Domain
             getTrips_Result.TripDateId = tripDateId;
             getTrips_Result.MainRouteStr = mainRouteStr;
             getTrips_Result.MainRouteShortStr = mainRouteShortStr;
+            getTrips_Result.Cost = cost;
             return getTrips_Result;
         }
 
@@ -4035,6 +4883,311 @@ namespace TransportSystem.Domain
         private global::System.String _MainRouteShortStr;
         partial void OnMainRouteShortStrChanging(global::System.String value);
         partial void OnMainRouteShortStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Cost
+        {
+            get
+            {
+                return _Cost;
+            }
+            set
+            {
+                OnCostChanging(value);
+                ReportPropertyChanging("Cost");
+                _Cost = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Cost");
+                OnCostChanged();
+            }
+        }
+        private global::System.Int32 _Cost;
+        partial void OnCostChanging(global::System.Int32 value);
+        partial void OnCostChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="TransportSystemModel", Name="GetTripsByUser_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class GetTripsByUser_Result : ComplexObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта GetTripsByUser_Result.
+        /// </summary>
+        /// <param name="tripId">Исходное значение свойства TripId.</param>
+        /// <param name="tripType">Исходное значение свойства TripType.</param>
+        /// <param name="ownerId">Исходное значение свойства OwnerId.</param>
+        /// <param name="tripStatus">Исходное значение свойства TripStatus.</param>
+        /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
+        /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
+        /// <param name="date">Исходное значение свойства Date.</param>
+        public static GetTripsByUser_Result CreateGetTripsByUser_Result(global::System.Int32 tripId, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.DateTime date)
+        {
+            GetTripsByUser_Result getTripsByUser_Result = new GetTripsByUser_Result();
+            getTripsByUser_Result.TripId = tripId;
+            getTripsByUser_Result.TripType = tripType;
+            getTripsByUser_Result.OwnerId = ownerId;
+            getTripsByUser_Result.TripStatus = tripStatus;
+            getTripsByUser_Result.MainRouteStr = mainRouteStr;
+            getTripsByUser_Result.MainRouteShortStr = mainRouteShortStr;
+            getTripsByUser_Result.Date = date;
+            return getTripsByUser_Result;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripId
+        {
+            get
+            {
+                return _TripId;
+            }
+            set
+            {
+                OnTripIdChanging(value);
+                ReportPropertyChanging("TripId");
+                _TripId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripId");
+                OnTripIdChanged();
+            }
+        }
+        private global::System.Int32 _TripId;
+        partial void OnTripIdChanging(global::System.Int32 value);
+        partial void OnTripIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripType
+        {
+            get
+            {
+                return _TripType;
+            }
+            set
+            {
+                OnTripTypeChanging(value);
+                ReportPropertyChanging("TripType");
+                _TripType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripType");
+                OnTripTypeChanged();
+            }
+        }
+        private global::System.Int32 _TripType;
+        partial void OnTripTypeChanging(global::System.Int32 value);
+        partial void OnTripTypeChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OwnerId
+        {
+            get
+            {
+                return _OwnerId;
+            }
+            set
+            {
+                OnOwnerIdChanging(value);
+                ReportPropertyChanging("OwnerId");
+                _OwnerId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerId");
+                OnOwnerIdChanged();
+            }
+        }
+        private global::System.Int32 _OwnerId;
+        partial void OnOwnerIdChanging(global::System.Int32 value);
+        partial void OnOwnerIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TripStatus
+        {
+            get
+            {
+                return _TripStatus;
+            }
+            set
+            {
+                OnTripStatusChanging(value);
+                ReportPropertyChanging("TripStatus");
+                _TripStatus = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TripStatus");
+                OnTripStatusChanged();
+            }
+        }
+        private global::System.Int32 _TripStatus;
+        partial void OnTripStatusChanging(global::System.Int32 value);
+        partial void OnTripStatusChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> ExpectedEndDate
+        {
+            get
+            {
+                return _ExpectedEndDate;
+            }
+            set
+            {
+                OnExpectedEndDateChanging(value);
+                ReportPropertyChanging("ExpectedEndDate");
+                _ExpectedEndDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ExpectedEndDate");
+                OnExpectedEndDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _ExpectedEndDate;
+        partial void OnExpectedEndDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnExpectedEndDateChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CarId
+        {
+            get
+            {
+                return _CarId;
+            }
+            set
+            {
+                OnCarIdChanging(value);
+                ReportPropertyChanging("CarId");
+                _CarId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CarId");
+                OnCarIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CarId;
+        partial void OnCarIdChanging(Nullable<global::System.Int32> value);
+        partial void OnCarIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Seats
+        {
+            get
+            {
+                return _Seats;
+            }
+            set
+            {
+                OnSeatsChanging(value);
+                ReportPropertyChanging("Seats");
+                _Seats = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Seats");
+                OnSeatsChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Seats;
+        partial void OnSeatsChanging(Nullable<global::System.Int32> value);
+        partial void OnSeatsChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteStr
+        {
+            get
+            {
+                return _MainRouteStr;
+            }
+            set
+            {
+                OnMainRouteStrChanging(value);
+                ReportPropertyChanging("MainRouteStr");
+                _MainRouteStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteStr");
+                OnMainRouteStrChanged();
+            }
+        }
+        private global::System.String _MainRouteStr;
+        partial void OnMainRouteStrChanging(global::System.String value);
+        partial void OnMainRouteStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MainRouteShortStr
+        {
+            get
+            {
+                return _MainRouteShortStr;
+            }
+            set
+            {
+                OnMainRouteShortStrChanging(value);
+                ReportPropertyChanging("MainRouteShortStr");
+                _MainRouteShortStr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MainRouteShortStr");
+                OnMainRouteShortStrChanged();
+            }
+        }
+        private global::System.String _MainRouteShortStr;
+        partial void OnMainRouteShortStrChanging(global::System.String value);
+        partial void OnMainRouteShortStrChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
 
         #endregion
 

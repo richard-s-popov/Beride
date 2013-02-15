@@ -1,0 +1,48 @@
+﻿@model TransportSystem.Area.Web.Models.Personal.MyTripsCabinetModel
+
+<div class="my-trips-cabinet">
+    <div class="title">Заявки на поездки</div>
+    <div class="trips main-block">
+        @foreach (var trip in Model.Trips)
+        {
+            <div class="trip">
+                <div class="route">
+                    @trip.MainRouteShortString
+                </div>
+                <div class="date-period">
+                    @if (trip.StartDateAt == trip.StartDateTo)
+                    {
+                        @trip.StartDateAt.ToShortDateString()
+                    }
+                    else
+                    {
+                        @trip.StartDateAt.ToShortDateString()<text>&nbsp;-&nbsp;</text>@trip.StartDateTo.ToShortDateString()
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="requests main-block">
+        @if (Model.Requests.Any())
+        {
+            foreach (var request in Model.Requests)
+            {
+                <div class="request">
+                    <div class="photo"><img src="@Url.Content("~/Content/img/never-say-no-to-panda1.png")"/></div>
+                    <div class="full-name">
+                        @request.UserFullName
+                    </div>
+                    <div class="route">
+                        @request.UserFullRoute
+                    </div>
+                    <div class="date-period">
+                        @request.RequestToDate.ToShortDateString()
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="user-profile main-block">
+        
+    </div>
+</div>

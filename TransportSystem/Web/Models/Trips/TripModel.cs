@@ -17,6 +17,8 @@ namespace TransportSystem.Area.Web.Models.Trips
 
         public int? SeatsNumber { get; set; }
 
+        public int Cost { get; set; }
+
         public string StartPointFullName { get; set; }
 
         public string StartPointShortName { get; set; }
@@ -29,11 +31,15 @@ namespace TransportSystem.Area.Web.Models.Trips
 
         public IEnumerable<string> MainRouteShortStr { get; set; }
 
+        public string MainRouteShortString { get; set; }
+
         public DateTime Date { get; set; }
 
         public DateTime StartDateAt { get; set; }
 
         public DateTime StartDateTo { get; set; }
+
+        public string StatusForUser { get; set; }
     }
 
     public class SJSonModel

@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="~/Scripts/checkbox.js"></script>
     <script type="text/javascript" src="~/Scripts/ya.map.js"></script>
     <script type="text/javascript" src="~/Scripts/main.js"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/fancybox/jquery.mousewheel-3.0.4.pack.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/fancybox/jquery.mousewheel-3.0.4.pack.js")"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/fancybox/jquery.fancybox-1.3.4.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/account/register.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/account/login.js")"></script>
@@ -40,22 +40,28 @@
                 }
             </div>
             <div style="display:none">
-		            <div id="popup">
-		                <div id="registrationContainer" style="display: none;">
-		                    @Html.Partial("Partials/RegisterForm")
-		                </div>
-		                <div id="loginContainer">
-		                    @Html.Partial("Partials/LoginForm")
-		                </div>
-                        <div id="registerSuccess"></div>
-		            </div>
-	            </div>
+                <div id="popup">
+                    <div id="registrationContainer" style="display: none;">
+                        @Html.Partial("Partials/RegisterForm")
+                    </div>
+                    <div id="loginContainer">
+                        @Html.Partial("Partials/LoginForm")
+                    </div>
+                    <div id="registerSuccess"></div>
+                </div>
+            </div>
+            <div style="display: none;">
+                <a id="showMyTripsCabinetPopup" href="#myTripsCabinetPopup">Мои поездки</a>
+                <div id="myTripsCabinetPopup"></div>
+            </div>
             <div class="left-menu">
-                <span>Раз</span>
-                <span>Два</span>
-                <span>Три</span>
-                <span>Четыре</span>
-                <span>Пять</span>
+                @if (HttpContext.Current.User.Identity.IsAuthenticated) {
+                    <span><a id="MyTripsCabinet">Мои поездки</a></span>
+                    <span><a>Профиль</a></span>
+                }
+                <span>Еще</span>
+                <span>не придумал</span>
+                <span class="last">что тут</span>
             </div>
         </div>
         @RenderBody()
@@ -64,7 +70,8 @@
         </div>
     </body>
     <script type="text/javascript">
-        document.GetPlacesUrl = "@Url.Action("GetPlaces","Trips")";
+        document.GetPlacesUrl = "@Url.Action("GetPlaces","Trips")"; 
         document.IsAuthenticatedUrl = "@Url.Action("IsAuthenticated","Account")";
+        document.MyTripsCabinet = "@Url.Action("MyTripsCabinet","Personal")";
     </script>
 </html>

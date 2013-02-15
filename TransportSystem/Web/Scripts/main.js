@@ -40,6 +40,9 @@
             $('.message').hide();
             $('#loginContainer').show();
             $('#registrationContainer').hide();
+        },
+        onComplete: function () {
+            $.fancybox.hideActivity();
         }
     });
 
@@ -57,10 +60,59 @@
         $('#registrationContainer').hide();
         $.fancybox.resize();
     });
+    
+    $('#showMyTripsCabinetPopup').fancybox({
+        showCloseButton: false,
+        scrolling: 'no',
+        centerOnScroll: true,
+        onClosed: function () {
+        },
+        onStart: function () {
+            
+        },
+        onComplete: function() {
+            $.fancybox.hideActivity();
+        }
+    });
+
+    $('#MyTripsCabinet').click(function() {
+        $.fancybox.showActivity();
+        console.log("2");
+        $.getJSON(document.IsAuthenticatedUrl, function (result) {
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    url: document.MyTripsCabinet,
+                    success: function (data) {
+                        $('#myTripsCabinetPopup').html(data);
+                        $('#showMyTripsCabinetPopup').click();
+                        console.log("3");
+                    }
+                });
+            } else {
+                $('#signIn').click();
+            }
+        });
+    });
+    
+    var offset = $(".filters").offset();
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > offset.top) {
+            $(".filters").css({ 'top': '10px', 'position': 'fixed' }); /* тут можно задать отступ от верхней границы, в данном случае это 10 px */
+        }
+        else {
+            $(".filters").css({ 'top': offset.top, 'position': 'static' });
+        };
+    });
 });
 
+function callbackCabinet() {
+    console.log("1");
+    $('#MyTripsCabinet').click();
+}
 
-function bindAutocomplate() {
+function bindAutocomplate(options) {
     $('.input.location').autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -77,7 +129,7 @@ function bindAutocomplate() {
                     response($.map(json.predictions, function (item) {
                         return {
                             label: item.description,
-                            value: item.description,
+                            value: options !== undefined && options.shortValue ? item.terms[0].value : item.description,
                             id: item.id,
                             shortName: item.terms[0].value
                         };
@@ -90,6 +142,12 @@ function bindAutocomplate() {
             $(this).attr('gid', ui.item.id);
             $(this).attr('shortName', ui.item.shortName);
             $(this).val(ui.item.value);
+            
+            if (options !== undefined && options.shortValue) {
+                console.log(ui.item.label);
+                $(this).attr('full-name', ui.item.label);
+            }
+
             $(this).trigger('change');
         },
         close: function (event, ui) {
@@ -102,6 +160,7 @@ function bindAutocomplate() {
         open: function () {
             $(this).removeAttr('gid');
             $(this).removeAttr('shortName');
+            $(this).removeAttr('full-name');
 
             var position = $(this).parent().position(),
                 left = position.left, top = position.top;

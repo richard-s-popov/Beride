@@ -24,6 +24,7 @@
     <EntitySetMapping Name="Request">
       <EntityTypeMapping TypeName="TransportSystemModel.Request">
         <MappingFragment StoreEntitySet="Request">
+          <ScalarProperty Name="RequestToDate" ColumnName="RequestToDate" />
           <ScalarProperty Name="OwnerTripDateId" ColumnName="OwnerTripDateId" />
           <ScalarProperty Name="OwnerRouteId" ColumnName="OwnerRouteId" />
           <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
@@ -139,9 +140,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="GetActiveTripsByUser" FunctionName="TransportSystemModel.Store.GetActiveTripsByUser">
+    <EntitySetMapping Name="TripRoute">
+      <EntityTypeMapping TypeName="TransportSystemModel.TripRoute">
+        <MappingFragment StoreEntitySet="TripRoute">
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="EndPointShortName" ColumnName="EndPointShortName" />
+          <ScalarProperty Name="EndPointFullName" ColumnName="EndPointFullName" />
+          <ScalarProperty Name="EndPointGid" ColumnName="EndPointGid" />
+          <ScalarProperty Name="StartPointShortName" ColumnName="StartPointShortName" />
+          <ScalarProperty Name="StartPointFullName" ColumnName="StartPointFullName" />
+          <ScalarProperty Name="StartPointGid" ColumnName="StartPointGid" />
+          <ScalarProperty Name="TripId" ColumnName="TripId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetActiveTripsByUserAndRoute" FunctionName="TransportSystemModel.Store.GetActiveTripsByUserAndRoute">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="TransportSystemModel.GetActiveTripsByUser_Result">
+        <ComplexTypeMapping TypeName="TransportSystemModel.GetActiveTripsByUserAndRoute_Result">
           <ScalarProperty Name="TripId" ColumnName="TripId" />
           <ScalarProperty Name="TripType" ColumnName="TripType" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
@@ -155,19 +171,58 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="TripRoute">
-      <EntityTypeMapping TypeName="TransportSystemModel.TripRoute">
-        <MappingFragment StoreEntitySet="TripRoute">
-          <ScalarProperty Name="EndPointShortName" ColumnName="EndPointShortName" />
-          <ScalarProperty Name="EndPointFullName" ColumnName="EndPointFullName" />
-          <ScalarProperty Name="EndPointGid" ColumnName="EndPointGid" />
-          <ScalarProperty Name="StartPointShortName" ColumnName="StartPointShortName" />
-          <ScalarProperty Name="StartPointFullName" ColumnName="StartPointFullName" />
-          <ScalarProperty Name="StartPointGid" ColumnName="StartPointGid" />
-          <ScalarProperty Name="TripId" ColumnName="TripId" />
+    <EntitySetMapping Name="RequestStatus">
+      <EntityTypeMapping TypeName="TransportSystemModel.RequestStatus">
+        <MappingFragment StoreEntitySet="RequestStatus">
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetTripsByUser" FunctionName="TransportSystemModel.Store.GetTripsByUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TransportSystemModel.GetTripsByUser_Result">
+          <ScalarProperty Name="TripId" ColumnName="TripId" />
+          <ScalarProperty Name="TripType" ColumnName="TripType" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="TripStatus" ColumnName="TripStatus" />
+          <ScalarProperty Name="ExpectedEndDate" ColumnName="ExpectedEndDate" />
+          <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="Seats" ColumnName="Seats" />
+          <ScalarProperty Name="MainRouteStr" ColumnName="MainRouteStr" />
+          <ScalarProperty Name="MainRouteShortStr" ColumnName="MainRouteShortStr" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetRequestsByUserAndTrip" FunctionName="TransportSystemModel.Store.GetRequestsByUserAndTrip">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TransportSystemModel.GetRequestsByUserAndTrip_Result">
+          <ScalarProperty Name="TripId" ColumnName="TripId" />
+          <ScalarProperty Name="TripType" ColumnName="TripType" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="TripStatus" ColumnName="TripStatus" />
+          <ScalarProperty Name="ExpectedEndDate" ColumnName="ExpectedEndDate" />
+          <ScalarProperty Name="CarId" ColumnName="CarId" />
+          <ScalarProperty Name="Seats" ColumnName="Seats" />
+          <ScalarProperty Name="MainRouteStr" ColumnName="MainRouteStr" />
+          <ScalarProperty Name="MainRouteShortStr" ColumnName="MainRouteShortStr" />
+          <ScalarProperty Name="OwnerFisrtName" ColumnName="OwnerFisrtName" />
+          <ScalarProperty Name="OwnerLastName" ColumnName="OwnerLastName" />
+          <ScalarProperty Name="StatusRequestId" ColumnName="StatusRequestId" />
+          <ScalarProperty Name="RequestToDate" ColumnName="RequestToDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetActualRequests" FunctionName="TransportSystemModel.Store.GetActualRequests">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TransportSystemModel.GetActualRequests_Result">
+          <ScalarProperty Name="StatusRequestId" ColumnName="StatusRequestId" />
+          <ScalarProperty Name="OwnerTripDateId" ColumnName="OwnerTripDateId" />
+          <ScalarProperty Name="StartPointGid" ColumnName="StartPointGid" />
+          <ScalarProperty Name="EndPointGid" ColumnName="EndPointGid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

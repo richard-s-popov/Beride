@@ -6,6 +6,7 @@
     <EntitySet Name="CarColor" EntityType="TransportSystemModel.Store.CarColor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CarModel" EntityType="TransportSystemModel.Store.CarModel" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Request" EntityType="TransportSystemModel.Store.Request" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RequestStatus" EntityType="TransportSystemModel.Store.RequestStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Trip" EntityType="TransportSystemModel.Store.Trip" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TripDate" EntityType="TransportSystemModel.Store.TripDate" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TripRoute" EntityType="TransportSystemModel.Store.TripRoute" store:Type="Tables" Schema="dbo" />
@@ -108,6 +109,14 @@
     <Property Name="StatusRequestId" Type="int" Nullable="false" />
     <Property Name="CreateDate" Type="datetime" Nullable="false" />
     <Property Name="ModificationDate" Type="datetime" />
+    <Property Name="RequestToDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <EntityType Name="Trip">
     <Key>
@@ -146,6 +155,7 @@
     <Property Name="EndPointGid" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="EndPointFullName" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="EndPointShortName" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Cost" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="TripStatus">
     <Key>
@@ -326,9 +336,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="GetActiveTripsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="GetActiveTripsByUserAndRoute" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Date" Type="datetime" Mode="In" />
     <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="startPoint" Type="nvarchar" Mode="In" />
+    <Parameter Name="endPoint" Type="nvarchar" Mode="In" />
+    <Parameter Name="TripType" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetActualRequests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="Start" Type="nvarchar" Mode="In" />
+    <Parameter Name="End" Type="nvarchar" Mode="In" />
+    <Parameter Name="Date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="GetRequestsByUserAndTrip" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="TripId" Type="int" Mode="In" />
     <Parameter Name="TripType" Type="int" Mode="In" />
   </Function>
   <Function Name="GetTrips" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -338,5 +361,8 @@
     <Parameter Name="DateTo" Type="datetime" Mode="In" />
     <Parameter Name="TripType" Type="int" Mode="In" />
     <Parameter Name="TripStatus" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetTripsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
   </Function>
 </Schema>

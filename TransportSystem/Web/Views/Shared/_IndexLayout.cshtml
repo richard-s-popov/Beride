@@ -25,11 +25,7 @@
                 <span></span>
             </div>
             <div class="right-menu">
-                <a href="@Url.Action("CreateTrip", "Trips")" style="text-decoration: none;">
-                    <div style="width:200px;margin-left:100px;float: right;margin:16px 10px">
-                        <div class="button">Создать поездку</div>
-                    </div>
-                </a>
+                <a class="simple-button" style="float: right;margin-top: 14px;margin-left: 20px;text-decoration: none;"href="@Url.Action("CreateTrip", "Trips")">Создать поездку</a>
                 @if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     <a id="signIn" href="#popup" class="header-signin" style="display: none;">Вход / Регистрация</a>
@@ -41,16 +37,16 @@
                     <a id="logOut" class="header-signin" style="display: none;" href="@Url.Action("Logout", "Account")">Выход</a>   
                 }
                 <div style="display:none">
-		            <div id="popup">
-		                <div id="registrationContainer" style="display: none;">
-		                    @Html.Partial("Partials/RegisterForm")
-		                </div>
-		                <div id="loginContainer">
-		                    @Html.Partial("Partials/LoginForm")
-		                </div>
+                    <div id="popup">
+                        <div id="registrationContainer" style="display: none;">
+                            @Html.Partial("Partials/RegisterForm")
+                        </div>
+                        <div id="loginContainer">
+                            @Html.Partial("Partials/LoginForm")
+                        </div>
                         <div id="registerSuccess"></div>
-		            </div>
-	            </div>
+                    </div>
+                </div>
             </div>
         </div>
         @RenderBody()

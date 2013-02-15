@@ -92,22 +92,20 @@
             </div>
             <div class="panel second-step">
                 <div class="create-trip-info-container">
+                    <h3 id="costTitle">Стоимость за место</h3>
                     <div class="routes">
-                        <table id="routesTable">
-                            <tr>
-                        
-                            </tr>
-                        </table>
+                        <div id="routesList">
+                        </div>
                     </div>
                     <div class="free-places">
                         @Html.Label("Кол-во свободных мест", new { @id = "freePlaces" })
-                        @Html.Label("Кол-во необходимых мест", new { @id = "needPlaces" })
+                        @Html.Label("Кол-во человек", new { @id = "needPlaces" })
                         <select name="" id="numberPlaces">
-                    	    <option value="">1</option>
-                    	    <option value="">2</option>
-                    	    <option value="">3</option>
-                    	    <option value="">4</option>
-                    	    <option value="">5</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                            <option value="">4</option>
+                            <option value="">5</option>
                         </select>
                     </div>
                     <a id="prevStep" class="simple-button">Назад</a>

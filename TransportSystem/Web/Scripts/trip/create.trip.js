@@ -5,6 +5,7 @@ var betweenCount = 0;
 var firstStepForm;
 var secondStepForm;
 var createAfterLogin = false;
+var isDriver = true;
 
 $(document).ready(function () {
     $(".user-type input[name='type']").change(function() {
@@ -13,17 +14,32 @@ $(document).ready(function () {
         switch (selectedRadio) {
             case "driver":
                 if (betweenCount < 5) {
-                    $('#addPoints').show(200);
+                    $('#addPoints').slideDown(100);
                 }
                 $('#freePlaces').show();
                 $('#needPlaces').hide();
                 $('div[input-type="between-point"]').show();
+
+                $('#showDateTo').hide();
+                $('#dateToContainer').hide();
+                $('#dateAt').attr('placeholder', 'Дата');
+                $('#hideDateTo').click();
+                
+                isDriver = true;
+                buildRoute();
+
                 break;
             case "passenger":
-                $('#addPoints').hide(200);
+                $('#addPoints').slideUp(100);
                 $('div[input-type="between-point"]').hide();
                 $('#freePlaces').hide();
                 $('#needPlaces').show();
+                
+                $('#showDateTo').show();
+                
+                isDriver = false;
+                buildRoute();
+
                 break;
             default:
         }
@@ -155,12 +171,22 @@ $(document).ready(function () {
 
 function buildRoute() {
     var pointsForRoute = [];
-    $.each(points, function (index, point) {
-        pointsForRoute.push(point.FullName);
-    });
+    
+    if (points.length == 0) {
+        return;
+    }
+    
+    if (isDriver) {
+        $.each(points, function (index, point) {
+            pointsForRoute.push(point.FullName);
+        });
+    } else {
+        pointsForRoute.push(points[0].FullName);
+        pointsForRoute.push(points[points.length - 1].FullName);
+    }
 
     // Создаем маршрут
-    ymaps.route(pointsForRoute, { mapStateAutoApply: true })
+    window.ymaps.route(pointsForRoute, { mapStateAutoApply: true })
         .then(function (route) {
             if (oldRoute) {
                 // удаляем старый, если есть таковой
@@ -171,23 +197,52 @@ function buildRoute() {
             oldRoute = route;
 
             var i = 0;
-            $('#routesTable tbody').html('');
+            var allPath = 0;
+            $('#routesList').html('');
             route.getPaths().each(function (path) {
-                var html = $('#routesTable tbody').html();
-                var row = '<tr class="route">' +
-                    '<td class="from">' + points[i].ShortName + '</td>' +
-                        '<td class="arrow">-></td>' +
-                            '<td class="to">' + points[i + 1].ShortName + '</td>' +
-                                '<td class="equal">=</td>' +
-                                    '<td class="cost">' + (path.getLength() / 1000 * 1.3).toFixed() + 'р</td>' +
-                                        '<td class="distance">' + (path.getLength() / 1000).toFixed(1) + 'км</td>' +
-                                            '</tr>';
+                var html = $('#routesList').html();
+                var row = '<div class="route">' +
+                    '<span class="from">' + points[i].ShortName + '</span>' +
+                        '<span class="arrow">&rarr;</span>' +
+                            '<span class="to">' + points[i + 1].ShortName + '</span>' +
+                                '<span class="equal">=</span>' +
+                                    '<span class="cost"><input class="cost-spinner" name="value" value="' + (path.getLength() / 1000 * 1.3).toFixed() + '" /></span>' +
+                                        '<span class="distance">' + (path.getLength() / 1000).toFixed(1) + 'км</span>' +
+                                            '</div>';
 
                 html = html + row;
-                $('#routesTable tbody').html(html);
+                $('#routesList').html(html);
 
                 i++;
+                allPath += path.getLength() / 1000;
             });
+            
+            if (i > 1) {
+                var mainRow = '<div class="route main">' +
+                    '<span class="from">' + points[0].ShortName + '</span>' +
+                        '<span class="arrow">&rarr;</span>' +
+                            '<span class="to">' + points[points.length - 1].ShortName + '</span>' +
+                                '<span class="equal">=</span>' +
+                                    '<span id="summCost" class="cost"></span>' +
+                                        '<span class="distance">' + allPath.toFixed(1) + 'км</span>' +
+                                            '</div>';
+
+                $('#routesList').html($('#routesList').html() + mainRow);
+            }
+            
+            $('.cost-spinner').spinner({
+                spin: calcSummCost,
+                change: calcSummCost
+            });
+
+            calcSummCost();
+            
+            if (!isDriver) {
+                $('.cost').hide();
+                $('#costTitle').hide();
+            } else {
+                $('#costTitle').show();
+            }
         },
         function (error) {
             alert('Возникла ошибка: ' + error.message);
@@ -195,14 +250,31 @@ function buildRoute() {
     );
 }
 
+function calcSummCost() {
+    var summCost = 0;
+    $('.cost-spinner').each(function () {
+        summCost += parseInt($(this).val());
+    });
+    $('#summCost').html(summCost + ' руб');
+}
+
 function prepareDataToSent() {
+    var costPerRoute = '';
+
+    $('.cost-spinner').each(function() {
+        costPerRoute += $(this).val() + ';';
+    });
+
+    costPerRoute = costPerRoute.substring(0, costPerRoute.length - 1);
+
     var tripData = {
         isDriver: $(".user-type input[name='type']:checked").val() == 'driver',
         isFreeDriver: false,
         points: JSON.stringify(points),
         dateAt: $('#dateAt').attr('date2'),
         dateTo: $('#dateTo').attr('date2'),
-        SeatsNumber: $('#numberPlaces :selected').text()
+        SeatsNumber: $('#numberPlaces :selected').text(),
+        costPerRoute: costPerRoute
     };
 
     return tripData;

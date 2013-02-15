@@ -11,6 +11,7 @@
           <EntitySet Name="CarColor" EntityType="TransportSystemModel.Store.CarColor" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CarModel" EntityType="TransportSystemModel.Store.CarModel" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Request" EntityType="TransportSystemModel.Store.Request" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestStatus" EntityType="TransportSystemModel.Store.RequestStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Trip" EntityType="TransportSystemModel.Store.Trip" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TripDate" EntityType="TransportSystemModel.Store.TripDate" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TripRoute" EntityType="TransportSystemModel.Store.TripRoute" store:Type="Tables" Schema="dbo" />
@@ -113,6 +114,14 @@
           <Property Name="StatusRequestId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="RequestToDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="Trip">
           <Key>
@@ -151,6 +160,7 @@
           <Property Name="EndPointGid" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="EndPointFullName" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="EndPointShortName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Cost" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TripStatus">
           <Key>
@@ -331,9 +341,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GetActiveTripsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="GetActiveTripsByUserAndRoute" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Date" Type="datetime" Mode="In" />
           <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="startPoint" Type="nvarchar" Mode="In" />
+          <Parameter Name="endPoint" Type="nvarchar" Mode="In" />
+          <Parameter Name="TripType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetActualRequests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="Start" Type="nvarchar" Mode="In" />
+          <Parameter Name="End" Type="nvarchar" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetRequestsByUserAndTrip" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="TripId" Type="int" Mode="In" />
           <Parameter Name="TripType" Type="int" Mode="In" />
         </Function>
         <Function Name="GetTrips" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -343,6 +366,9 @@
           <Parameter Name="DateTo" Type="datetime" Mode="In" />
           <Parameter Name="TripType" Type="int" Mode="In" />
           <Parameter Name="TripStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTripsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -411,7 +437,7 @@
             <End Role="User" EntitySet="User" />
             <End Role="Trip" EntitySet="Trip" />
           </AssociationSet>
-          <FunctionImport Name="GetActiveTripsByUser" ReturnType="Collection(TransportSystemModel.GetActiveTripsByUser_Result)">
+          <FunctionImport Name="GetActiveTripsByUser">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
             <Parameter Name="UserId" Mode="In" Type="Int32" />
             <Parameter Name="TripType" Mode="In" Type="Int32" />
@@ -421,6 +447,28 @@
             <End Role="Trip" EntitySet="Trip" />
             <End Role="TripRoute" EntitySet="TripRoute" />
           </AssociationSet>
+          <FunctionImport Name="GetActiveTripsByUserAndRoute" ReturnType="Collection(TransportSystemModel.GetActiveTripsByUserAndRoute_Result)">
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="startPoint" Mode="In" Type="String" />
+            <Parameter Name="endPoint" Mode="In" Type="String" />
+            <Parameter Name="TripType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="RequestStatus" EntityType="TransportSystemModel.RequestStatus" />
+          <FunctionImport Name="GetTripsByUser" ReturnType="Collection(TransportSystemModel.GetTripsByUser_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetRequestsByUserAndTrip" ReturnType="Collection(TransportSystemModel.GetRequestsByUserAndTrip_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="TripId" Mode="In" Type="Int32" />
+            <Parameter Name="TripType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetActualRequests" ReturnType="Collection(TransportSystemModel.GetActualRequests_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="Start" Mode="In" Type="String" />
+            <Parameter Name="End" Mode="In" Type="String" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetTrips_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -441,6 +489,7 @@
           <Property Type="Int64" Name="TripDateId" Nullable="false" />
           <Property Type="String" Name="MainRouteStr" Nullable="false" />
           <Property Type="String" Name="MainRouteShortStr" Nullable="false" />
+          <Property Type="Int32" Name="Cost" Nullable="false" />
         </ComplexType>
         <EntityType Name="Request">
           <Key>
@@ -457,6 +506,7 @@
           <NavigationProperty Name="Trip1" Relationship="TransportSystemModel.FK_Request_Trip1" FromRole="Request" ToRole="Trip" />
           <Property Type="Int64" Name="OwnerRouteId" Nullable="false" />
           <Property Type="Int64" Name="OwnerTripDateId" Nullable="false" />
+          <Property Type="DateTime" Name="RequestToDate" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Trip">
           <Key>
@@ -705,18 +755,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="GetActiveTripsByUser_Result">
-          <Property Type="Int32" Name="TripId" Nullable="false" />
-          <Property Type="Int32" Name="TripType" Nullable="false" />
-          <Property Type="Int32" Name="OwnerId" Nullable="false" />
-          <Property Type="Int32" Name="TripStatus" Nullable="false" />
-          <Property Type="DateTime" Name="ExpectedEndDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="CarId" Nullable="true" />
-          <Property Type="Int32" Name="Seats" Nullable="true" />
-          <Property Type="String" Name="MainRouteStr" Nullable="false" MaxLength="2047" />
-          <Property Type="String" Name="MainRouteShortStr" Nullable="false" MaxLength="255" />
-          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
-        </ComplexType>
         <EntityType Name="TripRoute">
           <Key>
             <PropertyRef Name="Id" />
@@ -730,6 +768,7 @@
           <Property Type="String" Name="EndPointFullName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="EndPointShortName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Trip" Relationship="TransportSystemModel.FK_TripRoute_Trip" FromRole="TripRoute" ToRole="Trip" />
+          <Property Type="Int32" Name="Cost" Nullable="false" />
         </EntityType>
         <Association Name="FK_TripRoute_Trip">
           <End Type="TransportSystemModel.Trip" Role="Trip" Multiplicity="1" />
@@ -743,6 +782,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetActiveTripsByUserAndRoute_Result">
+          <Property Type="Int32" Name="TripId" Nullable="false" />
+          <Property Type="Int32" Name="TripType" Nullable="false" />
+          <Property Type="Int32" Name="OwnerId" Nullable="false" />
+          <Property Type="Int32" Name="TripStatus" Nullable="false" />
+          <Property Type="DateTime" Name="ExpectedEndDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CarId" Nullable="true" />
+          <Property Type="Int32" Name="Seats" Nullable="true" />
+          <Property Type="String" Name="MainRouteStr" Nullable="false" MaxLength="2047" />
+          <Property Type="String" Name="MainRouteShortStr" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+        </ComplexType>
+        <EntityType Name="RequestStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="StatusName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="GetTripsByUser_Result">
+          <Property Type="Int32" Name="TripId" Nullable="false" />
+          <Property Type="Int32" Name="TripType" Nullable="false" />
+          <Property Type="Int32" Name="OwnerId" Nullable="false" />
+          <Property Type="Int32" Name="TripStatus" Nullable="false" />
+          <Property Type="DateTime" Name="ExpectedEndDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CarId" Nullable="true" />
+          <Property Type="Int32" Name="Seats" Nullable="true" />
+          <Property Type="String" Name="MainRouteStr" Nullable="false" MaxLength="2047" />
+          <Property Type="String" Name="MainRouteShortStr" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetRequestsByUserAndTrip_Result">
+          <Property Type="Int32" Name="TripId" Nullable="false" />
+          <Property Type="Int32" Name="TripType" Nullable="false" />
+          <Property Type="Int32" Name="OwnerId" Nullable="false" />
+          <Property Type="Int32" Name="TripStatus" Nullable="false" />
+          <Property Type="DateTime" Name="ExpectedEndDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CarId" Nullable="true" />
+          <Property Type="Int32" Name="Seats" Nullable="true" />
+          <Property Type="String" Name="MainRouteStr" Nullable="false" MaxLength="2047" />
+          <Property Type="String" Name="MainRouteShortStr" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="OwnerFisrtName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OwnerLastName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="StatusRequestId" Nullable="false" />
+          <Property Type="DateTime" Name="RequestToDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="InitiatorId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetActualRequests_Result">
+          <Property Type="Int32" Name="StatusRequestId" Nullable="false" />
+          <Property Type="Int64" Name="OwnerTripDateId" Nullable="false" />
+          <Property Type="String" Name="StartPointGid" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="EndPointGid" Nullable="false" MaxLength="255" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -772,6 +864,7 @@
           <EntitySetMapping Name="Request">
             <EntityTypeMapping TypeName="TransportSystemModel.Request">
               <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="RequestToDate" ColumnName="RequestToDate" />
                 <ScalarProperty Name="OwnerTripDateId" ColumnName="OwnerTripDateId" />
                 <ScalarProperty Name="OwnerRouteId" ColumnName="OwnerRouteId" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
@@ -887,9 +980,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetActiveTripsByUser" FunctionName="TransportSystemModel.Store.GetActiveTripsByUser">
+          <EntitySetMapping Name="TripRoute">
+            <EntityTypeMapping TypeName="TransportSystemModel.TripRoute">
+              <MappingFragment StoreEntitySet="TripRoute">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="EndPointShortName" ColumnName="EndPointShortName" />
+                <ScalarProperty Name="EndPointFullName" ColumnName="EndPointFullName" />
+                <ScalarProperty Name="EndPointGid" ColumnName="EndPointGid" />
+                <ScalarProperty Name="StartPointShortName" ColumnName="StartPointShortName" />
+                <ScalarProperty Name="StartPointFullName" ColumnName="StartPointFullName" />
+                <ScalarProperty Name="StartPointGid" ColumnName="StartPointGid" />
+                <ScalarProperty Name="TripId" ColumnName="TripId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetActiveTripsByUserAndRoute" FunctionName="TransportSystemModel.Store.GetActiveTripsByUserAndRoute">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="TransportSystemModel.GetActiveTripsByUser_Result">
+              <ComplexTypeMapping TypeName="TransportSystemModel.GetActiveTripsByUserAndRoute_Result">
                 <ScalarProperty Name="TripId" ColumnName="TripId" />
                 <ScalarProperty Name="TripType" ColumnName="TripType" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
@@ -903,20 +1011,59 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="TripRoute">
-            <EntityTypeMapping TypeName="TransportSystemModel.TripRoute">
-              <MappingFragment StoreEntitySet="TripRoute">
-                <ScalarProperty Name="EndPointShortName" ColumnName="EndPointShortName" />
-                <ScalarProperty Name="EndPointFullName" ColumnName="EndPointFullName" />
-                <ScalarProperty Name="EndPointGid" ColumnName="EndPointGid" />
-                <ScalarProperty Name="StartPointShortName" ColumnName="StartPointShortName" />
-                <ScalarProperty Name="StartPointFullName" ColumnName="StartPointFullName" />
-                <ScalarProperty Name="StartPointGid" ColumnName="StartPointGid" />
-                <ScalarProperty Name="TripId" ColumnName="TripId" />
+          <EntitySetMapping Name="RequestStatus">
+            <EntityTypeMapping TypeName="TransportSystemModel.RequestStatus">
+              <MappingFragment StoreEntitySet="RequestStatus">
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetTripsByUser" FunctionName="TransportSystemModel.Store.GetTripsByUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TransportSystemModel.GetTripsByUser_Result">
+                <ScalarProperty Name="TripId" ColumnName="TripId" />
+                <ScalarProperty Name="TripType" ColumnName="TripType" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="TripStatus" ColumnName="TripStatus" />
+                <ScalarProperty Name="ExpectedEndDate" ColumnName="ExpectedEndDate" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="Seats" ColumnName="Seats" />
+                <ScalarProperty Name="MainRouteStr" ColumnName="MainRouteStr" />
+                <ScalarProperty Name="MainRouteShortStr" ColumnName="MainRouteShortStr" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetRequestsByUserAndTrip" FunctionName="TransportSystemModel.Store.GetRequestsByUserAndTrip">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TransportSystemModel.GetRequestsByUserAndTrip_Result">
+                <ScalarProperty Name="TripId" ColumnName="TripId" />
+                <ScalarProperty Name="TripType" ColumnName="TripType" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="TripStatus" ColumnName="TripStatus" />
+                <ScalarProperty Name="ExpectedEndDate" ColumnName="ExpectedEndDate" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="Seats" ColumnName="Seats" />
+                <ScalarProperty Name="MainRouteStr" ColumnName="MainRouteStr" />
+                <ScalarProperty Name="MainRouteShortStr" ColumnName="MainRouteShortStr" />
+                <ScalarProperty Name="OwnerFisrtName" ColumnName="OwnerFisrtName" />
+                <ScalarProperty Name="OwnerLastName" ColumnName="OwnerLastName" />
+                <ScalarProperty Name="StatusRequestId" ColumnName="StatusRequestId" />
+                <ScalarProperty Name="RequestToDate" ColumnName="RequestToDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetActualRequests" FunctionName="TransportSystemModel.Store.GetActualRequests">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TransportSystemModel.GetActualRequests_Result">
+                <ScalarProperty Name="StatusRequestId" ColumnName="StatusRequestId" />
+                <ScalarProperty Name="OwnerTripDateId" ColumnName="OwnerTripDateId" />
+                <ScalarProperty Name="StartPointGid" ColumnName="StartPointGid" />
+                <ScalarProperty Name="EndPointGid" ColumnName="EndPointGid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -961,6 +1108,7 @@
         <AssociationConnector Association="TransportSystemModel.FK_Trip_User" />
         <EntityTypeShape EntityType="TransportSystemModel.TripRoute" Width="1.5" PointX="11.25" PointY="1.25" />
         <AssociationConnector Association="TransportSystemModel.FK_TripRoute_Trip" />
+        <EntityTypeShape EntityType="TransportSystemModel.RequestStatus" Width="1.5" PointX="11.656838608745876" PointY="14.8838235209155" />
       </Diagram>
     </Diagrams>
   </Designer>

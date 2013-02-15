@@ -171,7 +171,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .index-content .button-container .add-diapason-button {
 	font-size: 13px;
-	text-decoration: underline;
 	cursor: pointer;
 	margin: 10px 15px 7px 25px;
 	float: left;
@@ -240,12 +239,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .index-content .date-hider {
-	float: right;
-	margin-right: 10px;
-	margin-top: 9px;
 	font-size: 13px;
-	text-decoration: underline;
-	cursor: pointer;
+    cursor: pointer;
+    margin: 10px 15px 7px 25px;
+    float: left;
+    display: none;
 }
 /* конец */
 
@@ -253,13 +251,13 @@ h1, h2, h3, h4, h5, h6 {
 .logo-container, .header-content .logo-container {
 	width: 400px;
 	margin: 10px 10px;
-	
+    cursor: default;
 }
 
 .header-content .logo-container {
 	margin-top: 0px;
 	display:inline-block;
-	
+    cursor: pointer;
 }
 
 .logo-text {
@@ -271,8 +269,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: rgb(5, 149, 255);
 }
 .logo-description {
-	font-size: 18px;
-	font-family: 'GeoSlb712CMdBTBold'!important;
+	font-size: 13px;
 	text-rendering: optimizeSpeed;
 	margin-top: -7px;
 }
@@ -294,8 +291,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .header-content .right-menu {
 	position: absolute;
-	top: 15px;
-	right: 0px;
+	top: 0;
+	right: 0;
 }
 
 .header-content .left-menu {	
@@ -304,6 +301,15 @@ h1, h2, h3, h4, h5, h6 {
 	top:48px;
 	right:5px;
 	border:0px solid red;
+}
+
+.header-content .left-menu span {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header-content .left-menu .last {
+    margin-right: 0;
 }
 
 .content {
@@ -316,10 +322,11 @@ h1, h2, h3, h4, h5, h6 {
 .content .title {
 	margin-left: 10px;
 	margin-top: 10px;
+    margin-bottom: 10px;
 	display: inline-block;
-	font-size: 28px;
-	font-family: 'GeoSlb712CMdBTBold'!important;
-	text-rendering: optimizeSpeed;
+	font-size: 24px;
+    color: #0ca9fa;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .content .yandex-map{
@@ -397,48 +404,136 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
 }
 
-.content .create-trip-info-container .routes {
-	margin-top: 30px;
-	margin-left: 10px;
-    font-size: 13px;
+.content .create-trip-info-container {
+    padding-left: 10px;
 }
 
-.content .create-trip-info-container .routes .route td {
+.content .create-trip-info-container .routes {
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.content .create-trip-info-container .routes .main {
+    border-top: 1px solid rgb(190, 190, 190);
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+.content .create-trip-info-container .routes #summCost {
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 16px;
+}
+
+
+.content .create-trip-info-container .routes .route {
+    width: 510px;
+    cursor: default;
+}
+
+.content .create-trip-info-container .routes .route:hover {
+    background-color: rgb(238, 238, 238);
+}
+
+.content .create-trip-info-container .routes .route span {
     padding-bottom: 5px;
     padding-top: 5px;
 }
 
 .content .create-trip-info-container .routes .from {
 	width: 130px;
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 16px;
+    display: inline-block;
 }
 
 .content .create-trip-info-container .routes .to {
 	width: 130px;
     padding-left: 10px;
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 16px;
+    display: inline-block;
 }
 
 .content .create-trip-info-container .routes .arrow {
     width: 30px;
+    display: inline-block;
 }
 
 .content .create-trip-info-container .routes .equal {
     width: 30px;
+    display: inline-block;
 }
 
 .content .create-trip-info-container .routes .cost {
-    width: 60px;
+    width: 80px;
+    display: inline-block;
+}
+
+.content .create-trip-info-container .routes .cost .ui-spinner {
+    width: 65px;
+    height: 18px;
+    border: 1px solid #CCCCCC;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+    background-color: white;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    behavior: url(fonts/border-radius.htc);
+}
+
+.content .create-trip-info-container .routes .cost .ui-spinner .ui-spinner-input {
+    margin: 1px 5px;
+    outline: none;
 }
 
 .content .create-trip-info-container .routes .distance {
     width: 60px;
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 16px;
+    color: #0ca9fa;
+    display: inline-block;
 }
 
-.content .create-trip-info-container .free-places label {
+.content .create-trip-info-container h3 {
+    color: rgb(101, 101, 101);
+    display: block;
+    font-family: Helvetica !important;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.content .create-trip-info-container .free-places #freePlaces {
     font-size: 13px;
+    margin-right: 164px;
+}
+
+.content .create-trip-info-container .free-places #needPlaces {
+    font-size: 13px;
+    margin-right: 216px;
 }
 
 .content .create-trip-info-container .free-places select {
-    width: 50px;
+    width: 65px;
+    padding: 5px;
+    height: 30px;
+    border: 1px solid #CCCCCC;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+    background-color: white;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    behavior: url(fonts/border-radius.htc);
+    outline: none;
 }
 
 .content .create-trip-container #nextStep {
@@ -449,13 +544,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .content .create-trip-info-container #prevStep {
     margin-right: 50px;
-    margin-top: 10px;
+    margin-top: 30px;
     background: #3a74d5;
 }
 
 .content .create-trip-info-container #createThis {
     margin-right: 50px;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .content .register-container {
@@ -511,14 +606,14 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 300px;
 }
 
-.my-trips .footer {
+.my-trips .footer-my-trips {
     font-family: Verdana;
     font-size: 13px;
     padding: 5px;
     max-width: 300px;
 }
 
-.my-trips .footer label {
+.my-trips .footer-my-trips label {
     vertical-align: text-top;
 }
 
@@ -531,7 +626,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Verdana;
     font-size: 13px;
     padding: 5px;
-    padding-top: 25px;
+    padding-top: 20px;
     padding-bottom: 10px;
 }
 
@@ -553,7 +648,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     color: #bbbaba;
     font-family: Helvetica;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .my-trips .route {
@@ -593,6 +688,113 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Helvetica;
 }
 
+.my-trips-cabinet {
+    width: 900px;
+    height: 500px;
+}
+
+.my-trips-cabinet .title {
+    margin: 5px 10px;
+    font-size: 24px;
+    color: #0ca9fa;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.my-trips-cabinet  .main-block {
+    display: inline-block;
+    width: 273px;
+    height: 450px;
+    margin: 10px;
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 3px;
+}
+
+.my-trips-cabinet .trips {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.my-trips-cabinet .trip {
+    cursor: pointer;
+    height: 50px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+.my-trips-cabinet .trip:hover {
+    background-color: rgb(238, 238, 238);
+}
+
+.my-trips-cabinet .trip .route {
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 15px;
+    margin-left: 5px;
+    width: 1000px;
+}
+
+.my-trips-cabinet .trip .date-period {
+    font-weight: bold;
+    font-size: 17px;
+    color: #0faaf0;
+    font-family: Helvetica;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-top: 8px;
+}
+
+.my-trips-cabinet .requests {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.my-trips-cabinet .requests .request {
+    cursor: pointer;
+    height: 52px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+.my-trips-cabinet .requests .request:hover {
+    background-color: rgb(238, 238, 238);
+}
+
+.my-trips-cabinet .requests .request .photo {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgb(214, 214, 214);
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
+}
+
+.my-trips-cabinet .requests .request .full-name {
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+.my-trips-cabinet .requests .request .route {
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 14px;
+    margin-left: 5px;
+    width: 1000px;
+}
+
+.my-trips-cabinet .requests .request .date-period {
+    font-weight: bold;
+    font-size: 17px;
+    color: #0faaf0;
+    font-family: Helvetica;
+    margin-left: 5px;
+    margin-top: 8px;
+}
+
+.my-trips-cabinet .user-profile {
+
+}
+
 .popup-message {
     width: 500px;
     font-size: 13px;
@@ -600,11 +802,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .trips-list-table {
-    width: 80%;
+    width: 73%;
+    float: left;
 }
 
 .trips-not-found {
     font-size: 13px;
+    width: 73%;
+    float: left;
+}
+
+.trips-not-found .simple-button {
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    display: block;
+    width: 140px;
 }
 
 .trips-list-table tr:hover {
@@ -612,15 +826,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .trips-list-table .info {
-    width: 580px;
+    width: 515px;
+}
+
+.trips-list-table .photo {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    float: left;
+    border: 1px solid rgb(214, 214, 214);
 }
 
 .trips-list-table tr {
     border-bottom: 1px solid #bbbaba;
 }
 
-.trips-list-table td {
-    height: 50px;
+.trips-list-table td:first-child {
     padding: 10px;
 }
 
@@ -634,7 +855,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     color: #bbbaba;
     font-family: Helvetica;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .trips-list-table .date-departure {
@@ -661,12 +882,30 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 18px;
 }
 
+.trips-list-table .request-sent {
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.trips-list-table .send-request-button {
+    top: 20px;  
+    margin-bottom: 25px;
+    margin-left: 7px;
+}
+
 .trips-list-table .cost {
     font-weight: bold;
     font-family: Helvetica;
     font-size: 18px;
-    margin-left: 35px;
+    text-align: center;
     margin-top: 10px;
+}
+
+.trips-list-table .cost span {
+    font-size: 14px;
+    font-weight: normal;
+    font-family: Arial;
 }
 
 .trips-list-table .offer-button {
@@ -674,6 +913,59 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     position: absolute;
     top: 15px;
+}
+
+.filters-container {
+    float: right;
+    position: relative;
+    width: 250px;
+}
+
+.filters {
+    background-color: #f0f0e7;
+    width: 250px;
+    float: right;
+    border-radius: 5px;
+}
+
+.filters .labels {
+    font-size: 13px;
+    margin-left: 12px;
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+
+.filters .for-filter {
+    width: 200px;
+}
+
+.filters .show-date-to {
+    float: right;
+    margin: -7px 15px 5px 0;
+}
+
+.filters .radio-driver {
+    margin-top: 25px;
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+.filters .radio-passenger {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.filters .radio-passenger input, .filters .radio-passenger label, .filters .radio-driver input, .filters .radio-driver label {
+    cursor: pointer;
+}
+
+.filters .simple-button {
+    margin: 10px;
+    width: 190px;
+    text-align: center;
+    background-color: rgb(5, 149, 255);
 }
 
 .footer {

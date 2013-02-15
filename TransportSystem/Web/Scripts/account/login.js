@@ -54,7 +54,11 @@
                             $('#signIn').hide();
                             $('#logOut').show();
                             
-                            if (createAfterLogin) {
+                            if (typeof(window.callbackCabinet) == "function") {
+                                window.callbackCabinet();
+                            }
+                            
+                            if (typeof createAfterLogin === 'undefined') {
                                 $('#createThis').click();
                             }
                         }

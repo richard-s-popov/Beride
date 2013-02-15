@@ -40,5 +40,15 @@ namespace TransportSystem.Logics.Impl.Trips
         {
             db.SaveChanges();
         }
+
+        public IEnumerable<GetRequestsByUserAndTrip_Result> GetRequestsByUserAndTrip(int userId, int tripId, int tripType)
+        {
+            return db.GetRequestsByUserAndTrip(userId, tripId, tripType);
+        }
+
+        public IEnumerable<GetActualRequests_Result> GetActualRequests(int userId, string startPointGid, string endPointGid)
+        {
+            return db.GetActualRequests(userId, startPointGid, endPointGid, DateTime.Today);
+        }
     }
 }

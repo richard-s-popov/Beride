@@ -24,12 +24,16 @@ namespace TransportSystem.Area.Web.Controllers
 
         private readonly IUsersService _usersService;
 
+        private readonly IRequestsService _requestsService;
+
         public TripsController(
             ITripsService tripsService,
-            IUsersService usersService)
+            IUsersService usersService,
+            IRequestsService requestsService)
         {
             _tripsService = tripsService;
             _usersService = usersService;
+            _requestsService = requestsService;
         }
 
         public ActionResult CreateTrip()
@@ -39,13 +43,15 @@ namespace TransportSystem.Area.Web.Controllers
 
         [Secure]
         [HttpPost]
-        public ActionResult SaveTrip(TripModel model, string points, DateTime dateAt, DateTime? dateTo)
+        public ActionResult SaveTrip(TripModel model, string points, DateTime dateAt, DateTime? dateTo, string costPerRoute)
         {
             var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
             var trip = new Trip
                 {
                     OwnerId = currentUser.Id
                 };
+
+            var costs = costPerRoute.Split(';');
 
             // Дисериализуем строку с массивом точек
             var js = new JavaScriptSerializer();
@@ -77,6 +83,8 @@ namespace TransportSystem.Area.Web.Controllers
                 // генерируем всевозможные варианты маршрутов по этому пути точек
                 for (var i = 0; i < myPoints.Count - 1; i++)
                 {
+                    // счетчик для стоимости маршрута
+                    var xCost = Convert.ToInt32(costs[i]);
                     for (var j = i + 1; j < myPoints.Count; j++)
                     {
                         var route = new TripRoute
@@ -86,10 +94,16 @@ namespace TransportSystem.Area.Web.Controllers
                             StartPointShortName = myPoints[i].ShortName,
                             EndPointGid = myPoints[j].Gid,
                             EndPointFullName = myPoints[j].FullName,
-                            EndPointShortName = myPoints[j].ShortName
+                            EndPointShortName = myPoints[j].ShortName,
+                            Cost = xCost
                         };
 
-                        trip.TripRoute.Add(route);    
+                        trip.TripRoute.Add(route);
+
+                        if (j != myPoints.Count - 1)
+                        {
+                            xCost += Convert.ToInt32(costs[j]);   
+                        }
                     }
                 }
             }
@@ -105,11 +119,12 @@ namespace TransportSystem.Area.Web.Controllers
                         StartPointShortName = myPoints.First().ShortName,
                         EndPointGid = myPoints.Last().Gid,
                         EndPointFullName = myPoints.Last().FullName,
-                        EndPointShortName = myPoints.Last().ShortName
+                        EndPointShortName = myPoints.Last().ShortName,
+                        Cost = 0
                     });
             }
 
-            if (dateTo == null)
+            if (dateTo == null || model.IsDriver)
             {
                 trip.TripDate.Add(new TripDate
                 {
@@ -170,8 +185,22 @@ namespace TransportSystem.Area.Web.Controllers
             return Json(googleResponse, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetTrips(string startPointGid, string endPointGid, DateTime dateAt, DateTime? dateTo, string search)
+        public ActionResult GetTrips(string startPointGid, string endPointGid, DateTime dateAt, DateTime? dateTo, string search, string startPointFullName, string endPointFullName)
         {
+            var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
+
+            var model = new TripsListModel
+            {
+                StartPointFullName = startPointFullName,
+                StartPointGid = startPointGid,
+                StartPointShortName = startPointFullName.Split(',').Last().Trim(),
+                EndPointFullName = endPointFullName,
+                EndPointGid = endPointGid,
+                EndPointShortName = endPointFullName.Split(',').Last().Trim(),
+                DateAt = dateAt.ToShortDateString(),
+                DateTo = dateTo.HasValue ? dateTo.Value.ToShortDateString() : string.Empty
+            };
+
             if (dateTo == null)
             {
                 dateTo = dateAt;
@@ -179,12 +208,22 @@ namespace TransportSystem.Area.Web.Controllers
 
             var trips = _tripsService.GetTrips(startPointGid, endPointGid, dateAt, dateTo.Value, search == "driver" ? 2 : 1, 1).OrderBy(x => x.Date).ToList();
 
-            var model = new TripsListModel();
-
             if (trips.Any())
             {
+                List<GetActualRequests_Result> sentRequests = null;
+                if (currentUser != null)
+                {
+                    sentRequests = _requestsService.GetActualRequests(currentUser.Id, trips.First().StartPointGid,
+                                                                  trips.First().EndPointGid).ToList();
+                }
+                
                 foreach (var trip in trips)
                 {
+                    if (currentUser != null && trip.OwnerId == currentUser.Id)
+                    {
+                        continue;
+                    }
+
                     var m = new TripModel
                     {
                         TripId = trip.Id,
@@ -198,7 +237,9 @@ namespace TransportSystem.Area.Web.Controllers
                         MainRouteShortStr = trip.MainRouteShortStr.Split(';'),
                         IsDriver = trip.TripType == TripType.Driver,
                         Date = trip.Date,
-                        SeatsNumber = trip.Seats
+                        SeatsNumber = trip.Seats,
+                        Cost = trip.Cost,
+                        StatusForUser = sentRequests != null && sentRequests.FirstOrDefault(x => x.OwnerTripDateId == trip.TripDateId) != null ? "sent" : "new"
                     };
                     model.trips.Add(m);
                 }
@@ -211,6 +252,7 @@ namespace TransportSystem.Area.Web.Controllers
         {
             _usersService.Dispose();
             _tripsService.Dispose();
+            _requestsService.Dispose();
             base.Dispose(disposing);
         }
     }

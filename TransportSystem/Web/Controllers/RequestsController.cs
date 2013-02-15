@@ -35,28 +35,35 @@ namespace TransportSystem.Area.Web.Controllers
         public ActionResult SendRequest(long tripDateId, long routeId)
         {
             var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
-            var tripDate = _tripsService.GetTripDateById(tripDateId);
-            var someoneTrip = tripDate.Trip;
-            var someoneRoute = someoneTrip.TripRoute.FirstOrDefault(x => x.Id == routeId);
+            var hisTripDate = _tripsService.GetTripDateById(tripDateId);
+            var hisTrip = hisTripDate.Trip;
+            var hisRoute = hisTrip.TripRoute.FirstOrDefault(x => x.Id == routeId);
 
-            if (someoneRoute == null)
+            if (hisTrip.OwnerId == currentUser.Id)
+            {
+                ViewBag.Error = "Вы пытаетесь отправить заявку самому себе";
+                return PartialView("Error");
+            }
+
+            if (hisRoute == null)
             {
                 ViewBag.Error = "Данного маршрута не существует";
                 return PartialView("Error");
             }
 
-            if (tripDate.Date < DateTime.Today)
+            if (hisTripDate.Date < DateTime.Today)
             {
                 ViewBag.Error = "Вы пытаетесь отправить заявку на прошедшую поездку";
                 return PartialView("Error");
             }
 
-            var searchingType = someoneTrip.TripType == TripType.Driver ? TripType.Passenger : TripType.Driver;
-            var myTrips = _tripsService.GetActiveTripsByUser(currentUser.Id, DateTime.Today, searchingType).ToList();
+            var searchingType = hisTrip.TripType == TripType.Driver ? TripType.Passenger : TripType.Driver;
+            var myTrips = _tripsService.GetActiveTripsByUserAndRoute(currentUser.Id, hisRoute.StartPointGid, hisRoute.EndPointGid, DateTime.Today, searchingType).ToList();
 
             if (myTrips.Any())
             {
-                var model = new TripsListModel
+                // До лучших времен. Выбор к какой поездке принадлежит заявка
+                /* var model = new TripsListModel
                     {
                         trips = myTrips.GroupBy(trip => trip.TripId).Select(group => new TripModel
                         {
@@ -73,7 +80,36 @@ namespace TransportSystem.Area.Web.Controllers
                 ViewBag.OwnerTripRouteId = routeId;
                 ViewBag.OwnerTripDateId = tripDateId;
 
-                return PartialView("MyTripsList", model);
+                return PartialView("MyTripsList", model); */
+
+                var myTrip = _tripsService.GetById(myTrips.First().TripId);
+
+                if (myTrip.TripType == TripType.Passenger)
+                {
+                    myTrip.TripDate.Add(new TripDate
+                    {
+                        Date = hisTripDate.Date,
+                        IsDeleted = false
+                    });
+                }
+                
+                var request = new Request
+                {
+                    DriverTripId = myTrip.TripType == TripType.Driver ? myTrip.Id : hisTrip.Id,
+                    PassengerTripId = myTrip.TripType == TripType.Passenger ? myTrip.Id : hisTrip.Id,
+                    OwnerRouteId = hisRoute.Id,
+                    OwnerTripDateId = hisTripDate.Id,
+                    InitiatorId = currentUser.Id,
+                    StatusRequestId = 1,
+                    CreateDate = DateTime.Now,
+                    RequestToDate = hisTrip.TripType == TripType.Driver ? myTrip.TripDate.First().Date : hisTripDate.Date
+                };
+
+                _requestsService.Insert(request);
+                _requestsService.SaveChanges();
+                _tripsService.Save();
+
+                return PartialView("YourRequestSent");
             }
 
             // Создаем новую поездку со стороны пользователя, если у него нет активных поездок
@@ -82,24 +118,24 @@ namespace TransportSystem.Area.Web.Controllers
                     OwnerId = currentUser.Id,
                     TripStatus = 1,
                     TripType = searchingType,
-                    MainRouteStr = string.Format("{0};{1}", someoneRoute.StartPointFullName, someoneRoute.EndPointFullName),
-                    MainRouteShortStr = string.Format("{0};{1}", someoneRoute.StartPointShortName, someoneRoute.EndPointShortName),
+                    MainRouteStr = string.Format("{0};{1}", hisRoute.StartPointFullName, hisRoute.EndPointFullName),
+                    MainRouteShortStr = string.Format("{0};{1}", hisRoute.StartPointShortName, hisRoute.EndPointShortName),
                     IsDeleted = false
                 };
 
             myNewTrip.TripRoute.Add(new TripRoute
                 {
-                    StartPointGid = someoneRoute.StartPointGid,
-                    StartPointFullName = someoneRoute.StartPointFullName,
-                    StartPointShortName = someoneRoute.StartPointShortName,
-                    EndPointGid = someoneRoute.EndPointGid,
-                    EndPointFullName = someoneRoute.EndPointFullName,
-                    EndPointShortName = someoneRoute.EndPointShortName
+                    StartPointGid = hisRoute.StartPointGid,
+                    StartPointFullName = hisRoute.StartPointFullName,
+                    StartPointShortName = hisRoute.StartPointShortName,
+                    EndPointGid = hisRoute.EndPointGid,
+                    EndPointFullName = hisRoute.EndPointFullName,
+                    EndPointShortName = hisRoute.EndPointShortName
                 });
 
             myNewTrip.TripDate.Add(new TripDate
                 {
-                    Date = tripDate.Date,
+                    Date = hisTripDate.Date,
                     IsDeleted = false
                 });
 
@@ -108,13 +144,14 @@ namespace TransportSystem.Area.Web.Controllers
 
             var entity = new Request
             {
-                DriverTripId = someoneTrip.TripType == TripType.Driver ? someoneTrip.Id : myNewTrip.Id,
-                PassengerTripId = someoneTrip.TripType == TripType.Driver ? myNewTrip.Id : someoneTrip.Id,
-                OwnerRouteId = someoneRoute.Id,
-                OwnerTripDateId = tripDate.Id,
+                DriverTripId = hisTrip.TripType == TripType.Driver ? hisTrip.Id : myNewTrip.Id,
+                PassengerTripId = hisTrip.TripType == TripType.Driver ? myNewTrip.Id : hisTrip.Id,
+                OwnerRouteId = hisRoute.Id,
+                OwnerTripDateId = hisTripDate.Id,
                 InitiatorId = currentUser.Id,
                 StatusRequestId = 1,
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                RequestToDate = hisTrip.TripType == TripType.Driver ? myNewTrip.TripDate.First().Date : hisTripDate.Date
             };
 
             _requestsService.Insert(entity);
@@ -149,11 +186,13 @@ namespace TransportSystem.Area.Web.Controllers
                         OwnerTripDateId = ownerTripDate.Id,
                         InitiatorId = currentUser.Id,
                         StatusRequestId = 1,
-                        CreateDate = DateTime.Now
+                        CreateDate = DateTime.Now,
+                        RequestToDate = ownerTripDate.Date
                     };
 
                 _requestsService.Insert(entity);
                 _requestsService.SaveChanges();
+                _tripsService.Save();
             }
 
             return PartialView("YourRequestSent");
@@ -207,7 +246,8 @@ namespace TransportSystem.Area.Web.Controllers
                     OwnerTripDateId = ownerTripDate.Id,
                     InitiatorId = currentUser.Id,
                     StatusRequestId = 1,
-                    CreateDate = DateTime.Now
+                    CreateDate = DateTime.Now,
+                    RequestToDate = ownerTripDate.Date
                 };
 
                 _requestsService.Insert(entity);

@@ -19,9 +19,11 @@ namespace TransportSystem.Logics.Interfaces.Trips
 
         IEnumerable<Trip> GetTripsByUserId(int userId);
 
-        IEnumerable<GetActiveTripsByUser_Result> GetActiveTripsByUser(int userId, DateTime date, int type);
+        IEnumerable<GetActiveTripsByUserAndRoute_Result> GetActiveTripsByUserAndRoute(int userId, string startPoint, string endPoint, DateTime date, int type);
             
         IEnumerable<GetTrips_Result> GetTrips(string startPointGid, string endPointGid, DateTime dateAt, DateTime dateTo, int tripType, int tripStatus);
+
+        IEnumerable<GetTripsByUser_Result> GetTripsByUser(int userId); 
 
         void Save();
     }
