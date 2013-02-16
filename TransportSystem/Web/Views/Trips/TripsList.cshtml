@@ -55,6 +55,9 @@
                                 }
                             }
                         </div>
+                        <div class="user-name">
+                            <a>@trip.OwnerName</a>
+                        </div>
                         <div class="free-seats-container">
                             <span class="free-seats">
                                 @if (trip.IsDriver)
@@ -146,8 +149,8 @@
                 <img src="~/Content/img/evolution-calendar_1052.png" />
                 @Html.Hidden("hdnDateAt")
             </div>
-            <a class="show-date-to add-diapason-button">Период</a>
-            <div id="additionalDate" style="display: none;">
+            <a class="show-date-to add-diapason-button" style="@(!string.IsNullOrEmpty(Model.DateTo) ? "display: none;" : string.Empty)">Период</a>
+            <div id="additionalDate" style="@(string.IsNullOrEmpty(Model.DateTo) ? "display: none;" : string.Empty)">
                 <div class="input-text" style="margin-top: 0px;">
                     <input id="dateTo" class="input-date for-filter" type="text" placeholder="По какое" value="@Model.DateTo" />
                     <img src="~/Content/img/evolution-calendar_1052.png" />

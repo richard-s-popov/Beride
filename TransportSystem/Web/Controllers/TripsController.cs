@@ -236,6 +236,7 @@ namespace TransportSystem.Area.Web.Controllers
                         MainRouteStr = trip.MainRouteStr.Split(';'),
                         MainRouteShortStr = trip.MainRouteShortStr.Split(';'),
                         IsDriver = trip.TripType == TripType.Driver,
+                        OwnerName = string.Format("{0} {1}", trip.OwnerFirstName, trip.OwnerLastName),
                         Date = trip.Date,
                         SeatsNumber = trip.Seats,
                         Cost = trip.Cost,

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TransportSystem.Area.Web.Infrastructure.Attributes;
+using TransportSystem.Area.Web.Models.Requests;
 using TransportSystem.Area.Web.Models.Trips;
 using TransportSystem.Domain;
 using TransportSystem.Logics.Interfaces.Membership;
@@ -161,6 +162,28 @@ namespace TransportSystem.Area.Web.Controllers
         }
 
         [Secure]
+        public ActionResult GetRequestsByTrip(long tripId)
+        {
+            var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
+            var trip = _tripsService.GetById(tripId);
+
+            var userRequests = _requestsService.GetRequestsByUserAndTrip(currentUser.Id, trip.Id, trip.TripType).ToList();
+
+            var model = new RequestsListModel
+                {
+                    Requests = userRequests.Select(entity => new RequestModel
+                        {
+                            UserFullName = string.Format("{0} {1}", entity.OwnerFisrtName, entity.OwnerLastName),
+                            UserFullRoute = entity.MainRouteShortStr.Replace(";", " → "),
+                            RequestStatus = GetRequestStatus(entity.StatusRequestId),
+                            RequestToDate = entity.RequestToDate
+                        }).ToList()
+                };
+
+            return PartialView("RequestsListByTrip", model);
+        }
+
+        [Secure]
         [HttpPost]
         public ActionResult SelectTrip(int myTripId, long ownerTripDateId, long ownerTripRouteId)
         {
@@ -255,6 +278,23 @@ namespace TransportSystem.Area.Web.Controllers
             }
 
             return PartialView("YourRequestSent");
+        }
+
+        private string GetRequestStatus(int statusId)
+        {
+            switch (statusId)
+            {
+                case 1:
+                    return "Ожидает";
+                case 2:
+                    return "Отклонена";
+                case 3:
+                    return "Одобрена";
+                case 4:
+                    return "Отменена";
+                default:
+                    return string.Empty;
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -145,6 +145,7 @@
     <Compile Include="Models\Account\RegisterModelPoco.cs" />
     <Compile Include="Models\Personal\MyTripsCabinetModel.cs" />
     <Compile Include="Models\Requests\RequestModel.cs" />
+    <Compile Include="Models\Requests\RequestsListModel.cs" />
     <Compile Include="Models\Trips\TripModel.cs" />
     <Compile Include="Models\Trips\TripsListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -237,6 +238,7 @@
     <Content Include="Scripts\checkbox.js" />
     <Content Include="Scripts\fancybox\jquery.mousewheel-3.0.4.pack.js" />
     <Content Include="Scripts\fancybox\jquery.fancybox-1.3.4.js" />
+    <Content Include="Scripts\personal\my.trips.cabinet.js" />
     <Content Include="Scripts\slider\coda-slider.1.1.1.pack.js" />
     <Content Include="Scripts\slider\jquery-1.2.1.pack.js" />
     <Content Include="Scripts\slider\jquery-easing-compatibility.1.2.pack.js" />
@@ -299,6 +301,7 @@
     <Content Include="Views\Requests\MyTripsList.cshtml" />
     <Content Include="Views\Requests\YourRequestSent.cshtml" />
     <Content Include="Views\Personal\MyTripsCabinet.cshtml" />
+    <Content Include="Views\Requests\RequestsListByTrip.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -4426,7 +4426,9 @@ namespace TransportSystem.Domain
         /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
         /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
         /// <param name="cost">Исходное значение свойства Cost.</param>
-        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.Int32 cost)
+        /// <param name="ownerFirstName">Исходное значение свойства OwnerFirstName.</param>
+        /// <param name="ownerLastName">Исходное значение свойства OwnerLastName.</param>
+        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.Int32 cost, global::System.String ownerFirstName, global::System.String ownerLastName)
         {
             GetTrips_Result getTrips_Result = new GetTrips_Result();
             getTrips_Result.Id = id;
@@ -4445,6 +4447,8 @@ namespace TransportSystem.Domain
             getTrips_Result.MainRouteStr = mainRouteStr;
             getTrips_Result.MainRouteShortStr = mainRouteShortStr;
             getTrips_Result.Cost = cost;
+            getTrips_Result.OwnerFirstName = ownerFirstName;
+            getTrips_Result.OwnerLastName = ownerLastName;
             return getTrips_Result;
         }
 
@@ -4907,6 +4911,54 @@ namespace TransportSystem.Domain
         private global::System.Int32 _Cost;
         partial void OnCostChanging(global::System.Int32 value);
         partial void OnCostChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String OwnerFirstName
+        {
+            get
+            {
+                return _OwnerFirstName;
+            }
+            set
+            {
+                OnOwnerFirstNameChanging(value);
+                ReportPropertyChanging("OwnerFirstName");
+                _OwnerFirstName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("OwnerFirstName");
+                OnOwnerFirstNameChanged();
+            }
+        }
+        private global::System.String _OwnerFirstName;
+        partial void OnOwnerFirstNameChanging(global::System.String value);
+        partial void OnOwnerFirstNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String OwnerLastName
+        {
+            get
+            {
+                return _OwnerLastName;
+            }
+            set
+            {
+                OnOwnerLastNameChanging(value);
+                ReportPropertyChanging("OwnerLastName");
+                _OwnerLastName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("OwnerLastName");
+                OnOwnerLastNameChanged();
+            }
+        }
+        private global::System.String _OwnerLastName;
+        partial void OnOwnerLastNameChanging(global::System.String value);
+        partial void OnOwnerLastNameChanged();
 
         #endregion
 

@@ -30,6 +30,7 @@
                 {
                     <a id="signIn" href="#popup" class="header-signin" style="display: none;">Вход / Регистрация</a>
                     <a id="logOut" class="header-signin" href="@Url.Action("Logout", "Account")">Выход</a>
+                    <a id="MyTripsCabinet" class="header-signin">Мои поездки</a>
                 }
                 else
                 {
@@ -47,6 +48,10 @@
                         <div id="registerSuccess"></div>
                     </div>
                 </div>
+                <div style="display: none;">
+                    <a id="showMyTripsCabinetPopup" href="#myTripsCabinetPopup">Мои поездки</a>
+                    <div id="myTripsCabinetPopup"></div>
+                </div>
             </div>
         </div>
         @RenderBody()
@@ -56,5 +61,7 @@
     </body>
     <script type="text/javascript">
         document.GetPlacesUrl = "@Url.Action("GetPlaces","Trips")";
+        document.MyTripsCabinet = "@Url.Action("MyTripsCabinet","Personal")";
+        document.IsAuthenticatedUrl = "@Url.Action("IsAuthenticated","Account")";
     </script>
 </html>

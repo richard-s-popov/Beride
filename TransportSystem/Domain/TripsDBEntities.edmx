@@ -490,6 +490,8 @@
           <Property Type="String" Name="MainRouteStr" Nullable="false" />
           <Property Type="String" Name="MainRouteShortStr" Nullable="false" />
           <Property Type="Int32" Name="Cost" Nullable="false" />
+          <Property Type="String" Name="OwnerFirstName" Nullable="false" />
+          <Property Type="String" Name="OwnerLastName" Nullable="false" />
         </ComplexType>
         <EntityType Name="Request">
           <Key>

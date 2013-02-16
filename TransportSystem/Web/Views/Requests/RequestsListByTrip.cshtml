@@ -1,0 +1,24 @@
+﻿@model TransportSystem.Area.Web.Models.Requests.RequestsListModel
+
+@if (Model.Requests.Any())
+{
+    foreach (var request in Model.Requests)
+    {
+        <div class="request">
+            <div class="photo"><img src="@Url.Content("~/Content/img/never-say-no-to-panda1.png")"/></div>
+            <div class="full-name">
+                @request.UserFullName
+            </div>
+            <div class="route">
+                @request.UserFullRoute
+            </div>
+            <div class="date-period">
+                @request.RequestToDate.ToShortDateString()
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="notification">Нет заявок для отображения</div>
+}

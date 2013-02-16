@@ -1,12 +1,19 @@
 ﻿@model TransportSystem.Area.Web.Models.Personal.MyTripsCabinetModel
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/personal/my.trips.cabinet.js")"></script>
+
 <div class="my-trips-cabinet">
     <div class="title">Заявки на поездки</div>
+    <div class="descriptions">
+        <span class="for-trips">Ваши поездки</span>
+        <span class="for-requests">Ваши заявки</span>
+        <span class="for-user-profile">Подробно</span>
+    </div>
     <div class="trips main-block">
         @foreach (var trip in Model.Trips)
         {
-            <div class="trip">
-                <div class="route">
+            <div class="trip" trip-id="@trip.TripId">
+                <div class="route" title="@trip.MainRouteShortString">
                     @trip.MainRouteShortString
                 </div>
                 <div class="date-period">
@@ -20,6 +27,10 @@
                     }
                 </div>
             </div>
+        }
+        @if (!Model.Trips.Any())
+        {
+            <div class="notification">Нет поездок для отображения</div>
         }
     </div>
     <div class="requests main-block">
@@ -41,8 +52,13 @@
                 </div>
             }
         }
+        else
+        {
+            <div class="notification">Нет заявок для отображения</div>
+        }
     </div>
     <div class="user-profile main-block">
-        
     </div>
 </div>
+
+<script type="text/javascript"> document.GetRequestsByTripUrl = '@Url.Action("GetRequestsByTrip", "Requests")';</script>

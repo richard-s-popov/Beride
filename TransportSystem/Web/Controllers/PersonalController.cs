@@ -49,6 +49,7 @@ namespace TransportSystem.Area.Web.Controllers
                 {
                     Trips = userTrips.GroupBy(x => x.TripId).Select(group => new TripModel
                         {
+                            TripId = group.Key,
                             MainRouteShortString = group.First().MainRouteShortStr.Replace(";", " → "),
                             StartDateAt = group.Min(d => d.Date),
                             StartDateTo = group.Max(d => d.Date)

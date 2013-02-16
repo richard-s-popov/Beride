@@ -40,6 +40,8 @@ namespace TransportSystem.Area.Web.Models.Trips
         public DateTime StartDateTo { get; set; }
 
         public string StatusForUser { get; set; }
+
+        public string OwnerName { get; set; }
     }
 
     public class SJSonModel

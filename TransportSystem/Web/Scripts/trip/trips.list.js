@@ -18,14 +18,14 @@
     });
     
     $('.add-diapason-button').unbind().bind('click', function () {
-        $('#additionalDate').slideDown(400);
+        $('#additionalDate').slideDown(100);
         $('#dateAt').attr('placeholder', 'С какого');
         $('.date-hider').show();
         $(this).hide();
     });
 
     $('.date-hider').unbind().bind('click', function () {
-        $('#additionalDate').slideUp(300);
+        $('#additionalDate').hide();
         $('#dateAt').attr('placeholder', 'Дата');
         $(this).hide();
         $('.add-diapason-button').show();
