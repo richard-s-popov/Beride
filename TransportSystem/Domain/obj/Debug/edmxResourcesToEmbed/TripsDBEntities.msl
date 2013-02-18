@@ -24,6 +24,7 @@
     <EntitySetMapping Name="Request">
       <EntityTypeMapping TypeName="TransportSystemModel.Request">
         <MappingFragment StoreEntitySet="Request">
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
           <ScalarProperty Name="RequestToDate" ColumnName="RequestToDate" />
           <ScalarProperty Name="OwnerTripDateId" ColumnName="OwnerTripDateId" />
           <ScalarProperty Name="OwnerRouteId" ColumnName="OwnerRouteId" />

@@ -1464,7 +1464,8 @@ namespace TransportSystem.Domain
         /// <param name="ownerRouteId">Исходное значение свойства OwnerRouteId.</param>
         /// <param name="ownerTripDateId">Исходное значение свойства OwnerTripDateId.</param>
         /// <param name="requestToDate">Исходное значение свойства RequestToDate.</param>
-        public static Request CreateRequest(global::System.Int32 id, global::System.Int32 driverTripId, global::System.Int32 passengerTripId, global::System.Int32 initiatorId, global::System.Int32 statusRequestId, global::System.DateTime createDate, global::System.Int64 ownerRouteId, global::System.Int64 ownerTripDateId, global::System.DateTime requestToDate)
+        /// <param name="cost">Исходное значение свойства Cost.</param>
+        public static Request CreateRequest(global::System.Int32 id, global::System.Int32 driverTripId, global::System.Int32 passengerTripId, global::System.Int32 initiatorId, global::System.Int32 statusRequestId, global::System.DateTime createDate, global::System.Int64 ownerRouteId, global::System.Int64 ownerTripDateId, global::System.DateTime requestToDate, global::System.Int32 cost)
         {
             Request request = new Request();
             request.Id = id;
@@ -1476,6 +1477,7 @@ namespace TransportSystem.Domain
             request.OwnerRouteId = ownerRouteId;
             request.OwnerTripDateId = ownerTripDateId;
             request.RequestToDate = requestToDate;
+            request.Cost = cost;
             return request;
         }
 
@@ -1725,6 +1727,30 @@ namespace TransportSystem.Domain
         private global::System.DateTime _RequestToDate;
         partial void OnRequestToDateChanging(global::System.DateTime value);
         partial void OnRequestToDateChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Cost
+        {
+            get
+            {
+                return _Cost;
+            }
+            set
+            {
+                OnCostChanging(value);
+                ReportPropertyChanging("Cost");
+                _Cost = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Cost");
+                OnCostChanged();
+            }
+        }
+        private global::System.Int32 _Cost;
+        partial void OnCostChanging(global::System.Int32 value);
+        partial void OnCostChanged();
 
         #endregion
 
@@ -4038,7 +4064,8 @@ namespace TransportSystem.Domain
         /// <param name="statusRequestId">Исходное значение свойства StatusRequestId.</param>
         /// <param name="requestToDate">Исходное значение свойства RequestToDate.</param>
         /// <param name="initiatorId">Исходное значение свойства InitiatorId.</param>
-        public static GetRequestsByUserAndTrip_Result CreateGetRequestsByUserAndTrip_Result(global::System.Int32 tripId, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.Int32 statusRequestId, global::System.DateTime requestToDate, global::System.Int32 initiatorId)
+        /// <param name="cost">Исходное значение свойства Cost.</param>
+        public static GetRequestsByUserAndTrip_Result CreateGetRequestsByUserAndTrip_Result(global::System.Int32 tripId, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.Int32 statusRequestId, global::System.DateTime requestToDate, global::System.Int32 initiatorId, global::System.Int32 cost)
         {
             GetRequestsByUserAndTrip_Result getRequestsByUserAndTrip_Result = new GetRequestsByUserAndTrip_Result();
             getRequestsByUserAndTrip_Result.TripId = tripId;
@@ -4050,6 +4077,7 @@ namespace TransportSystem.Domain
             getRequestsByUserAndTrip_Result.StatusRequestId = statusRequestId;
             getRequestsByUserAndTrip_Result.RequestToDate = requestToDate;
             getRequestsByUserAndTrip_Result.InitiatorId = initiatorId;
+            getRequestsByUserAndTrip_Result.Cost = cost;
             return getRequestsByUserAndTrip_Result;
         }
 
@@ -4392,6 +4420,30 @@ namespace TransportSystem.Domain
         private global::System.Int32 _InitiatorId;
         partial void OnInitiatorIdChanging(global::System.Int32 value);
         partial void OnInitiatorIdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Cost
+        {
+            get
+            {
+                return _Cost;
+            }
+            set
+            {
+                OnCostChanging(value);
+                ReportPropertyChanging("Cost");
+                _Cost = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Cost");
+                OnCostChanged();
+            }
+        }
+        private global::System.Int32 _Cost;
+        partial void OnCostChanging(global::System.Int32 value);
+        partial void OnCostChanged();
 
         #endregion
 
@@ -4426,9 +4478,7 @@ namespace TransportSystem.Domain
         /// <param name="mainRouteStr">Исходное значение свойства MainRouteStr.</param>
         /// <param name="mainRouteShortStr">Исходное значение свойства MainRouteShortStr.</param>
         /// <param name="cost">Исходное значение свойства Cost.</param>
-        /// <param name="ownerFirstName">Исходное значение свойства OwnerFirstName.</param>
-        /// <param name="ownerLastName">Исходное значение свойства OwnerLastName.</param>
-        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.Int32 cost, global::System.String ownerFirstName, global::System.String ownerLastName)
+        public static GetTrips_Result CreateGetTrips_Result(global::System.Int32 id, global::System.Int32 tripType, global::System.Int32 ownerId, global::System.Int32 tripStatus, global::System.DateTime date, global::System.Int64 routeId, global::System.String startPointGid, global::System.String startPointFullName, global::System.String startPointShortName, global::System.String endPointGid, global::System.String endPointFullName, global::System.String endPointShortName, global::System.Int64 tripDateId, global::System.String mainRouteStr, global::System.String mainRouteShortStr, global::System.Int32 cost)
         {
             GetTrips_Result getTrips_Result = new GetTrips_Result();
             getTrips_Result.Id = id;
@@ -4447,8 +4497,6 @@ namespace TransportSystem.Domain
             getTrips_Result.MainRouteStr = mainRouteStr;
             getTrips_Result.MainRouteShortStr = mainRouteShortStr;
             getTrips_Result.Cost = cost;
-            getTrips_Result.OwnerFirstName = ownerFirstName;
-            getTrips_Result.OwnerLastName = ownerLastName;
             return getTrips_Result;
         }
 
@@ -4915,7 +4963,7 @@ namespace TransportSystem.Domain
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String OwnerFirstName
         {
@@ -4927,7 +4975,7 @@ namespace TransportSystem.Domain
             {
                 OnOwnerFirstNameChanging(value);
                 ReportPropertyChanging("OwnerFirstName");
-                _OwnerFirstName = StructuralObject.SetValidValue(value, false);
+                _OwnerFirstName = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("OwnerFirstName");
                 OnOwnerFirstNameChanged();
             }
@@ -4939,7 +4987,7 @@ namespace TransportSystem.Domain
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String OwnerLastName
         {
@@ -4951,7 +4999,7 @@ namespace TransportSystem.Domain
             {
                 OnOwnerLastNameChanging(value);
                 ReportPropertyChanging("OwnerLastName");
-                _OwnerLastName = StructuralObject.SetValidValue(value, false);
+                _OwnerLastName = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("OwnerLastName");
                 OnOwnerLastNameChanged();
             }

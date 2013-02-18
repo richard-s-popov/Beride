@@ -2,52 +2,103 @@
 {
     <div class="register-form">
         <div class="title">Регистрация</div>
-        <div class="email field">
-            <label class="labels" for="Email">
-                Email
-            </label>
-            <div class="input-text">
-                <input id="Email" class="input" type="text" placeholder="example@mail.ru" />
-                <img src="~/Content/img/1359284731_Envelope.png" />
+        <div class="register-container">
+            <div class="login-container">
+                <div class="email field">
+                    <label class="labels" for="Email">
+                        Email
+                    </label>
+                    <div class="input-text">
+                        <input id="Email" class="input" type="text" placeholder="example@mail.ru" />
+                        <img src="~/Content/img/1359284731_Envelope.png" />
+                    </div>
+                    <div class="error">Ошибка</div>
+                </div>
+                <div class="phone field">
+                    <label class="labels" for="Phone">
+                        Телефон
+                    </label>
+                    <div class="input-text code-container">
+                        <select id="countryCode">
+                            <option value="7">+7</option>
+                        </select>
+                    </div>
+                    <div class="input-text phone-container">
+                        <input id="Phone" class="input" type="text" placeholder="Номер телефона" />
+                        <img src="~/Content/img/1359284706_Telephone.png" />
+                    </div>
+                    <div class="error">Ошибка</div>
+                </div>
+                <div class="register-info">
+                    Вы можете зарегистрироваться используя, <strong>e-mail</strong> и/или <strong>телефон</strong> для входа в систему.<br/>
+                </div>
             </div>
-            <div class="error">Ошибка</div>
-        </div>
-        <div class="phone field">
-            <label class="labels" for="Phone">
-                Телефон
-            </label>
-            <div class="input-text">
-                <input id="Phone" class="input" type="text" placeholder="Телефон" />
-                <img src="~/Content/img/1359284706_Telephone.png" />
+            <div class="password field">
+                <label class="labels" for="Password">
+                    Пароль
+                </label>
+                <div class="input-text">
+                    <input id="Password" class="input" type="password" placeholder="Пароль" />
+                    <img src="~/Content/img/1359284767_Lock.png" />
+                </div>
+                <div class="error">Ошибка</div>
             </div>
-            <div class="error">Ошибка</div>
-        </div>
-        <div class="password field">
-            <label class="labels" for="Password">
-                Пароль
-            </label>
-            <div class="input-text">
-                <input id="Password" class="input" type="password" placeholder="Пароль" />
-                <img src="~/Content/img/1359284767_Lock.png" />
+            <div class="confirm-password field">
+                <label class="labels" for="ConfirmPassword">
+                    Повторите пароль
+                </label>
+                <div class="input-text">
+                    <input id="ConfirmPassword" class="input" type="password" placeholder="Пароль" />
+                    <img src="~/Content/img/1359284767_Lock.png" />
+                </div>
+                <div class="error">Ошибка</div>
             </div>
-            <div class="error">Ошибка</div>
+            <a class="login-link" onselectstart="return false" onmousedown="return false">Вход</a>
+            <a id="registerButton" class="simple-button" onselectstart="return false" onmousedown="return false">Регистрация &#9658;</a>
         </div>
-        <div class="confirm-password field">
-            <label class="labels" for="ConfirmPassword">
-                Повторите пароль
-            </label>
-            <div class="input-text">
-                <input id="ConfirmPassword" class="input" type="password" placeholder="Пароль" />
-                <img src="~/Content/img/1359284767_Lock.png" />
+        <div style="clear: both;"></div>
+        <div class="confirm-container">
+            <div class="register-info">
+                Подтвердите номер телефона. Номер телефона требуется для верификации и отправки Вам уведомлений о заявках и поездках.<br/>
+                Нажмите <strong>получить код</strong> и введите код, полученный в sms. Данная процедура <strong>бесплатна</strong>
             </div>
-            <div class="error">Ошибка</div>
+            <div class="phone-number">Номер телефона: <strong id="displayPhoneNumber">+7 9095493740</strong> <a id="changePhoneNumber">изменить</a></div>
+            <div class="phone field">
+                <label class="labels" for="Phone">
+                    Телефон
+                </label>
+                <div class="input-text code-container">
+                    <select id="countryCode">
+                        <option value="7">+7</option>
+                    </select>
+                </div>
+                <div class="input-text phone-container">
+                    <input id="PhoneVerified" class="input" type="text" placeholder="Номер телефона" />
+                    <img src="~/Content/img/1359284706_Telephone.png" />
+                </div>
+                <div class="error">Ошибка</div>
+            </div>
+            <div class="field">
+                <label class="labels" for="ConfirmCode">
+                    Код подтверждения
+                </label>
+                <div class="input-text code">
+                    <input id="ConfirmCode" class="input" type="text" placeholder="XXXX" />
+                    <img src="~/Content/img/1359284767_Lock.png" />
+                </div>
+                <a id="getVerificationCode" class="simple-button blue get-code">Получить код</a>
+                <div class="error">Ошибка</div>
+            </div>
+            <a class="register-form-link" onselectstart="return false" onmousedown="return false">Назад</a>
+            <a id="finishRegisterButton" class="simple-button finish-register" onselectstart="return false" onmousedown="return false">Завершить</a>
         </div>
-        <a class="login-link" onselectstart="return false" onmousedown="return false">Вход</a>
-        <a id="registerButton" class="simple-button" onselectstart="return false" onmousedown="return false">Регистрация</a>
     </div>
 }
 
 <script type="text/javascript">
     document.EmailCheckUrl = "@Url.Action("EmailIsExist","Account")";
+    document.PhoneCheckUrl = "@Url.Action("PhoneIsBusy","Account")";
+    document.SendVerificationCodeUrl = "@Url.Action("SendVerificationCode","Account")";
+    document.CheckVerificationCodeUrl = "@Url.Action("CheckVerificationCode","Account")";
     document.SubmitRegisterForm = "@Url.Action("RegistrationFinish","Account")";
 </script>

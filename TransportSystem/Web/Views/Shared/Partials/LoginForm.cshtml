@@ -1,6 +1,6 @@
 ﻿@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @id = "loginForm" }))
 {
-    <div class="login-form" onselectstart="return false" onmousedown="return false">
+    <div class="login-form">
         <div class="title">Вход</div>
         <div class="message">
             Поздравляем! Вы успешно прошли регистрацию.<br/><br/>
@@ -29,8 +29,8 @@
             </div>
             <div class="error">Ошибка</div>
         </div>
-        <a class="registration-link">Регистрация</a>
-        <a id="login" class="simple-button">Вход</a>
+        <a class="registration-link" onselectstart="return false" onmousedown="return false">Регистрация</a>
+        <a id="login" class="simple-button" onselectstart="return false" onmousedown="return false">Вход</a>
     </div>
 }
 

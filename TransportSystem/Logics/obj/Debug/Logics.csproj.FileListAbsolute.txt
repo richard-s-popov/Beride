@@ -28,3 +28,5 @@ C:\work\Beride\TransportSystem\Logics\bin\Debug\Microsoft.Practices.Unity.xml
 C:\work\Beride\TransportSystem\Logics\obj\Debug\Logics.csprojResolveAssemblyReference.cache
 C:\work\Beride\TransportSystem\Logics\obj\Debug\TransportSystem.Logics.dll
 C:\work\Beride\TransportSystem\Logics\obj\Debug\TransportSystem.Logics.pdb
+C:\work\Beride\TransportSystem\Logics\bin\Debug\Newtonsoft.Json.dll
+C:\work\Beride\TransportSystem\Logics\bin\Debug\Newtonsoft.Json.xml

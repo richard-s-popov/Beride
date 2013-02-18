@@ -14,5 +14,11 @@ namespace TransportSystem.Area.Web.Models.Requests
         public string RequestStatus { get; set; }
 
         public DateTime RequestToDate { get; set; }
+
+        public int Cost { get; set; }
+
+        public int RequestType { get; set; }
+
+        public bool ToMe { get; set; }
     }
 }

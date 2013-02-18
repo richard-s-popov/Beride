@@ -50,5 +50,12 @@ namespace TransportSystem.Logics.Impl.Trips
         {
             return db.GetActualRequests(userId, startPointGid, endPointGid, DateTime.Today);
         }
+
+        public Request GetRequest(int userId, long routeId, long tripDateId)
+        {
+            return
+                db.Request.FirstOrDefault(
+                    x => x.OwnerRouteId == routeId && x.OwnerTripDateId == tripDateId && x.InitiatorId == userId);
+        }
     }
 }

@@ -3,6 +3,9 @@
         showCloseButton: false,
         scrolling: 'no',
         centerOnScroll: true,
+        onComplete: function () {
+            $.fancybox.hideActivity();
+        },
         onClosed: function () {
         }
     });
@@ -102,6 +105,7 @@ function Renewal() {
 }
 
 function sendRequestToTrip(tripDateId, routeId) {
+    $.fancybox.showActivity();
     $.getJSON(document.IsAuthenticatedUrl, function(result) {
         if (result) {
             $.ajax({
@@ -114,6 +118,8 @@ function sendRequestToTrip(tripDateId, routeId) {
                 success: function (data) {
                     $('#myTripsPopup').html(data);
                     $('#showMyTripsPopup').click();
+                    $('#btn-' + tripDateId + '-' + routeId).hide();
+                    $('#btn-' + tripDateId + '-' + routeId).parent().children('.request-sent').show();
                 }
             });
         } else {

@@ -1,20 +1,44 @@
-﻿@model TransportSystem.Area.Web.Models.Requests.RequestsListModel
+﻿@using TransportSystem.Domain.Enums
+@model TransportSystem.Area.Web.Models.Requests.RequestsListModel
 
 @if (Model.Requests.Any())
 {
     foreach (var request in Model.Requests)
     {
-        <div class="request">
+       <div class="request">
             <div class="photo"><img src="@Url.Content("~/Content/img/never-say-no-to-panda1.png")"/></div>
-            <div class="full-name">
-                @request.UserFullName
-            </div>
             <div class="route">
                 @request.UserFullRoute
             </div>
             <div class="date-period">
+                <span>Дата выезда:</span>
                 @request.RequestToDate.ToShortDateString()
             </div>
+            <div class="cost">
+                <span class="cost-label">Цена поездки:</span>
+                @if (request.Cost == 0)
+                {
+                    <span class="cost-value">Бесплатно</span>
+                }
+                else
+                {
+                    <span class="cost-value">@request.Cost</span>
+                    <span class="cost-currency">руб.</span>
+                }
+            </div>
+            @if (request.ToMe)
+            {
+                <div style="clear: both;"></div>
+                <a class="simple-button simple-button-small agree">Принять</a>
+                <a class="decline">Отклонить</a>
+            }
+            else
+            {
+                <div class="status">
+                    <span class="status-label">Статус:</span>
+                    <span class="status-value">@request.RequestStatus</span>
+                </div>
+            }
         </div>
     }
 }

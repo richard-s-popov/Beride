@@ -8,6 +8,7 @@ using TransportSystem.Area.Web.Models.Requests;
 using TransportSystem.Area.Web.Models.Trips;
 using TransportSystem.Domain;
 using TransportSystem.Logics.Interfaces.Membership;
+using TransportSystem.Logics.Interfaces.SMS;
 using TransportSystem.Logics.Interfaces.Trips;
 using TripType = TransportSystem.Domain.Enums.TripType;
 
@@ -21,14 +22,18 @@ namespace TransportSystem.Area.Web.Controllers
 
         private readonly IRequestsService _requestsService;
 
+        private readonly ISMS _smsService;
+
         public RequestsController(
             ITripsService tripsService,
             IUsersService usersService,
-            IRequestsService requestsService)
+            IRequestsService requestsService,
+            ISMS smsService)
         {
             _tripsService = tripsService;
             _usersService = usersService;
             _requestsService = requestsService;
+            _smsService = smsService;
         }
 
         [Secure]
@@ -58,9 +63,17 @@ namespace TransportSystem.Area.Web.Controllers
                 return PartialView("Error");
             }
 
+            var thisRequest = _requestsService.GetRequest(currentUser.Id, routeId, tripDateId);
+            if (thisRequest != null)
+            {
+                ViewBag.Error = "Заявка на эту поездку уже отправлена";
+                return PartialView("Error");
+            }
+
             var searchingType = hisTrip.TripType == TripType.Driver ? TripType.Passenger : TripType.Driver;
             var myTrips = _tripsService.GetActiveTripsByUserAndRoute(currentUser.Id, hisRoute.StartPointGid, hisRoute.EndPointGid, DateTime.Today, searchingType).ToList();
 
+            string message;
             if (myTrips.Any())
             {
                 // До лучших времен. Выбор к какой поездке принадлежит заявка
@@ -84,14 +97,20 @@ namespace TransportSystem.Area.Web.Controllers
                 return PartialView("MyTripsList", model); */
 
                 var myTrip = _tripsService.GetById(myTrips.First().TripId);
+                var myRoute =
+                    myTrip.TripRoute.FirstOrDefault(
+                        x => x.StartPointGid == hisRoute.StartPointGid && x.EndPointGid == hisRoute.EndPointGid);
 
                 if (myTrip.TripType == TripType.Passenger)
                 {
-                    myTrip.TripDate.Add(new TripDate
+                    if (myTrip.TripDate.FirstOrDefault(d => d.Date == hisTripDate.Date) == null)
                     {
-                        Date = hisTripDate.Date,
-                        IsDeleted = false
-                    });
+                        myTrip.TripDate.Add(new TripDate
+                            {
+                                Date = hisTripDate.Date,
+                                IsDeleted = false
+                            });
+                    }
                 }
                 
                 var request = new Request
@@ -101,6 +120,7 @@ namespace TransportSystem.Area.Web.Controllers
                     OwnerRouteId = hisRoute.Id,
                     OwnerTripDateId = hisTripDate.Id,
                     InitiatorId = currentUser.Id,
+                    Cost = myTrip.TripType == TripType.Driver ? myRoute.Cost : 0,
                     StatusRequestId = 1,
                     CreateDate = DateTime.Now,
                     RequestToDate = hisTrip.TripType == TripType.Driver ? myTrip.TripDate.First().Date : hisTripDate.Date
@@ -110,6 +130,11 @@ namespace TransportSystem.Area.Web.Controllers
                 _requestsService.SaveChanges();
                 _tripsService.Save();
 
+                message = string.Format(
+                    "Вам пришла новая заявка:\n{0}-{1}\n{2}\n{3} {4}.\nВы можете Принять или Отклонить в личном кабинете. www.beride.ru", myRoute.StartPointShortName, myRoute.EndPointShortName, hisTripDate.Date.ToShortDateString(), currentUser.FirstName, currentUser.LastName);
+
+                _smsService.SendMessage(hisTrip.User.Phone, message);
+
                 return PartialView("YourRequestSent");
             }
 
@@ -117,6 +142,7 @@ namespace TransportSystem.Area.Web.Controllers
             var myNewTrip = new Trip
                 {
                     OwnerId = currentUser.Id,
+                    Seats = 1,
                     TripStatus = 1,
                     TripType = searchingType,
                     MainRouteStr = string.Format("{0};{1}", hisRoute.StartPointFullName, hisRoute.EndPointFullName),
@@ -131,7 +157,8 @@ namespace TransportSystem.Area.Web.Controllers
                     StartPointShortName = hisRoute.StartPointShortName,
                     EndPointGid = hisRoute.EndPointGid,
                     EndPointFullName = hisRoute.EndPointFullName,
-                    EndPointShortName = hisRoute.EndPointShortName
+                    EndPointShortName = hisRoute.EndPointShortName,
+                    Cost = 0 // Надо сделать добавление стоимости из расчета автоматом
                 });
 
             myNewTrip.TripDate.Add(new TripDate
@@ -152,11 +179,22 @@ namespace TransportSystem.Area.Web.Controllers
                 InitiatorId = currentUser.Id,
                 StatusRequestId = 1,
                 CreateDate = DateTime.Now,
-                RequestToDate = hisTrip.TripType == TripType.Driver ? myNewTrip.TripDate.First().Date : hisTripDate.Date
+                RequestToDate = hisTrip.TripType == TripType.Driver ? myNewTrip.TripDate.First().Date : hisTripDate.Date,
+                Cost = 0
             };
 
             _requestsService.Insert(entity);
             _requestsService.SaveChanges();
+
+            message = string.Format(
+                "Вам пришла новая заявка:\n{0}-{1}\n{2}\n{3} {4}.\nВы можете Принять или Отклонить в личном кабинете. www.beride.ru", 
+                myNewTrip.TripRoute.First().StartPointShortName, 
+                myNewTrip.TripRoute.First().EndPointShortName, 
+                hisTripDate.Date.ToShortDateString(), 
+                currentUser.FirstName, 
+                currentUser.LastName);
+
+            _smsService.SendMessage(hisTrip.User.Phone, message);
 
             return PartialView("YourTripCreated");
         }
@@ -176,7 +214,10 @@ namespace TransportSystem.Area.Web.Controllers
                             UserFullName = string.Format("{0} {1}", entity.OwnerFisrtName, entity.OwnerLastName),
                             UserFullRoute = entity.MainRouteShortStr.Replace(";", " → "),
                             RequestStatus = GetRequestStatus(entity.StatusRequestId),
-                            RequestToDate = entity.RequestToDate
+                            RequestToDate = entity.RequestToDate,
+                            Cost = entity.Cost,
+                            RequestType = entity.TripType,
+                            ToMe = entity.InitiatorId != currentUser.Id
                         }).ToList()
                 };
 

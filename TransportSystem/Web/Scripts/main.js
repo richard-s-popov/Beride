@@ -104,7 +104,12 @@
         else {
             $(".filters").css({ 'top': offset.top, 'position': 'static' });
         };
-    });
+    });
+
+    Number.prototype.round = function(a) {
+        var b = Math.pow(10, a || 0);
+        return Math.round(this * b) / b;
+    };
 });
 
 function callbackCabinet() {

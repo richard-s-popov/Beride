@@ -4,7 +4,6 @@ var points = [];
 var betweenCount = 0;
 var firstStepForm;
 var secondStepForm;
-var createAfterLogin = false;
 var isDriver = true;
 
 $(document).ready(function () {
@@ -206,7 +205,7 @@ function buildRoute() {
                         '<span class="arrow">&rarr;</span>' +
                             '<span class="to">' + points[i + 1].ShortName + '</span>' +
                                 '<span class="equal">=</span>' +
-                                    '<span class="cost"><input class="cost-spinner" name="value" value="' + (path.getLength() / 1000 * 1.3).toFixed() + '" /></span>' +
+                                    '<span class="cost"><input class="cost-spinner" name="value" value="' + (path.getLength() / 1000 * 1.3).round(-1) + '" /></span>' +
                                         '<span class="distance">' + (path.getLength() / 1000).toFixed(1) + 'км</span>' +
                                             '</div>';
 
@@ -232,7 +231,8 @@ function buildRoute() {
             
             $('.cost-spinner').spinner({
                 spin: calcSummCost,
-                change: calcSummCost
+                change: calcSummCost,
+                step: 10
             });
 
             calcSummCost();
@@ -288,13 +288,20 @@ function sendData() {
                 url: document.SaveTripUrl,
                 data: prepareDataToSent(),
                 dataType: "json",
-                traditional: true
+                traditional: true,
+                success: function () {
+                    alert("!!!");
+                    window.location = document.HomeUrl;
+                }
             });
         } else {
             $('#signIn').click();
-            createAfterLogin = true;
         }
     });
+}
+
+function createAfterLogin() {
+    $('#createThis').click();
 }
 
 var jVal = {

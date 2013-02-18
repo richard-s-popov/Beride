@@ -1,8 +1,10 @@
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using TransportSystem.Logics.Impl.Membership;
+using TransportSystem.Logics.Impl.SMS;
 using TransportSystem.Logics.Impl.Trips;
 using TransportSystem.Logics.Interfaces.Membership;
+using TransportSystem.Logics.Interfaces.SMS;
 using TransportSystem.Logics.Interfaces.Trips;
 using Unity.Mvc3;
 
@@ -28,6 +30,7 @@ namespace TransportSystem.Logics.Infrastructure.Unity
             container.RegisterType<IUsersService, UsersService>();
             container.RegisterType<IMembershipService, MembershipService>();
             container.RegisterType<IRequestsService, RequestsService>();
+            container.RegisterType<ISMS, SMS>();
 
             return container;
         }

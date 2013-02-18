@@ -110,6 +110,7 @@
     <Property Name="CreateDate" Type="datetime" Nullable="false" />
     <Property Name="ModificationDate" Type="datetime" />
     <Property Name="RequestToDate" Type="datetime" Nullable="false" />
+    <Property Name="Cost" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="RequestStatus">
     <Key>

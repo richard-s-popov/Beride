@@ -43,7 +43,7 @@ namespace TransportSystem.Area.Web.Controllers
 
         [Secure]
         [HttpPost]
-        public ActionResult SaveTrip(TripModel model, string points, DateTime dateAt, DateTime? dateTo, string costPerRoute)
+        public JsonResult SaveTrip(TripModel model, string points, DateTime dateAt, DateTime? dateTo, string costPerRoute)
         {
             var currentUser = _usersService.GetUserByLogin(System.Web.HttpContext.Current.User.Identity.Name);
             var trip = new Trip
@@ -152,7 +152,7 @@ namespace TransportSystem.Area.Web.Controllers
             _tripsService.Insert(trip);
             _tripsService.Save();
 
-            return this.RedirectToAction("Index", "Home");
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetPlaces(string geoName)

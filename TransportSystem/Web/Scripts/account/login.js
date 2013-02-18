@@ -58,8 +58,8 @@
                                 window.callbackCabinet();
                             }
                             
-                            if (typeof createAfterLogin === 'undefined') {
-                                $('#createThis').click();
+                            if (typeof (window.createAfterLogin) == "function") {
+                                window.createAfterLogin();
                             }
                         }
                     }

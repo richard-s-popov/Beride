@@ -57,22 +57,16 @@
                         </div>
                         <div class="user-name">
                             <a>@trip.OwnerName</a>
+                            @if (trip.IsDriver)
+                            {
+                                <span>(Водитель)</span>
+                            }
+                            else
+                            {
+                                <span>(Пассажир)</span>
+                            }
                         </div>
-                        <div class="free-seats-container">
-                            <span class="free-seats">
-                                @if (trip.IsDriver)
-                                {
-                                    <text>Свободных мест:</text>
-                                }
-                                else
-                                {
-                                    <text>Кол-во человек:</text>
-                                }
-                            </span>
-                            <span class="free-seats-number">
-                                @trip.SeatsNumber
-                            </span>
-                        </div>
+                        
                         <div>
                             <span class="date-departure">
                                 @{ var ci = new CultureInfo("ru-RU", false); }
@@ -99,10 +93,25 @@
                     </td>
                     <td>
                         <div style="position: relative;">
+                            <div class="free-seats-container">
+                                <span class="free-seats">
+                                    @if (trip.IsDriver)
+                                    {
+                                        <text>Свободных мест:</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Кол-во человек:</text>
+                                    }
+                                </span>
+                                <span class="free-seats-number">
+                                    @trip.SeatsNumber
+                                </span>
+                            </div>
                             @if (trip.IsDriver)
                             {
                                 <p class="request-sent" @(trip.StatusForUser == "new" ? "style=display:none;" : string.Empty)>Заявка отправлена</p>
-                                <a class="simple-button send-request-button" onclick=" sendRequestToTrip(@trip.TripDateId, @trip.RouteId) " @(trip.StatusForUser == "sent" ? "style=display:none;" : string.Empty)>Присоединиться</a>
+                                <a id="btn-@trip.TripDateId-@trip.RouteId" class="simple-button send-request-button" onclick=" sendRequestToTrip(@trip.TripDateId, @trip.RouteId) " @(trip.StatusForUser == "sent" ? "style=display:none;" : string.Empty)>Присоединиться</a>
                                 <div class="cost">
                                     @if (trip.Cost == 0)
                                     {
@@ -118,7 +127,7 @@
                             else
                             {
                                 <p class="request-sent" @(trip.StatusForUser == "new" ? "style=display:none;" : string.Empty)>Заявка отправлена</p>
-                                <a class="simple-button offer-button" onclick=" sendRequestToTrip(@trip.TripDateId, @trip.RouteId) " @(trip.StatusForUser == "sent" ? "style=display:none;" : string.Empty)>Предложить</a>
+                                <a id="btn-@trip.TripDateId-@trip.RouteId" class="simple-button offer-button" onclick=" sendRequestToTrip(@trip.TripDateId, @trip.RouteId) " @(trip.StatusForUser == "sent" ? "style=display:none;" : string.Empty)>Предложить</a>
                             }
                         </div>
                     </td>

@@ -59,7 +59,10 @@ namespace TransportSystem.Area.Web.Controllers
                             UserFullName = string.Format("{0} {1}", entity.OwnerFisrtName, entity.OwnerLastName),
                             UserFullRoute = entity.MainRouteShortStr.Replace(";", " → "),
                             RequestStatus = GetRequestStatus(entity.StatusRequestId),
-                            RequestToDate = entity.RequestToDate
+                            RequestToDate = entity.RequestToDate,
+                            Cost = entity.Cost,
+                            RequestType = entity.TripType,
+                            ToMe = entity.InitiatorId != currentUser.Id
                         }).ToList()
                 };
 

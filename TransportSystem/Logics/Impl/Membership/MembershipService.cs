@@ -19,7 +19,17 @@ namespace TransportSystem.Logics.Impl.Membership
 
         public bool AuthorizeUser(string login, string password)
         {
+            // страшный костыль
+            // алиасы для России
+            login = login.Replace("+78", "78");
+            login = login.Replace("+79", "79");
+            login = login.First() == '8' ? "7" + login.Substring(1) : login;
+            
+            // алиас для Казахстана
+            login = login.Replace("+77", "77");
+
             password = password.Md5();
+
             return db.User.FirstOrDefault(u => (u.Email == login || u.Phone == login) && u.Password == password) != null;
         }
 

@@ -7,6 +7,7 @@ using TransportSystem.Area.Web.Models.Account;
 using TransportSystem.Domain;
 using TransportSystem.Logics.Infrastructure.Extensions;
 using TransportSystem.Logics.Interfaces.Membership;
+using TransportSystem.Logics.Interfaces.SMS;
 
 namespace TransportSystem.Area.Web.Controllers
 {
@@ -16,12 +17,16 @@ namespace TransportSystem.Area.Web.Controllers
 
         private readonly IMembershipService _membershipService;
 
+        private readonly ISMS _smsService;
+
         public AccountController(
             IUsersService usersService,
-            IMembershipService membershipService)
+            IMembershipService membershipService,
+            ISMS smsService)
         {
             _usersService = usersService;
             _membershipService = membershipService;
+            _smsService = smsService;
         }
 
         [HttpPost]
@@ -50,12 +55,32 @@ namespace TransportSystem.Area.Web.Controllers
         [HttpPost]
         public JsonResult RegistrationFinish(RegisterModelPoco model)
         {
+            if (!string.IsNullOrEmpty(model.Phone) && Session["VerificationCode"] != null && Session["VerificationCode"].ToString() != model.Code)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+
             if (ModelState.IsValid && !_usersService.EmailIsExist(model.Email))
             {
+                var phone = model.Phone;
+
+                if (phone != null)
+                {
+                    // страшный костыль
+                    // алиасы для России
+                    phone = phone.Replace("+78", "78");
+                    phone = phone.Replace("+79", "79");
+                    phone = phone.First() == '8' ? "7" + phone.Substring(1) : phone;
+
+                    // алиас для Казахстана
+                    phone = phone.Replace("+77", "77");
+                }
+
                 var user = new User
                     {
                         Email = model.Email,
                         Password = model.Password.Md5(),
+                        Phone = phone,
                         IsConfirmed = false,
                         RegisterDate = DateTime.Now,
                         LastVisitDate = DateTime.Now
@@ -76,9 +101,41 @@ namespace TransportSystem.Area.Web.Controllers
             return Json(new {result = isExisting}, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult PhoneIsBusy(string phone)
+        public JsonResult PhoneIsBusy(string phonenumber)
         {
-            return Json(null);
+            var isExisting = _usersService.PhoneIsExist(phonenumber);
+
+            return Json(new {result = isExisting}, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SendVerificationCode(string phonenumber)
+        {
+            var rng = new Random();
+            var first = rng.Next(10);
+            var second = rng.Next(10);
+            var third = rng.Next(10);
+            var fourth = rng.Next(10);
+            var code = string.Format("{0}{1}{2}{3}", first, second, third, fourth);
+
+            Session["VerificationCode"] = code;
+
+            // страшный костыль
+            // алиасы для России
+            phonenumber = phonenumber.Replace("+78", "78");
+            phonenumber = phonenumber.Replace("+79", "79");
+            phonenumber = phonenumber.First() == '8' ? "7" + phonenumber.Substring(1) : phonenumber;
+
+            // алиас для Казахстана
+            phonenumber = phonenumber.Replace("+77", "77");
+
+            _smsService.SendMessage(phonenumber, string.Format("Код подтверждения: {0}", code));
+
+            return Json(new { result = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckVerificationCode(string code)
+        {
+            return Json(Session["VerificationCode"].ToString() == code ? new { result = true } : new { result = false }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult IsAuthenticated()
@@ -90,6 +147,7 @@ namespace TransportSystem.Area.Web.Controllers
         {
             _usersService.Dispose();
             _membershipService.Dispose();
+            _smsService.Dispose();
             base.Dispose(disposing);
         }
     }

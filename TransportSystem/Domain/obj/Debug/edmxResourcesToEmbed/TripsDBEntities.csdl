@@ -116,8 +116,8 @@
     <Property Type="String" Name="MainRouteStr" Nullable="false" />
     <Property Type="String" Name="MainRouteShortStr" Nullable="false" />
     <Property Type="Int32" Name="Cost" Nullable="false" />
-    <Property Type="String" Name="OwnerFirstName" Nullable="false" />
-    <Property Type="String" Name="OwnerLastName" Nullable="false" />
+    <Property Type="String" Name="OwnerFirstName" Nullable="true" />
+    <Property Type="String" Name="OwnerLastName" Nullable="true" />
   </ComplexType>
   <EntityType Name="Request">
     <Key>
@@ -135,6 +135,7 @@
     <Property Type="Int64" Name="OwnerRouteId" Nullable="false" />
     <Property Type="Int64" Name="OwnerTripDateId" Nullable="false" />
     <Property Type="DateTime" Name="RequestToDate" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="Cost" Nullable="false" />
   </EntityType>
   <EntityType Name="Trip">
     <Key>
@@ -456,6 +457,7 @@
     <Property Type="Int32" Name="StatusRequestId" Nullable="false" />
     <Property Type="DateTime" Name="RequestToDate" Nullable="false" Precision="23" />
     <Property Type="Int32" Name="InitiatorId" Nullable="false" />
+    <Property Type="Int32" Name="Cost" Nullable="false" />
   </ComplexType>
   <ComplexType Name="GetActualRequests_Result">
     <Property Type="Int32" Name="StatusRequestId" Nullable="false" />

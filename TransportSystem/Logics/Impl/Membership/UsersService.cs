@@ -27,12 +27,12 @@ namespace TransportSystem.Logics.Impl.Membership
 
         public bool EmailIsExist(string email)
         {
-            return db.User.FirstOrDefault(x => x.Email == email && x.IsConfirmed) != null;
+            return db.User.FirstOrDefault(x => x.Email == email) != null;
         }
 
         public bool PhoneIsExist(string phone)
         {
-            throw new NotImplementedException();
+            return db.User.FirstOrDefault(x => x.Phone == phone) != null;
         }
 
         public void Dispose()

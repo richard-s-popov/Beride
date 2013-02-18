@@ -33,5 +33,14 @@ namespace TransportSystem.Logics.Interfaces.Trips
         /// <param name="endPointGid"></param>
         /// <returns></returns>
         IEnumerable<GetActualRequests_Result> GetActualRequests(int userId, string startPointGid, string endPointGid);
+
+        /// <summary>
+        /// Возвращает заявку по маршруту и дате
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="routeId"></param>
+        /// <param name="tripDateId"></param>
+        /// <returns></returns>
+        Request GetRequest(int userId, long routeId, long tripDateId);
     }
 }
