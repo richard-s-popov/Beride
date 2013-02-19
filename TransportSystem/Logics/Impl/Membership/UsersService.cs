@@ -22,7 +22,16 @@ namespace TransportSystem.Logics.Impl.Membership
 
         public User GetUserByLogin(string login)
         {
-            return db.User.FirstOrDefault(x => x.Email == login || x.Phone == login && x.IsConfirmed);
+            // страшный костыль
+            // алиасы для России
+            login = login.Replace("+78", "78");
+            login = login.Replace("+79", "79");
+            login = login.First() == '8' ? "7" + login.Substring(1) : login;
+
+            // алиас для Казахстана
+            login = login.Replace("+77", "77");
+
+            return db.User.FirstOrDefault(x => x.Email == login || x.Phone == login);
         }
 
         public bool EmailIsExist(string email)
